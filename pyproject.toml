@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "sobitie"
+version = "0.1.0"
+description = "sobitie_bot"
+authors = [
+    "Владислав Бойко", "Никита Цыбин", "Андрей Укладчиков",
+    "Екатерина Каричева", "Кирилл Резник", "внесите себя"
+]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-dotenv = "^0.21.1"
+python-telegram-bot = "^20.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
