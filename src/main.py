@@ -1,5 +1,9 @@
+from bot.services import start_bot
+
+
 def main() -> None:
-    pass
+    bot = start_bot()
+    bot.run_polling()
 
 
 if __name__ == '__main__':
