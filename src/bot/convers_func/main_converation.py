@@ -1,13 +1,14 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
 
+
 async def start(update, context):
     """Главное меню, кнопка старт."""
     buttons = [
         [
             InlineKeyboardButton(
                 text='О нас',
-                callback_data='TestCallback',
+                callback_data='About us',
             )
         ],
         [
@@ -34,8 +35,8 @@ async def start(update, context):
         text='Мы - супер организация, делаем все и сразу, помогаем людям.',
         reply_markup=keyboard,
     )
-    return []
+    return 'FIRST'
 
 
-async def end(update):
+async def end(update, context):
     await update.message.reply_text('bye')
