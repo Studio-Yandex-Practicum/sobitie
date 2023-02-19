@@ -10,4 +10,5 @@ def start_bot():
     bot = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 
     bot.add_handler(conversation_handler)
+
     return bot
