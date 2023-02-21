@@ -1,41 +1,16 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 
-
+from constants import START_MENU_BUTTONS
 
 async def start(update, context):
     """Главное меню, кнопка старт."""
-    buttons = [
-        [
-            InlineKeyboardButton(
-                text='О нас',
-                callback_data='About us',
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text='Мероприятия',
-                callback_data='TestCallbackdata2',
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text='Помочь',
-                callback_data='TestCallbackdata2',
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text='Интерактив',
-                callback_data='TestCallbackdata2',
-            )
-        ],
-    ]
-    keyboard = InlineKeyboardMarkup(buttons)
+
+    keyboard = InlineKeyboardMarkup(START_MENU_BUTTONS)
     await update.message.reply_text(
         text='Мы - супер организация, делаем все и сразу, помогаем людям.',
         reply_markup=keyboard,
     )
-    return 'FIRST'
+    return 'START_STATE'
 
 
 async def end(update, context):
