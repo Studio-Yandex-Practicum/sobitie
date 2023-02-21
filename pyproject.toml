@@ -12,6 +12,7 @@ readme = "README.md"
 python = "^3.10"
 python-dotenv = "^0.21.1"
 python-telegram-bot = "^20.1"
+emoji = "^2.2.0"
 
 
 [build-system]
