@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 
@@ -35,6 +37,13 @@ class Event(models.Model):
         Category,
         on_delete=models.CASCADE,
         related_name='event'
+    )
+    event_time = models.DateTimeField('Дата события', default=datetime.datetime.today)
+    location = models.CharField(
+        'Место проведения',
+        max_length=256,
+        null=True,
+        blank=True,
     )
 
     class Meta:
