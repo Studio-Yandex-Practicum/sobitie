@@ -9,9 +9,10 @@ authors = [
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.9"
 python-dotenv = "^0.21.1"
 python-telegram-bot = "^20.1"
+djangorestframework = "^3.14.0"
 
 
 [build-system]

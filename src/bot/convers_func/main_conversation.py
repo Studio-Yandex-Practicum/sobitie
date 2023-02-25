@@ -1,6 +1,6 @@
 from telegram import InlineKeyboardMarkup
 
-from src.core.constants import SELECT_ACTION
+from src.core import constants
 from src.core.menu_constants import BUTTONS_MAIN_MENU
 
 
@@ -11,7 +11,7 @@ async def start(update, _):
         text='Мы - супер организация, делаем все и сразу, помогаем людям.',
         reply_markup=keyboard,
     )
-    return SELECT_ACTION
+    return constants.SELECT_ACTION
 
 
 async def end(update, _):
