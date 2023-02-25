@@ -1,6 +1,7 @@
 from telegram import InlineKeyboardMarkup
 
-from constants import START_MENU_BUTTONS
+from core.menu_constants import START_MENU_BUTTONS
+from core import constants
 
 
 async def start(update, context):
@@ -10,7 +11,7 @@ async def start(update, context):
         text='Мы - супер организация, делаем все и сразу, помогаем людям.',
         reply_markup=keyboard,
     )
-    return 'START_STATE'
+    return constants.START_STATE
 
 
 async def end(update):
