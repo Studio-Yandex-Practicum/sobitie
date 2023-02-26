@@ -49,6 +49,7 @@ files = [
 ]
 
 [[package]]
+
 name = "django"
 version = "4.1.7"
 description = "A high-level Python web framework that encourages rapid development and clean, pragmatic design."
@@ -84,6 +85,7 @@ files = [
 [package.dependencies]
 django = ">=3.0"
 pytz = "*"
+
 
 [[package]]
 name = "h11"
@@ -304,5 +306,7 @@ files = [
 
 [metadata]
 lock-version = "2.0"
+
 python-versions = "^3.9"
 content-hash = "170133a9eecb4ac129d3300b7f6da6de9f880c88e1bf7e1bf9f41bc661c2fe09"
+
