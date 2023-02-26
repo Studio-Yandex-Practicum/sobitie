@@ -1,7 +1,7 @@
 import emoji
 
 from telegram import InlineKeyboardButton
-from src.core import constants
+from core import constants
 
 # КНОПКИ СТАРТОВОГО МЕНЮ
 START_MENU_BUTTONS = [
@@ -75,37 +75,37 @@ SUPPORT_MENU_BUTTONS = [
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':ticket:')} Прийти на спектакль",
+                text=f"{emoji.emojize(':performing_arts:')} Прийти на спектакль",
                 callback_data=constants.ATTEND_EVENT
             )
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':thumbs_up:')} Партнерство",
+                text=f"{emoji.emojize(':handshake:')} Партнерство",
                 callback_data=constants.PARTNERSHIP
             )
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':thumbs_up:')} Заказать суверниры",
+                text=f"{emoji.emojize(':package:')} Заказать суверниры",
                 callback_data=constants.ORDER_SOUVENIRS
             )
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':thumbs_up:')} Стать спонсором",
+                text=f"{emoji.emojize(':dollar_banknote:')} Стать спонсором",
                 callback_data=constants.BECOME_SPONSOR
             )
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':thumbs_up:')} Стать волонтером",
+                text=f"{emoji.emojize(':flexed_biceps:')} Стать волонтером",
                 callback_data=constants.BECOME_VOLUNTEER
             )
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':thumbs_up:')} Стать активным подписчиком",
+                text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком",
                 callback_data=constants.FOLLOW_US
             )
         ],

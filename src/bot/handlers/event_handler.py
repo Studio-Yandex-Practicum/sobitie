@@ -1,10 +1,10 @@
 from telegram.ext import ConversationHandler, CallbackQueryHandler, CommandHandler
 
-from src.bot.convers_func.event_conversation import (get_events, get_perfomances,
+from bot.convers_func.event_conversation import (get_events, get_perfomances,
                                                      get_about_event, get_master_classes)
-from src.bot.convers_func.main_conversation import end
+from bot.convers_func.main_conversation import end
 
-from src.core import constants
+from core import constants
 
 event_conv = ConversationHandler(
     allow_reentry=True,

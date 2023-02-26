@@ -1,6 +1,6 @@
 from telegram import InlineKeyboardMarkup, Update
 
-from src.core import constants
+from core import constants
 from core.menu_constants import START_MENU_BUTTONS, SUPPORT_MENU_BUTTONS, SUPPORT_FOLLOW_BUTTONS
 
 
