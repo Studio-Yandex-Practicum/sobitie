@@ -10,9 +10,9 @@ event_conv = ConversationHandler(
     allow_reentry=True,
     entry_points=[CallbackQueryHandler(get_events, pattern='^' + constants.EVENTS + '$')],
     states={
-        constants.CHOISE_EVENT: [
+        constants.CHOOSE_EVENT: [
             CallbackQueryHandler(get_perfomances, pattern='^' + constants.GET_MASTER_CLASS +'$'),
-            CallbackQueryHandler(get_about_event, pattern='^' + constants.GET_PERFOMANSES + '$'),
+            CallbackQueryHandler(get_about_event, pattern='^' + constants.GET_PERFORMANCES + '$'),
             CallbackQueryHandler(get_master_classes, pattern='^' + constants.GET_EVENT + '$'),
         ]
     },
