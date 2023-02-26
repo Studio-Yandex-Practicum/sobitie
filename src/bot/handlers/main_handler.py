@@ -4,9 +4,9 @@ from bot.handlers.support_handler import support_conv
 
 from bot.convers_func.main_conversation import start, end
 
-from src.core import constants
+from core import constants
 
-from src.bot.handlers.event_handler import event_conv
+from bot.handlers.event_handler import event_conv
 
 
 conversation_handler = ConversationHandler(
