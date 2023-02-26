@@ -1,4 +1,3 @@
-from telegram import Bot
 from telegram.ext import ApplicationBuilder
 from core.settings import TELEGRAM_TOKEN
 
