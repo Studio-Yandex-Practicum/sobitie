@@ -42,6 +42,7 @@ EVENTS_BUTTONS = [
             text='Мастер-классы',
             callback_data=constants.GET_MASTER_CLASS,
         ),
+
      ],
      [
         InlineKeyboardButton(
@@ -54,9 +55,9 @@ EVENTS_BUTTONS = [
             text='Сообщить о мероприятии',
             callback_data=constants.GET_EVENT,
         ),
+
      ],
 ]
-
 
 # КНОПКИ МЕНЮ "ПОМОЧЬ"
 SUPPORT_MENU_BUTTONS = [
@@ -185,3 +186,4 @@ DONATION_OPTIONS_MENU_BUTTONS = [
             )
         ]
     ]
+
