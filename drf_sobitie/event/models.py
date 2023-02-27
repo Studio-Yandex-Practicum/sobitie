@@ -22,7 +22,7 @@ class Category(models.Model):
 
 class Event(models.Model):
     name = models.CharField(
-        'Название категории',
+        'Название события',
         unique=True,
         max_length=256,
     )
