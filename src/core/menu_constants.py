@@ -209,3 +209,56 @@ SUPPORT_FOLLOW_BUTTONS = [
             )
         ],
     ]
+
+# кнопки для подменю заказать сувениры
+SUPPORT_ORDER_BUTTONS = [
+        [
+            InlineKeyboardButton(
+                text="Благотворительная	ярмарка",
+                callback_data=constants.CHARITY_MARKET,
+                url="https://vk.com/market-190536221"
+                
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="Корпоративные подарки",
+                callback_data=constants.ORDER_PRESENTS
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="Вернуться на предыдущую страницу",
+                callback_data=constants.RETURN_TO_PREVIOUS
+            )
+        ],
+    ]
+
+# кнопки для меню интерактив
+INTERACTIVE_BUTTONS = [
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':game_die:')}Викторины",
+                callback_data=constants.QUIZZES
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':white_question_mark:')}Вопрос-ответ",
+                callback_data=constants.ASK_QUESTIONS,
+                url="https://vk.com/im?sel=-190536221"
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':books:')}Случайная цитата",
+                callback_data=constants.RANDOM_QUOTE
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':reverse_button:')}Вернуться",
+                callback_data=constants.RETURN_TO_PREVIOUS,
+            )
+        ]
+    ]
