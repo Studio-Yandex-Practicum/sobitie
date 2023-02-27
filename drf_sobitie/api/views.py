@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
 
@@ -13,6 +15,10 @@ class CategoryViewSet(ModelViewSet):
 
 class EventViewSet(ModelViewSet):
     """Вьюсет для мероприятий."""
-    queryset = Event.objects.all()
     serializer_class = EventSerializer
+
+    def get_queryset(self):
+        """Возвращаем только актуальные события."""
+        actual_events = Event.objects.filter(event_time__gte=datetime.now())
+        return actual_events
 
