@@ -210,6 +210,29 @@ SUPPORT_FOLLOW_BUTTONS = [
         ],
     ]
 
+# кнопки для подменю заказать сувениры
+SUPPORT_ORDER_BUTTONS = [
+        [
+            InlineKeyboardButton(
+                text="Благотворительная	ярмарка",
+                callback_data=constants.CHARITY_MARKET,
+                url="https://vk.com/market-190536221"
+                
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="Корпоративные подарки",
+                callback_data=constants.ORDER_PRESENTS
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text="Вернуться на предыдущую страницу",
+                callback_data=constants.RETURN_TO_PREVIOUS
+            )
+        ],
+    ]
 
 # кнопки для меню интерактив
 INTERACTIVE_BUTTONS = [

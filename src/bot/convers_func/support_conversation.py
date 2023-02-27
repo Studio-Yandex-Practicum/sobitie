@@ -1,7 +1,7 @@
 from telegram import InlineKeyboardMarkup, Update
 
 from core import constants
-from core.menu_constants import START_MENU_BUTTONS, SUPPORT_MENU_BUTTONS, SUPPORT_FOLLOW_BUTTONS
+from core.menu_constants import START_MENU_BUTTONS, SUPPORT_MENU_BUTTONS, SUPPORT_FOLLOW_BUTTONS, SUPPORT_ORDER_BUTTONS
 
 
 async def give_support(update: Update, context):
@@ -66,3 +66,16 @@ async def become_follower(update: Update, context):
         reply_markup=keyboard,
     )
     return constants.SUPPORT_FOLLOW_STATE
+
+
+async def order_souvenirs(update: Update, context):
+    """Меню 'Заказать сувениры'."""
+    query = update.callback_query
+    await query.answer()
+
+    keyboard = InlineKeyboardMarkup(SUPPORT_ORDER_BUTTONS)
+    await query.edit_message_text(
+        text='Заказать сувениры',
+        reply_markup=keyboard,
+    )
+    return constants.SUPPORT_ORDER_STATE
