@@ -6,7 +6,6 @@ from bot.convers_func.donation_conversation import (show_donations_options,
                                                         donate_through_charity_fund,
                                                         donate_with_site_form,
                                                         go_back_to_help_menu)
-
 from bot.convers_func.main_conversation import end
 from bot.keyboards.main import END
 from bot.keyboards.support import (SHOW_DONATION_OPTIONS, RETURN_TO_HELP_MENU,
