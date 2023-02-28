@@ -123,30 +123,75 @@ ABOUT_US_MENU_BUTTONS = [
 
         [
             InlineKeyboardButton(
-                text='Контакты',
+                text=f"{emoji.emojize(':open_mailbox_with_raised_flag:')} Контакты",
                 callback_data=constants.CONTACTS,
-                url='http://sobytie.team/#about'
+                url='https://sobytie.center/contacts/'
             )
         ],
         [
             InlineKeyboardButton(
-                text='Уставные доументы',
+                text=f"{emoji.emojize(':chart_increasing:')} Уставные доументы",
                 callback_data=constants.LEGAL_DOCUMENTS,
+                url='https://sobytie.center/documents/'
             )
         ],
         [
             InlineKeyboardButton(
-                text='Отчеты о деятельности',
+                text=f"{emoji.emojize(':card_file_box:')} Отчеты о деятельности",
                 callback_data=constants.REPORTS,
+                url='https://sobytie.center/reports/'
             )
         ],
         [
             InlineKeyboardButton(
-                text='Проекты',
+                text=f"{emoji.emojize(':hatching_chick:')} Проекты",
                 callback_data=constants.PROJECTS,
             )
         ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':woman_and_man_holding_hands:')} Люди",
+                callback_data=constants.PEOPLE,
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу",
+                callback_data=constants.RETURN_TO_MAIN,
+            )
+        ],
     ]
+
+
+# КНОПКИ ПОДМЕНЮ "ПРОЕКТЫ"
+PROJECTS_MENU_BUTTONS = [
+    [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':performing_arts:')} Инклюзивный театр-студия 'Событие'",
+                callback_data=constants.INCLUSIVE_THEATRE,
+                
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':artist:')} Инклюзивная мастерская",
+                callback_data=constants.INCLUSIVE_WORKSHOP,
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':cityscape:')} Москва - Партала. Онлайн.",
+                callback_data=constants.MOSCOW_ONLINE,
+                url='https://sobytie.center/project/moskva-partala-onlajn/',
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу",
+                callback_data=constants.RETURN_TO_ABOUT_US,
+            )
+        ],
+]
 
 
 # КНОПКИ ПОДМЕНЮ "ВЫБРАТЬ СПОСОБ ПОЖЕРТВОВАНИЯ"
