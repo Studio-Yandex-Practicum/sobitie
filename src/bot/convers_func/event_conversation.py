@@ -1,7 +1,6 @@
 from telegram import InlineKeyboardMarkup
 
-from core.constants import CHOOSE_EVENT
-from core.menu_constants import EVENTS_BUTTONS
+from bot.keyboards.event import EVENTS_BUTTONS, CHOOSE_EVENT
 
 
 async def get_events(update, _) -> str:
