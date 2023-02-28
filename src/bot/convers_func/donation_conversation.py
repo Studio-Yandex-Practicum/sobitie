@@ -1,7 +1,7 @@
 from telegram import Update, InlineKeyboardMarkup
 
-from core import constants
-from core.menu_constants import DONATION_OPTIONS_MENU_BUTTONS, SUPPORT_MENU_BUTTONS
+from core.states import DONATION_OPTIONS_STATE, SUPPORT_STATE
+from bot.keyboards.support import DONATION_OPTIONS_MENU_BUTTONS, SUPPORT_MENU_BUTTONS
 
 
 async def show_donations_options(update: Update, context):
@@ -14,7 +14,7 @@ async def show_donations_options(update: Update, context):
         text='Выберите удобный для Вас способ внесения пожертвования',
         reply_markup=keyboard,
     )
-    return constants.DONATION_OPTIONS_STATE
+    return DONATION_OPTIONS_STATE
 
 
 async def donate_with_site_form(update: Update, context):
@@ -61,4 +61,4 @@ async def go_back_to_help_menu(update: Update, context):
         text='Помочь',
         reply_markup=keyboard,
     )
-    return constants.SUPPORT_STATE
+    return SUPPORT_STATE
