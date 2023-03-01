@@ -5,19 +5,23 @@ from bot.convers_func.about_us_conversation import (go_back_to_start,
                                                     show_projects
                                                     )
 from bot.convers_func.main_conversation import end
-from core import constants
+from bot.keyboards.main import ABOUT_US, END
+from bot.keyboards.about_us import (PROJECTS,
+                                    RETURN_TO_MAIN,
+                                    RETURN_TO_ABOUT_US)
+from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
 about_us_conv = ConversationHandler(
     allow_reentry=True,
-    entry_points=[CallbackQueryHandler(show_about_us, pattern='^' + constants.ABOUT_US + '$')],
+    entry_points=[CallbackQueryHandler(show_about_us, pattern='^' + ABOUT_US + '$')],
     states={
-        constants.ABOUT_US_STATE: [
-            CallbackQueryHandler(show_projects, pattern='^' + constants.PROJECTS + '$'),
-            CallbackQueryHandler(go_back_to_start, pattern='^' + constants.RETURN_TO_MAIN + '$'),
+        ABOUT_US_STATE: [
+            CallbackQueryHandler(show_projects, pattern='^' + PROJECTS + '$'),
+            CallbackQueryHandler(go_back_to_start, pattern='^' + RETURN_TO_MAIN + '$'),
         ],
-        constants.PROJECTS_STATE: [
-            CallbackQueryHandler(show_about_us, pattern='^' + constants.RETURN_TO_ABOUT_US + '$'),
+        PROJECTS_STATE: [
+            CallbackQueryHandler(show_about_us, pattern='^' + RETURN_TO_ABOUT_US + '$'),
         ],
     },
-    fallbacks=[CommandHandler(constants.END, end)]
+    fallbacks=[CommandHandler(END, end)]
 )

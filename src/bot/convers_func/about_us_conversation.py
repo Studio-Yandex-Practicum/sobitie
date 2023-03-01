@@ -1,9 +1,8 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 
-from core import constants
-from core.menu_constants import (ABOUT_US_MENU_BUTTONS,
-                                 PROJECTS_MENU_BUTTONS,
-                                 START_MENU_BUTTONS)
+from bot.keyboards.about_us import ABOUT_US_MENU_BUTTONS, PROJECTS_MENU_BUTTONS
+from bot.keyboards.main import START_MENU_BUTTONS
+from core.states import ABOUT_US_STATE, PROJECTS_STATE, START_STATE
 
 
 async def show_about_us(update: Update, context):
@@ -17,7 +16,7 @@ async def show_about_us(update: Update, context):
         text='Узнайте о нас побольше. Выберите интересуещее Вас:',
         reply_markup=keyboard,
     )
-    return constants.ABOUT_US_STATE
+    return ABOUT_US_STATE
 
 
 async def show_projects(update: Update, context):
@@ -30,7 +29,7 @@ async def show_projects(update: Update, context):
         reply_markup=keyboard,
     )
 
-    return constants.PROJECTS_STATE
+    return PROJECTS_STATE
 
 
 async def go_back_to_start(update: Update, context):
@@ -41,4 +40,4 @@ async def go_back_to_start(update: Update, context):
         text='Мы - супер организация, делаем все и сразу, помогаем людям.',
         reply_markup=keyboard,
     )
-    return constants.START_STATE
+    return START_STATE
