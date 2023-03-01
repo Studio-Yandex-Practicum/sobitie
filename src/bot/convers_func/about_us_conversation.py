@@ -1,11 +1,11 @@
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import InlineKeyboardMarkup, Update
 
 from bot.keyboards.about_us import ABOUT_US_MENU_BUTTONS, PROJECTS_MENU_BUTTONS
 from bot.keyboards.main import START_MENU_BUTTONS
 from core.states import ABOUT_US_STATE, PROJECTS_STATE, START_STATE
 
 
-async def show_about_us(update: Update, context):
+async def show_about_us(update: Update, _):
     """Нажатие на кнопку 'О нас'.
     Открывает подменю с четырьмя кнопками
     разной информации."""
@@ -19,7 +19,7 @@ async def show_about_us(update: Update, context):
     return ABOUT_US_STATE
 
 
-async def show_projects(update: Update, context):
+async def show_projects(update: Update, _):
     '''Нажатие на кнопку 'Проекты'.'''
     query = update.callback_query
     await query.answer()

@@ -18,6 +18,9 @@ INCLUSIVE_WORKSHOP = 'INCLUSIVE_WORKSHOP'
 MOSCOW_ONLINE = 'MOSCOW_ONLINE'
 RETURN_TO_ABOUT_US = 'RETURN_TO_ABOUT_US'
 
+# Константы для подменю "Контакты"
+CONTACTS_INFO = 'CONTACTS_INFO'
+RETURN_TO_START = 'RETURN_TO_START'
 
 # КНОПКИ МЕНЮ "О НАС"
 ABOUT_US_MENU_BUTTONS = [
@@ -26,7 +29,6 @@ ABOUT_US_MENU_BUTTONS = [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':open_mailbox_with_raised_flag:')} Контакты",
                 callback_data=CONTACTS,
-                url='https://sobytie.center/contacts/'
             )
         ],
         [
@@ -92,4 +94,67 @@ PROJECTS_MENU_BUTTONS = [
                 callback_data=RETURN_TO_ABOUT_US,
             )
         ],
+]
+
+#КНОПКИ ПОДМЕНЮ "КОНТАКТЫ"
+CONTACTS_BUTTONS = [
+    [
+        InlineKeyboardButton(
+            text=f"{emoji.emojize(':envelope:')} "
+                 f"Электронная почта",
+            url='mailto:sobytie.center@yandex.ru',
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=f'{emoji.emojize(":page_facing_up:")} Форма обратной связи:',
+            url='https://forms.yandex.ru/cloud/63ee7e3bc417f30921e2fe6e/'
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=f'{emoji.emojize(":blue_heart:")} Вконтакте:\n',
+            url='https://vk.com/sobytie.center',
+        )
+    ],
+[
+        InlineKeyboardButton(
+            text=f'{emoji.emojize(":star:")} Telegram:\n',
+            url='https://t.me/sobytiecenter',
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text='Вернуться в главное меню',
+            callback_data=RETURN_TO_START,
+        )
+    ],
+]
+
+#Кнопки подменю "Люди"
+PEOPLE_BUTTONS = [
+    [
+        InlineKeyboardButton(
+            text=f'{emoji.emojize(":collision:") }Кураторы проектов',
+            url='https://test.ru',
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=f'{emoji.emojize(":fire:")} Актёры Инклюзивного театра-студии «Событие»',
+            url='https://test.ru',
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=f'{emoji.emojize(":sparkles:")} Волонтёры',
+            url='https://test.ru',
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text='Вернуться в главное меню',
+            callback_data=RETURN_TO_START,
+        )
+    ],
 ]

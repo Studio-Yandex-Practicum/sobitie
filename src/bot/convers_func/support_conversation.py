@@ -7,6 +7,7 @@ from bot.keyboards.main import START_MENU_BUTTONS
 from bot.keyboards.support import (SUPPORT_MENU_BUTTONS, SUPPORT_FOLLOW_BUTTONS,
                                    MENU_ORDER_SUVENIR, DONATION_OPTIONS_MENU_BUTTONS)
 
+
 async def give_support(update: Update, context):
     """Меню 'Помочь'."""
     query = update.callback_query

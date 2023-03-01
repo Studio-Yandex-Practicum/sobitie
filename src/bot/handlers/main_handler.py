@@ -17,7 +17,7 @@ conversation_handler = ConversationHandler(
                 about_us_conv,
                 support_conv,
                 event_conv,
-                interactive_conv
+                interactive_conv,
             ]
 
     },

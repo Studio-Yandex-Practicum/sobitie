@@ -10,6 +10,9 @@ from bot.keyboards.about_us import (PROJECTS,
                                     RETURN_TO_MAIN,
                                     RETURN_TO_ABOUT_US)
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
+from bot.handlers.contacts_handler import contacts_conv
+from bot.handlers.people_handler import people_conv
+
 
 about_us_conv = ConversationHandler(
     allow_reentry=True,
@@ -18,6 +21,8 @@ about_us_conv = ConversationHandler(
         ABOUT_US_STATE: [
             CallbackQueryHandler(show_projects, pattern='^' + PROJECTS + '$'),
             CallbackQueryHandler(go_back_to_start, pattern='^' + RETURN_TO_MAIN + '$'),
+            contacts_conv,
+            people_conv,
         ],
         PROJECTS_STATE: [
             CallbackQueryHandler(show_about_us, pattern='^' + RETURN_TO_ABOUT_US + '$'),
