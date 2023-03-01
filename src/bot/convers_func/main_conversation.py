@@ -1,8 +1,8 @@
 from telegram import InlineKeyboardMarkup
 
 
-from core.menu_constants import START_MENU_BUTTONS
-from core import constants
+from bot.keyboards.main import START_MENU_BUTTONS
+from core.states import START_STATE
 
 async def start(update, context):
     """Главное меню, кнопка старт."""
@@ -12,7 +12,7 @@ async def start(update, context):
         text='Мы - супер организация, делаем все и сразу, помогаем людям.',
         reply_markup=keyboard,
     )
-    return constants.START_STATE
+    return START_STATE
 
 
 async def end(update, _):

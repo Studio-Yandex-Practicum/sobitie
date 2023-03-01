@@ -2,8 +2,8 @@ import requests
 import emoji
 from telegram import InlineKeyboardMarkup, Update
 
-from core import constants
-from core.menu_constants import INTERACTIVE_BUTTONS
+from core.states import INTERACTIVE_STATE
+from bot.keyboards.interactive import INTERACTIVE_BUTTONS
 
 QUOTE_URL = "https://zenquotes.io/api/random"
 
@@ -18,7 +18,7 @@ async def menu_interactive(update: Update, context):
         text='Интерактив',
         reply_markup=keyboard,
     )
-    return constants.INTERACTIVE_STATE
+    return INTERACTIVE_STATE
 
 
 async def get_quiz(update: Update, context):
