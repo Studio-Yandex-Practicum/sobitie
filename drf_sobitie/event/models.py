@@ -58,3 +58,30 @@ class Event(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Quote(models.Model):
+    text = models.TextField(
+        verbose_name='Текст цитаты'
+    )
+    author = models.CharField(
+        max_length=256,
+        verbose_name='Автор цитаты'
+    )
+    add_time = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='Дата добавления'
+    )
+    image = models.ImageField(
+        upload_to='images/',
+        null=True,
+        blank=True,
+        verbose_name='Изображение'
+    )
+
+    class Meta:
+        verbose_name = 'Цитата'
+        verbose_name_plural = 'Цитаты'
+
+    def __str__(self):
+        return self.text[:120]

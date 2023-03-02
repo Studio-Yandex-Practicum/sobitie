@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer, StringRelatedField
-
-from event.models import Category, Event
+from drf_extra_fields.fields import Base64ImageField
+from event.models import Category, Event, Quote
 
 
 class CategorySerializer(ModelSerializer):
@@ -20,3 +20,11 @@ class EventSerializer(ModelSerializer):
         model = Event
         fields = ('name', 'description', 'add_time', 'change_time', 'category',
                   'event_time', 'location')
+
+
+class QuoteSerializer(ModelSerializer):
+    image = Base64ImageField(required=False, allow_null=True)
+
+    class Meta:
+        model = Quote
+        fields = ('text', 'author', 'image')
