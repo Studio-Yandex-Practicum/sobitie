@@ -1,35 +1,35 @@
 # объект класса ConversationHandler для меню с 8-ю кнопками "Помочь"
 from telegram.ext import ConversationHandler, CallbackQueryHandler, CommandHandler
 
-from bot.convers_func.support_conversation import (attend_event, become_follower, 
-                                                   become_volunteer, become_sponsor,
-                                                   give_support, go_back,
-                                                   charity_fair_order,
-                                                   corporate_gifts_order, order_souvenir,
-                                                   become_partner)
-from bot.handlers.donation_handler import donation_conv
+from bot.convers_func import support_conversation
 from bot.convers_func.main_conversation import end
-from core.states import (SUPPORT_STATE,
-                         SUPPORT_FOLLOW_STATE,
-                         ORDER_SOUVENIR_STATE)
-from bot.convers_func.donation_conversation import go_back_to_help_menu
 from bot.keyboards.main import END, GIVE_SUPPORT
-from bot.keyboards.support import (ATTEND_EVENT, BECOME_SPONSOR,
-                                   BECOME_VOLUNTEER, FOLLOW_US,
-                                   RETURN_TO_PREVIOUS, ORDER_SOUVENIRS,
-                                   CHARITY_FAIR, CORPORATE_FAIR,
-                                   RETURN_TO_HELP_MENU, PARTNERSHIP)
+from bot.keyboards import support
+from core import states
+
+donation_conv = ConversationHandler(
+    allow_reentry=True,
+    entry_points=[CallbackQueryHandler(support_conversation.show_donations_options,
+                                       pattern='^' + support.SHOW_DONATION_OPTIONS + '$')],
+    states={
+        states.DONATION_OPTIONS_STATE: [
+            CallbackQueryHandler(support_conversation.go_back_to_help_menu,
+                                 pattern='^' + support.RETURN_TO_HELP_MENU + '$'),
+        ]
+    },
+    fallbacks=[CommandHandler(END, end)]
+)
 
 order_suvenir = ConversationHandler(
     allow_reentry=True,
     entry_points=[
-        CallbackQueryHandler(order_souvenir, pattern='^' + ORDER_SOUVENIRS + '$')
+        CallbackQueryHandler(support_conversation.order_souvenir, pattern='^' + support.ORDER_SOUVENIRS + '$')
     ],
     states={
-        ORDER_SOUVENIR_STATE: [
-            CallbackQueryHandler(charity_fair_order, pattern='^' + CHARITY_FAIR + '$'),
-            CallbackQueryHandler(corporate_gifts_order, pattern='^' + CORPORATE_FAIR + '$'),
-            CallbackQueryHandler(go_back_to_help_menu, pattern='^' + RETURN_TO_HELP_MENU + '$')
+        states.ORDER_SOUVENIR_STATE: [
+            CallbackQueryHandler(support_conversation.charity_fair_order, pattern='^' + support.CHARITY_FAIR + '$'),
+            CallbackQueryHandler(support_conversation.corporate_gifts_order, pattern='^' + support.CORPORATE_FAIR + '$'),
+            CallbackQueryHandler(support_conversation.go_back_to_help_menu, pattern='^' + support.RETURN_TO_HELP_MENU + '$')
         ]
     },
     fallbacks=[CommandHandler(END, end)]
@@ -37,20 +37,22 @@ order_suvenir = ConversationHandler(
 
 support_conv = ConversationHandler(
     allow_reentry=True,
-    entry_points=[CallbackQueryHandler(give_support, pattern='^' + GIVE_SUPPORT + '$')],
+    entry_points=[CallbackQueryHandler(support_conversation.give_support, pattern='^' + GIVE_SUPPORT + '$')],
     states={
-        SUPPORT_STATE: [
+        states.SUPPORT_STATE: [
             donation_conv,  # вложенный объект ConversationHandler
             order_suvenir,
-            CallbackQueryHandler(attend_event, pattern='^' + ATTEND_EVENT + '$'),
-            CallbackQueryHandler(become_sponsor, pattern='^' + BECOME_SPONSOR + '$'),
-            CallbackQueryHandler(become_volunteer, pattern='^' + BECOME_VOLUNTEER + '$'),
-            CallbackQueryHandler(become_follower, pattern='^' + FOLLOW_US + '$'),
-            CallbackQueryHandler(become_partner, pattern='^' + PARTNERSHIP + '$'),
-            CallbackQueryHandler(go_back, pattern='^' + RETURN_TO_PREVIOUS + '$'),
+            CallbackQueryHandler(support_conversation.attend_event, pattern='^' + support.ATTEND_EVENT + '$'),
+            CallbackQueryHandler(support_conversation.become_sponsor, pattern='^' + support.BECOME_SPONSOR + '$'),
+            CallbackQueryHandler(support_conversation.become_volunteer, pattern='^' + support.BECOME_VOLUNTEER + '$'),
+            CallbackQueryHandler(support_conversation.become_follower, pattern='^' + support.FOLLOW_US + '$'),
+            CallbackQueryHandler(support_conversation.become_partner, pattern='^' + support.PARTNERSHIP + '$'),
+            CallbackQueryHandler(support_conversation.connect_cashback, pattern='^' + support.CASHBACK + '$'),
+            CallbackQueryHandler(support_conversation.create_a_collection, pattern='^' + support.CREATE_COLLECTION + '$'),
+            CallbackQueryHandler(support_conversation.go_back, pattern='^' + support.RETURN_TO_PREVIOUS + '$'),
         ],
-        SUPPORT_FOLLOW_STATE: [
-            CallbackQueryHandler(give_support, pattern='^' + RETURN_TO_PREVIOUS + '$'),
+        states.SUPPORT_FOLLOW_STATE: [
+            CallbackQueryHandler(support_conversation.give_support, pattern='^' + support.RETURN_TO_PREVIOUS + '$'),
         ],
     },
     fallbacks=[CommandHandler(END, end)]

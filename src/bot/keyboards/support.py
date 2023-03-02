@@ -13,6 +13,8 @@ FOLLOW_US = 'FOLLOW_US'
 RETURN_TO_PREVIOUS = 'RETURN_TO_PREVIOUS'
 FOLLOW_US_VKONTAKTE = 'FOLLOW_US_VKONTAKTE'
 FOLLOW_US_TELEGRAM = 'FOLLOW_US_TELEGRAM'
+CREATE_COLLECTION = 'CREATE_COLLECTION'
+CASHBACK = 'CASHBACK'
 
 # Константы для подменю "Выбрать способ пожертвования"
 DONATE_WITH_SITE_FORM = 'DONATE_WITH_SITE_FORM'
@@ -20,6 +22,7 @@ DONATE_WITH_VK = 'DONATE_WITH_VK'
 DONATE_WITH_TINKOFF = 'DONATE_WITH_TINKOFF'
 DONATE_THROUGH_CHARITY_FUND = 'DONATE_THROUGH_CHARITY_FUND'
 RETURN_TO_HELP_MENU = 'RETURN_TO_HELP_MENU'
+RUBLE_PER_DAY = 'RUBLE_PER_DAY'
 
 # Константы для подменю "Заказать сувениры"
 CHARITY_FAIR = 'CHARITY_FAIR'
@@ -67,6 +70,18 @@ SUPPORT_MENU_BUTTONS = [
         ],
         [
             InlineKeyboardButton(
+                text='Создать сбор',
+                callback_data=CREATE_COLLECTION
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text='Подключить кешбэк',
+                callback_data=CASHBACK
+            )
+        ],
+        [
+            InlineKeyboardButton(
                 text=f"{emoji.emojize(':flexed_biceps:')} Стать волонтером",
                 callback_data=BECOME_VOLUNTEER
             )
@@ -91,26 +106,31 @@ DONATION_OPTIONS_MENU_BUTTONS = [
         [
             InlineKeyboardButton(
                 text='Форма на сайте',
-                callback_data=DONATE_WITH_SITE_FORM,
-                # url='http://sobytie.team/#about'
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text='Вконтакте',
-                callback_data=DONATE_WITH_VK,
+                url='https://sobytie.center/howtohelp/'
             )
         ],
         [
             InlineKeyboardButton(
                 text='Тинькофф',
-                callback_data=DONATE_WITH_TINKOFF,
+                url='https://www.tinkoff.ru/payments/provider-sobytie/'
             )
         ],
         [
             InlineKeyboardButton(
-                text='Через Благотворительный фонд "Нужна помощь"',
-                callback_data=DONATE_THROUGH_CHARITY_FUND,
+                text='Разовое или регулярное пожертвование',
+                url='https://nuzhnapomosh.ru/funds/centr-sobytie/'
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text='Благотворительный фонд "Нужна помощь"',
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text='Подписка "Рубль в день"',
+                callback_data=RUBLE_PER_DAY,
+                url='https://nuzhnapomosh.ru/funds/centr-sobytie/'
             )
         ],
         [
