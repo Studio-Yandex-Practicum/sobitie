@@ -19,15 +19,6 @@ async def give_support(update: Update, context):
     return states.SUPPORT_STATE
 
 
-async def attend_event(update: Update, context):
-    """Нажатие на кнопку 'Прийти на спектакль'."""
-    query = update.callback_query
-    await query.message.reply_text(
-        text='Ваша ссылка на сайт с билетами: <http://link>'
-    )
-    return
-
-
 async def go_back(update: Update, context):
     query = update.callback_query
     await query.answer()
@@ -65,25 +56,6 @@ async def connect_cashback(update: Update, context):
     )
 
 
-async def become_sponsor(update: Update, context):
-    """Нажатие на кнопку 'Стать спонсором'."""
-    query = update.callback_query
-    await query.message.reply_text(
-        text='Чтобы стать спонсором, заполните форму: <http://link>'
-    )
-    return
-
-
-async def become_volunteer(update: Update, context):
-    """Нажатие на кнопку 'Стать волонтером'."""
-    query = update.callback_query
-    await query.message.reply_text(
-        text='Заполните форму, выбрав тему «Волонтёрство»:\
-              https://forms.yandex.ru/u/62c16ab249d6959ae05b57d1/'
-    )
-    return
-
-
 async def become_follower(update: Update, context):
     """Меню 'Стать активным подписчиком'."""
     query = update.callback_query
@@ -95,32 +67,6 @@ async def become_follower(update: Update, context):
         reply_markup=keyboard,
     )
     return states.SUPPORT_FOLLOW_STATE
-
-
-async def become_partner(update: Update, context):
-    """Обработчик кнопки 'Партнерство'."""
-    query = update.callback_query
-    await query.message.reply_text(
-        text='Партнерство'
-    )
-    return
-
-
-async def our_needs(update: Update, context):
-    """Обработчик кнопки 'Наши нужды'."""
-    query = update.callback_query
-    await query.message.reply_text(
-        text='Наши нужды'
-    )
-    return
-
-
-async def go_to_play(update: Update, context):
-    """Обработчик кнопки 'Перейти на спектакль'."""
-    query = update.callback_query
-    await query.message.reply_text(
-        text='перейти на спектакль',
-    )
 
 
 async def order_souvenir(update: Update, context):
@@ -164,20 +110,10 @@ async def show_donations_options(update: Update, context):
     Открывает подменю с выбором четырех способов
     внесения денег."""
     query = update.callback_query
+    await query.answer()
     keyboard = InlineKeyboardMarkup(support.DONATION_OPTIONS_MENU_BUTTONS)
     await query.edit_message_text(
         text='Сделать пожертвование',
         reply_markup=keyboard,
     )
     return states.DONATION_OPTIONS_STATE
-
-
-async def go_back_to_help_menu(update: Update, context):
-    query = update.callback_query
-    await query.answer()
-    keyboard = InlineKeyboardMarkup(support.SUPPORT_MENU_BUTTONS)
-    await query.message.reply_text(
-        text='Помочь',
-        reply_markup=keyboard,
-    )
-    return states.SUPPORT_STATE

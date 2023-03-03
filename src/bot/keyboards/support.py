@@ -15,14 +15,7 @@ FOLLOW_US_VKONTAKTE = 'FOLLOW_US_VKONTAKTE'
 FOLLOW_US_TELEGRAM = 'FOLLOW_US_TELEGRAM'
 CREATE_COLLECTION = 'CREATE_COLLECTION'
 CASHBACK = 'CASHBACK'
-
-# Константы для подменю "Выбрать способ пожертвования"
-DONATE_WITH_SITE_FORM = 'DONATE_WITH_SITE_FORM'
-DONATE_WITH_VK = 'DONATE_WITH_VK'
-DONATE_WITH_TINKOFF = 'DONATE_WITH_TINKOFF'
-DONATE_THROUGH_CHARITY_FUND = 'DONATE_THROUGH_CHARITY_FUND'
-RETURN_TO_HELP_MENU = 'RETURN_TO_HELP_MENU'
-RUBLE_PER_DAY = 'RUBLE_PER_DAY'
+BACK_TO_MENU = 'BACK_TO_MENU'
 
 # Константы для подменю "Заказать сувениры"
 CHARITY_FAIR = 'CHARITY_FAIR'
@@ -33,39 +26,14 @@ SUPPORT_MENU_BUTTONS = [
 
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':thumbs_up:')} Наши нужды",
-                callback_data='Our needs'
-            )
-        ],
-
-        [
-            InlineKeyboardButton(
-                text=f"{emoji.emojize(':credit_card:')} Выбрать способ пожертвования",
+                text=f"{emoji.emojize(':credit_card:')} Сделать пожертвование",
                 callback_data=SHOW_DONATION_OPTIONS
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text=f"{emoji.emojize(':performing_arts:')} Прийти на спектакль",
-                callback_data=ATTEND_EVENT
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text=f"{emoji.emojize(':handshake:')} Партнерство",
-                callback_data=PARTNERSHIP
             )
         ],
         [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':package:')} Заказать суверниры",
                 callback_data=ORDER_SOUVENIRS
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text=f"{emoji.emojize(':dollar_banknote:')} Стать спонсором",
-                callback_data=BECOME_SPONSOR
             )
         ],
         [
@@ -82,12 +50,6 @@ SUPPORT_MENU_BUTTONS = [
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':flexed_biceps:')} Стать волонтером",
-                callback_data=BECOME_VOLUNTEER
-            )
-        ],
-        [
-            InlineKeyboardButton(
                 text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком",
                 callback_data=FOLLOW_US
             )
@@ -95,14 +57,13 @@ SUPPORT_MENU_BUTTONS = [
         [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':reverse_button:')} Вернуться на предыдущую страницу",
-                callback_data=RETURN_TO_PREVIOUS
+                callback_data=BACK_TO_MENU
             )
         ],
     ]
 
 # КНОПКИ ПОДМЕНЮ "ВЫБРАТЬ СПОСОБ ПОЖЕРТВОВАНИЯ"
 DONATION_OPTIONS_MENU_BUTTONS = [
-
         [
             InlineKeyboardButton(
                 text='Форма на сайте',
@@ -124,19 +85,19 @@ DONATION_OPTIONS_MENU_BUTTONS = [
         [
             InlineKeyboardButton(
                 text='Благотворительный фонд "Нужна помощь"',
-            )
-        ],
-        [
-            InlineKeyboardButton(
-                text='Подписка "Рубль в день"',
-                callback_data=RUBLE_PER_DAY,
                 url='https://nuzhnapomosh.ru/funds/centr-sobytie/'
             )
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':reverse_button:')}Вернуться в меню помощи",
-                callback_data=RETURN_TO_HELP_MENU,
+                text='Подписка "Рубль в день"',
+                url='https://nuzhnapomosh.ru/funds/centr-sobytie/'
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':reverse_button:')} Вернуться в меню помощи",
+                callback_data=RETURN_TO_PREVIOUS,
             )
         ]
     ]
@@ -183,7 +144,7 @@ MENU_ORDER_SUVENIR = [
     [
         InlineKeyboardButton(
             text='Назад',
-            callback_data=RETURN_TO_HELP_MENU
+            callback_data=RETURN_TO_PREVIOUS
         )
     ]
 ]
