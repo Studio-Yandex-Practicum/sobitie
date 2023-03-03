@@ -12,15 +12,33 @@ PEOPLE = 'PEOPLE'
 RETURN_TO_MAIN = 'RETURN_TO_MAIN'
 
 
+# Константы для подменю "Документы"
+FOUNDERS ='FOUNDERS'
+STATUTORY_DOCUMENTS = 'STATUTORY_DOCUMENTS'
+REQUISITES = 'REQUISITES'
+
+
+# Константы для подменю "Отчёты"
+REPORTS_MINISTRY = 'REPORTS_MINISTRY'
+ANNUAL_REPORTS = 'ANNUAL_REPORTS'
+
+
 # Константы для подменю "Проекты"
 INCLUSIVE_THEATRE = 'INCLUSIVE_THEATRE'
 INCLUSIVE_WORKSHOP = 'INCLUSIVE_WORKSHOP'
+THEATRE_SCHOOL = 'THEATRE_SCHOOL'
 MOSCOW_ONLINE = 'MOSCOW_ONLINE'
 RETURN_TO_ABOUT_US = 'RETURN_TO_ABOUT_US'
+
 
 # Константы для подменю "Контакты"
 CONTACTS_INFO = 'CONTACTS_INFO'
 RETURN_TO_START = 'RETURN_TO_START'
+
+
+# Константы кнопки "НАЗАД"
+RETURN_TO_BACK = 'RETURN_TO_BACK'
+
 
 # КНОПКИ МЕНЮ "О НАС"
 ABOUT_US_MENU_BUTTONS = [
@@ -35,14 +53,12 @@ ABOUT_US_MENU_BUTTONS = [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':chart_increasing:')} Уставные доументы",
                 callback_data=LEGAL_DOCUMENTS,
-                url='https://sobytie.center/documents/'
             )
         ],
         [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':card_file_box:')} Отчеты о деятельности",
                 callback_data=REPORTS,
-                url='https://sobytie.center/reports/'
             )
         ],
         [
@@ -66,6 +82,79 @@ ABOUT_US_MENU_BUTTONS = [
     ]
 
 
+# КНОПКИ ПОДМЕНЮ "ДОКУМЕНТЫ"
+DOCUMENTS_MENU_BUTTONS = [
+    [
+            InlineKeyboardButton(
+                text='Хотите узнать об учередителях?',
+                callback_data=FOUNDERS,
+                url='https://sobytie.center/documents/',
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text='Хотите ознакомиться с уставными документами?',
+                callback_data=STATUTORY_DOCUMENTS,
+                url='https://sobytie.center/documents/',
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text='Хотите узнать реквезиты?',
+                callback_data=REQUISITES,
+                url='https://sobytie.center/documents/',
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню",
+                callback_data=RETURN_TO_MAIN,
+            )
+        ],
+]
+
+
+# КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ"
+REPORTS_MENU_BUTTONS = [
+    [
+            InlineKeyboardButton(
+                text='Отчёты на портале Минюста РФ?',
+                callback_data=REPORTS_MINISTRY,
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text='Хотите посмотреть годовые отчёты?',
+                callback_data=ANNUAL_REPORTS,
+                url='https://sobytie.center/reports/',
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню",
+                callback_data=RETURN_TO_MAIN,
+            )
+        ],
+]
+
+
+# КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ НА ПОРТАЛЕ МИНЮСТА"
+MINISTRY_REPORTS_BUTTONS = [
+    [
+            InlineKeyboardButton(
+                text='Нажмите для перехода',
+                url='http://unro.minjust.ru/NKOReports.aspx',
+            )
+        ],
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню",
+                callback_data=RETURN_TO_MAIN,
+            )
+        ],
+]
+
+
 # КНОПКИ ПОДМЕНЮ "ПРОЕКТЫ"
 PROJECTS_MENU_BUTTONS = [
     [
@@ -83,6 +172,12 @@ PROJECTS_MENU_BUTTONS = [
         ],
         [
             InlineKeyboardButton(
+                text=f"{emoji.emojize(':school:')} Театральная студия i-Школы",
+                callback_data=THEATRE_SCHOOL,
+            )
+        ],
+        [
+            InlineKeyboardButton(
                 text=f"{emoji.emojize(':cityscape:')} Москва - Партала. Онлайн.",
                 callback_data=MOSCOW_ONLINE,
                 url='https://sobytie.center/project/moskva-partala-onlajn/',
@@ -95,6 +190,18 @@ PROJECTS_MENU_BUTTONS = [
             )
         ],
 ]
+
+
+#КНОПКА ПОДМЕНЮ "НАЗАД"
+BUTTON_BACK = [
+    [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу",
+                callback_data=RETURN_TO_BACK,
+            )
+        ],
+]
+
 
 #КНОПКИ ПОДМЕНЮ "КОНТАКТЫ"
 CONTACTS_BUTTONS = [
@@ -130,6 +237,7 @@ CONTACTS_BUTTONS = [
         )
     ],
 ]
+
 
 #Кнопки подменю "Люди"
 PEOPLE_BUTTONS = [
