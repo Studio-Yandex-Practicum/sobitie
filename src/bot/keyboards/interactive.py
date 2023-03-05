@@ -4,7 +4,7 @@ from telegram import InlineKeyboardButton
 
 from .support import RETURN_TO_PREVIOUS
 QUIZZES = 'QUIZZES'
-ASK_QUESTIONS = 'ASK_QUESTIONS'
+GET_STICKERS = 'GET_STICKERS'
 RANDOM_QUOTE = 'RANDOM_QUOTE'
 
 # кнопки для меню интерактив
@@ -17,14 +17,13 @@ INTERACTIVE_BUTTONS = [
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':white_question_mark:')}Вопрос-ответ",
-                callback_data=ASK_QUESTIONS,
-                url="https://vk.com/im?sel=-190536221"
+                text=f"{emoji.emojize('	:star-struck:')}Стикерпаки",
+                callback_data=GET_STICKERS
             )
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':books:')}Случайная цитата",
+                text=f"{emoji.emojize(':books:')}Цитата недели",
                 callback_data=RANDOM_QUOTE
             )
         ],
