@@ -3,6 +3,7 @@ from telegram import InlineKeyboardButton
 
 # Константы для меню "Помочь"
 ATTEND_EVENT = 'ATTEND_EVENT'
+COMMUNICATE_FOR_HELP = 'COMMUNICATE_FOR_HELP'
 OUR_NEEDS = 'OUR_NEEDS'
 SHOW_DONATION_OPTIONS = 'SHOW_DONATION_OPTIONS'
 PARTNERSHIP = 'PARTNERSHIP'
@@ -23,6 +24,13 @@ CORPORATE_FAIR = 'CORPORATE_FAIR'
 
 # КНОПКИ МЕНЮ "ПОМОЧЬ"
 SUPPORT_MENU_BUTTONS = [
+
+        [
+            InlineKeyboardButton(
+                text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросу помощи",
+                callback_data=COMMUNICATE_FOR_HELP
+            )
+        ],
 
         [
             InlineKeyboardButton(

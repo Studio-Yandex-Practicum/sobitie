@@ -69,6 +69,15 @@ async def become_follower(update: Update, context):
     return states.SUPPORT_FOLLOW_STATE
 
 
+async def move_to_help_chat(update: Update, context):
+    """Обработчик кнопки 'Наши нужды'."""
+    query = update.callback_query
+    await query.message.reply_text(
+        text='Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>'
+    )
+    return
+
+
 async def order_souvenir(update: Update, context):
     """Обработчик кнопки 'Заказать сувенир'."""
     query = update.callback_query
