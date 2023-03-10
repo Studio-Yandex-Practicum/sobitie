@@ -5,13 +5,18 @@ from core.states import START_STATE
 
 
 async def start(update: Update, _):
-    """Главное меню, кнопка старт."""
+    """Отправка стартового меню и обработка возврата к нему."""
     keyboard = InlineKeyboardMarkup(START_MENU_BUTTONS)
-    await update.effective_message.reply_text(
+    query = update.callback_query
+    if query is None:
+        send_method = update.message.reply_text
+    else:
+        send_method = query.message.edit_text
+    await send_method(
         text=MAIN_TEXT,
         reply_markup=keyboard,
     )
-    return START_STATE if update.callback_query is None else None
+    return START_STATE
 
 
 async def end(update: Update, _):
