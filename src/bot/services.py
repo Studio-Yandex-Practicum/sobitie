@@ -3,9 +3,9 @@ from core.settings import TELEGRAM_TOKEN
 
 from bot.handlers.main_handler import conversation_handler
 
-from bot.keyboards.about_us import RETURN_TO_START
+from bot.keyboards.main import RETURN_TO_START
 
-from bot.convers_func.main_conversation import main_menu
+from bot.convers_func.main_conversation import start
 
 
 def start_bot():
@@ -13,5 +13,5 @@ def start_bot():
     bot = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 
     bot.add_handler(conversation_handler)
-    bot.add_handler(CallbackQueryHandler(main_menu, pattern='^' + RETURN_TO_START + '$'))
+    bot.add_handler(CallbackQueryHandler(start, pattern='^' + RETURN_TO_START + '$'))
     return bot

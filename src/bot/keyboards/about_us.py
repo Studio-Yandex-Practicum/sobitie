@@ -2,6 +2,7 @@ import emoji
 
 from telegram import InlineKeyboardButton
 
+from bot.keyboards.main import RETURN_TO_START
 
 # Константы для меню "О нас"
 CONTACTS = 'CONTACTS'
@@ -9,7 +10,6 @@ LEGAL_DOCUMENTS = 'LEGAL_DOCUMENTS'
 REPORTS = 'REPORTS'
 PROJECTS = 'PROJECTS'
 PEOPLE = 'PEOPLE'
-RETURN_TO_MAIN = 'RETURN_TO_MAIN'
 
 
 # Константы для подменю "Документы"
@@ -33,8 +33,6 @@ RETURN_TO_ABOUT_US = 'RETURN_TO_ABOUT_US'
 
 # Константы для подменю "Контакты"
 CONTACTS_INFO = 'CONTACTS_INFO'
-RETURN_TO_START = 'RETURN_TO_START'
-
 
 # Константы кнопки "НАЗАД"
 RETURN_TO_BACK = 'RETURN_TO_BACK'
@@ -76,7 +74,7 @@ ABOUT_US_MENU_BUTTONS = [
         [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу",
-                callback_data=RETURN_TO_MAIN,
+                callback_data=RETURN_TO_START,
             )
         ],
     ]
@@ -108,7 +106,7 @@ DOCUMENTS_MENU_BUTTONS = [
         [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню",
-                callback_data=RETURN_TO_MAIN,
+                callback_data=RETURN_TO_START,
             )
         ],
 ]
@@ -132,7 +130,7 @@ REPORTS_MENU_BUTTONS = [
         [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню",
-                callback_data=RETURN_TO_MAIN,
+                callback_data=RETURN_TO_START,
             )
         ],
 ]
@@ -149,7 +147,7 @@ MINISTRY_REPORTS_BUTTONS = [
         [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню",
-                callback_data=RETURN_TO_MAIN,
+                callback_data=RETURN_TO_START,
             )
         ],
 ]

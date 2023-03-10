@@ -1,8 +1,8 @@
 import emoji
-
 from telegram import InlineKeyboardButton
 
-from .support import RETURN_TO_PREVIOUS
+from bot.keyboards.main import RETURN_TO_START
+
 QUIZZES = 'QUIZZES'
 GET_STICKERS = 'GET_STICKERS'
 RANDOM_QUOTE = 'RANDOM_QUOTE'
@@ -30,7 +30,7 @@ INTERACTIVE_BUTTONS = [
         [
             InlineKeyboardButton(
                 text=f"{emoji.emojize(':reverse_button:')}Вернуться",
-                callback_data=RETURN_TO_PREVIOUS,
+                callback_data=RETURN_TO_START,
             )
         ]
     ]

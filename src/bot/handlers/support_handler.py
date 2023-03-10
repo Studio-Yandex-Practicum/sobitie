@@ -2,7 +2,7 @@
 from telegram.ext import ConversationHandler, CallbackQueryHandler, CommandHandler
 
 from bot.convers_func import support_conversation
-from bot.convers_func.main_conversation import end, main_menu
+from bot.convers_func.main_conversation import end
 from bot.keyboards.main import END, GIVE_SUPPORT
 from bot.keyboards import support
 from core import states
@@ -36,7 +36,6 @@ support_conv = ConversationHandler(
             CallbackQueryHandler(support_conversation.connect_cashback, pattern='^' + support.CASHBACK + '$'),
             CallbackQueryHandler(support_conversation.create_a_collection,
                                  pattern='^' + support.CREATE_COLLECTION + '$'),
-            CallbackQueryHandler(support_conversation.go_back, pattern='^' + support.BACK_TO_MENU + '$'),
             CallbackQueryHandler(support_conversation.move_to_help_chat,
                                  pattern='^' + support.COMMUNICATE_FOR_HELP + '$')
         ],

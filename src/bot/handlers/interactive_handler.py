@@ -1,11 +1,10 @@
-from telegram.ext import ConversationHandler, CallbackQueryHandler, CommandHandler
-from bot.convers_func.support_conversation import go_back
-from bot.convers_func.interactive_conversation import menu_interactive, get_quiz, get_stickers, get_quote
+from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
+
+from bot.convers_func.interactive_conversation import get_quiz, get_quote, get_stickers, menu_interactive
 from bot.convers_func.main_conversation import end
+from bot.keyboards.interactive import (GET_STICKERS, QUIZZES, RANDOM_QUOTE)
+from bot.keyboards.main import END, INTERACTIVE_GAME
 from core.states import INTERACTIVE_STATE
-from bot.keyboards.interactive import (QUIZZES, GET_STICKERS,
-                                       RANDOM_QUOTE, RETURN_TO_PREVIOUS)
-from bot.keyboards.main import INTERACTIVE_GAME, END
 
 interactive_conv = ConversationHandler(
     allow_reentry=True,
@@ -15,7 +14,6 @@ interactive_conv = ConversationHandler(
             CallbackQueryHandler(get_quiz, pattern='^' + QUIZZES + '$'),
             CallbackQueryHandler(get_stickers, pattern='^' + GET_STICKERS + '$'),
             CallbackQueryHandler(get_quote, pattern='^' + RANDOM_QUOTE + '$'),
-            CallbackQueryHandler(go_back, pattern='^' + RETURN_TO_PREVIOUS + '$'),
         ]
     },
     fallbacks=[CommandHandler(END, end)]
