@@ -4,7 +4,7 @@ from bot.keyboards.main import MAIN_TEXT, START_MENU_BUTTONS
 from core.states import START_STATE
 
 
-async def start(update: Update, _):
+async def send_start_menu(update: Update, _):
     """Отправка стартового меню и обработка возврата к нему."""
     keyboard = InlineKeyboardMarkup(START_MENU_BUTTONS)
     query = update.callback_query
