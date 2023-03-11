@@ -135,14 +135,3 @@ async def show_theatre_school(update: Update, _):
         parse_mode='Markdown',
         reply_markup=keyboard,
     )
-
-
-async def go_back_to_start(update: Update, _):
-    query = update.callback_query
-    await query.answer()
-    keyboard = InlineKeyboardMarkup(START_MENU_BUTTONS)
-    await query.message.reply_text(
-        text='Мы - супер организация, делаем все и сразу, помогаем людям.',
-        reply_markup=keyboard,
-    )
-    return START_STATE

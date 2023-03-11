@@ -1,6 +1,8 @@
 import emoji
 from telegram import InlineKeyboardButton
 
+from bot.keyboards.main import RETURN_TO_START, create_return_to_start_button
+
 # Константы для меню "Помочь"
 ATTEND_EVENT = 'ATTEND_EVENT'
 COMMUNICATE_FOR_HELP = 'COMMUNICATE_FOR_HELP'
@@ -16,7 +18,6 @@ FOLLOW_US_VKONTAKTE = 'FOLLOW_US_VKONTAKTE'
 FOLLOW_US_TELEGRAM = 'FOLLOW_US_TELEGRAM'
 CREATE_COLLECTION = 'CREATE_COLLECTION'
 CASHBACK = 'CASHBACK'
-BACK_TO_MENU = 'BACK_TO_MENU'
 
 # Константы для подменю "Заказать сувениры"
 CHARITY_FAIR = 'CHARITY_FAIR'
@@ -40,7 +41,7 @@ SUPPORT_MENU_BUTTONS = [
         ],
         [
             InlineKeyboardButton(
-                text=f"{emoji.emojize(':package:')} Заказать суверниры",
+                text=f"{emoji.emojize(':package:')} Заказать сувениры",
                 callback_data=ORDER_SOUVENIRS
             )
         ],
@@ -63,10 +64,7 @@ SUPPORT_MENU_BUTTONS = [
             )
         ],
         [
-            InlineKeyboardButton(
-                text=f"{emoji.emojize(':reverse_button:')} Вернуться на предыдущую страницу",
-                callback_data=BACK_TO_MENU
-            )
+            create_return_to_start_button(),
         ],
     ]
 

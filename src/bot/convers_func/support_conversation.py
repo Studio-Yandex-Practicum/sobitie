@@ -1,7 +1,6 @@
 from telegram import InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
 
-from bot.keyboards.main import START_MENU_BUTTONS
 from bot.keyboards import support
 from core import states
 
@@ -17,17 +16,6 @@ async def give_support(update: Update, context):
         reply_markup=keyboard,
     )
     return states.SUPPORT_STATE
-
-
-async def go_back(update: Update, context):
-    query = update.callback_query
-    await query.answer()
-    keyboard = InlineKeyboardMarkup(START_MENU_BUTTONS)
-    await query.message.reply_text(
-        text='Мы - супер организация, делаем все и сразу, помогаем людям.',
-        reply_markup=keyboard,
-    )
-    return states.START_STATE
 
 
 async def create_a_collection(update: Update, context):

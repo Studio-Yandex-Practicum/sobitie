@@ -1,14 +1,18 @@
 from telegram import InlineKeyboardMarkup, Update
 
-
-from bot.keyboards.main import START_MENU_BUTTONS, MAIN_TEXT
+from bot.keyboards.main import MAIN_TEXT, START_MENU_BUTTONS
 from core.states import START_STATE
 
 
-async def start(update: Update, _):
-    """Главное меню, кнопка старт."""
+async def send_start_menu(update: Update, _):
+    """Отправка стартового меню и обработка возврата к нему."""
     keyboard = InlineKeyboardMarkup(START_MENU_BUTTONS)
-    await update.message.reply_text(
+    query = update.callback_query
+    if query is None:
+        send_method = update.message.reply_text
+    else:
+        send_method = query.message.edit_text
+    await send_method(
         text=MAIN_TEXT,
         reply_markup=keyboard,
     )
@@ -17,12 +21,3 @@ async def start(update: Update, _):
 
 async def end(update: Update, _):
     await update.message.reply_text('bye')
-
-
-async def main_menu(update: Update, _):
-    keyboard = InlineKeyboardMarkup(START_MENU_BUTTONS)
-    query = update.callback_query
-    await query.message.reply_text(
-        text=MAIN_TEXT,
-        reply_markup=keyboard,
-    )

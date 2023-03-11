@@ -1,17 +1,12 @@
-from telegram.ext import ApplicationBuilder, CallbackQueryHandler
+from telegram.ext import ApplicationBuilder
+
+from bot.handlers.main_handler import main_conversation_handler
 from core.settings import TELEGRAM_TOKEN
-
-from bot.handlers.main_handler import conversation_handler
-
-from bot.keyboards.about_us import RETURN_TO_START
-
-from bot.convers_func.main_conversation import main_menu
 
 
 def start_bot():
     """Старт бота."""
     bot = ApplicationBuilder().token(TELEGRAM_TOKEN).build()
 
-    bot.add_handler(conversation_handler)
-    bot.add_handler(CallbackQueryHandler(main_menu, pattern='^' + RETURN_TO_START + '$'))
+    bot.add_handler(main_conversation_handler)
     return bot

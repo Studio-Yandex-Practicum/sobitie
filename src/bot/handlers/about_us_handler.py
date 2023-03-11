@@ -1,30 +1,15 @@
-from telegram.ext import ConversationHandler, CallbackQueryHandler, CommandHandler
+from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
 
-from bot.convers_func.about_us_conversation import (go_back_to_start,
-                                                    show_about_us,
-                                                    show_documents,
-                                                    show_inclusive_theatre,
-                                                    show_inclusive_workshop,
-                                                    show_ministry_reports,
-                                                    show_theatre_school,
-                                                    show_projects,
-                                                    show_reports)
+from bot.convers_func.about_us_conversation import (show_about_us, show_documents, show_inclusive_theatre,
+                                                    show_inclusive_workshop, show_ministry_reports, show_projects,
+                                                    show_reports, show_theatre_school)
 from bot.convers_func.main_conversation import end
-from bot.keyboards.main import ABOUT_US, END
-from bot.keyboards.about_us import (INCLUSIVE_THEATRE,
-                                    INCLUSIVE_WORKSHOP,
-                                    LEGAL_DOCUMENTS,
-                                    PROJECTS,
-                                    REPORTS,
-                                    REPORTS_MINISTRY,
-                                    RETURN_TO_ABOUT_US,
-                                    RETURN_TO_BACK,
-                                    RETURN_TO_MAIN,
-                                    THEATRE_SCHOOL)
-from core.states import ABOUT_US_STATE, PROJECTS_STATE
 from bot.handlers.contacts_handler import contacts_conv
 from bot.handlers.people_handler import people_conv
-
+from bot.keyboards.about_us import (INCLUSIVE_THEATRE, INCLUSIVE_WORKSHOP, LEGAL_DOCUMENTS, PROJECTS, REPORTS,
+                                    REPORTS_MINISTRY, RETURN_TO_ABOUT_US, RETURN_TO_BACK, THEATRE_SCHOOL)
+from bot.keyboards.main import ABOUT_US, END
+from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
 about_us_conv = ConversationHandler(
     allow_reentry=True,
@@ -35,7 +20,6 @@ about_us_conv = ConversationHandler(
             CallbackQueryHandler(show_documents, pattern='^' + LEGAL_DOCUMENTS + '$'),
             CallbackQueryHandler(show_reports, pattern='^' + REPORTS + '$'),
             CallbackQueryHandler(show_ministry_reports, pattern='^' + REPORTS_MINISTRY + '$'),
-            CallbackQueryHandler(go_back_to_start, pattern='^' + RETURN_TO_MAIN + '$'),
             contacts_conv,
             people_conv,
         ],
