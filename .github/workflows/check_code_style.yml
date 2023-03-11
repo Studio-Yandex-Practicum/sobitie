@@ -19,7 +19,8 @@ jobs:
       - name: Install poetry
         run: |
           python -m pip install --upgrade pip
-          pip install poetry
+          pip install pipx
+          pipx install poetry
 
       - name: Validate and install dependencies with Poetry
         run: |
