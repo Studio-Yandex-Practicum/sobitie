@@ -1,3 +1,4 @@
+import emoji
 from telegram import InlineKeyboardButton
 
 ABOUT_US = 'ABOUT_US'
@@ -22,6 +23,7 @@ MAIN_TEXT = """Привет! Познакомимся?
 Выберите раздел меню, чтобы узнать больше.
 """
 RETURN_TO_START = 'RETURN_TO_START'
+RETURN_TO_START_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню"
 
 START_MENU_BUTTONS = [
     [
@@ -49,3 +51,8 @@ START_MENU_BUTTONS = [
         )
     ],
 ]
+
+
+def create_return_to_start_button(text: str = RETURN_TO_START_BUTTON_TEXT) -> InlineKeyboardButton:
+    """Создаёт объект кнопки для возвращения в стартовое меню."""
+    return InlineKeyboardButton(text=text, callback_data=RETURN_TO_START)

@@ -1,7 +1,7 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import RETURN_TO_START
+from bot.keyboards.main import RETURN_TO_START, create_return_to_start_button
 
 # Константы для меню "Помочь"
 ATTEND_EVENT = 'ATTEND_EVENT'
@@ -64,10 +64,7 @@ SUPPORT_MENU_BUTTONS = [
             )
         ],
         [
-            InlineKeyboardButton(
-                text=f"{emoji.emojize(':reverse_button:')} Вернуться на предыдущую страницу",
-                callback_data=RETURN_TO_START
-            )
+            create_return_to_start_button(),
         ],
     ]
 
