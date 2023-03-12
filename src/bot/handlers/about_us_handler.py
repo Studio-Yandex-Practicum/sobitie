@@ -7,7 +7,7 @@ from bot.convers_func.main_conversation import end
 from bot.handlers.contacts_handler import contacts_conv
 from bot.handlers.people_handler import people_conv
 from bot.keyboards.about_us import (INCLUSIVE_THEATRE, INCLUSIVE_WORKSHOP, LEGAL_DOCUMENTS, PROJECTS, REPORTS,
-                                    REPORTS_MINISTRY, RETURN_TO_ABOUT_US, RETURN_TO_BACK, THEATRE_SCHOOL)
+                                    REPORTS_MINISTRY, RETURN_TO_ABOUT_US, RETURN_BACK, THEATRE_SCHOOL)
 from bot.keyboards.main import ABOUT_US, END
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
@@ -28,7 +28,7 @@ about_us_conv = ConversationHandler(
             CallbackQueryHandler(show_inclusive_theatre, pattern='^' + INCLUSIVE_THEATRE + '$'),
             CallbackQueryHandler(show_inclusive_workshop, pattern='^' + INCLUSIVE_WORKSHOP + '$'),
             CallbackQueryHandler(show_theatre_school, pattern='^' + THEATRE_SCHOOL + '$'),
-            CallbackQueryHandler(show_projects, pattern='^' + RETURN_TO_BACK + '$')
+            CallbackQueryHandler(show_projects, pattern='^' + RETURN_BACK + '$')
         ],
     },
     fallbacks=[CommandHandler(END, end)]

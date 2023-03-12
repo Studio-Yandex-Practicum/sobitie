@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.keyboards.about_us import (ABOUT_US_MENU_BUTTONS, BUTTON_BACK, DOCUMENTS_MENU_BUTTONS,
+from bot.keyboards.about_us import (ABOUT_US_MENU_BUTTONS, RETURN_BACK_AND_TO_START_BUTTONS, DOCUMENTS_MENU_BUTTONS,
                                     MINISTRY_REPORTS_BUTTONS, PROJECTS_MENU_BUTTONS, REPORTS_MENU_BUTTONS)
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
@@ -131,7 +131,7 @@ async def _send_project_info(update: Update, message: ProjectInfoMessage):
     """Отправка сообщения с информацией о проекте."""
     query = update.callback_query
     await query.answer()
-    keyboard = InlineKeyboardMarkup(BUTTON_BACK)
+    keyboard = InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
     message.text += '<a href="%s">&#8205;</a>' % message.image_url
     await query.edit_message_text(
         text=message.text,
