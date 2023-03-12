@@ -5,7 +5,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,6 +22,9 @@ jobs:
           pip install pipx
           pipx install poetry
 
+      - name: Add /root/.local/bin to PATH
+        run: echo "/root/.local/bin" >> $GITHUB_PATH
+
       - name: Validate and install dependencies with Poetry
         run: |
           poetry check
@@ -31,7 +34,7 @@ jobs:
       - name: Lint with flake8
         run: |
           poetry run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          poetry run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
+          poetry run flake8 . --count --statistics
 
       - name: Check import formatting with isort
         run: |
