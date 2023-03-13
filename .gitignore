@@ -130,3 +130,6 @@ dmypy.json
 .pyre/
 
 media/
+
+# nektos/act: run GitHub Actions locally
+/.secrets

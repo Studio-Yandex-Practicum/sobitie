@@ -1,0 +1,43 @@
+name: Check code style
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install poetry
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipx
+          pipx install poetry
+
+      - name: Add /root/.local/bin to PATH
+        run: echo "/root/.local/bin" >> $GITHUB_PATH
+
+      - name: Validate and install dependencies with Poetry
+        run: |
+          poetry check
+          poetry lock --check
+          poetry install
+
+      - name: Lint with flake8
+        run: |
+          poetry run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          poetry run flake8 . --count --statistics
+
+      - name: Check import formatting with isort
+        run: |
+          poetry run isort . --check-only --diff
