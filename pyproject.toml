@@ -25,6 +25,7 @@ isort = "^5.12.0"
 [tool.isort]
 line_length = 120
 extend_skip_glob = ["*/migrations/*"]
+src_paths = ["src", "drf_sobitie"]
 
 [build-system]
 requires = ["poetry-core"]
