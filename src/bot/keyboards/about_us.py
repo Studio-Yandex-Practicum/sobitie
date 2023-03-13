@@ -30,8 +30,8 @@ RETURN_TO_ABOUT_US = 'RETURN_TO_ABOUT_US'
 CONTACTS_INFO = 'CONTACTS_INFO'
 
 # Константы кнопки "НАЗАД"
-RETURN_TO_BACK = 'RETURN_TO_BACK'
-RETURN_TO_BACK_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу"
+RETURN_BACK = 'RETURN_TO_BACK'
+RETURN_BACK_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу"
 
 # КНОПКИ МЕНЮ "О НАС"
 ABOUT_US_MENU_BUTTONS = [
@@ -66,7 +66,7 @@ ABOUT_US_MENU_BUTTONS = [
         )
     ],
     [
-        create_return_to_start_button(text=RETURN_TO_BACK_BUTTON_TEXT),
+        create_return_to_start_button(text=RETURN_BACK_BUTTON_TEXT),
     ],
 ]
 
@@ -160,19 +160,19 @@ PROJECTS_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=RETURN_TO_BACK_BUTTON_TEXT,
+            text=RETURN_BACK_BUTTON_TEXT,
             callback_data=RETURN_TO_ABOUT_US,
         )
     ],
 ]
 
-# КНОПКА ПОДМЕНЮ "НАЗАД"
-BUTTON_BACK = [
+RETURN_BACK_AND_TO_START_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=RETURN_TO_BACK_BUTTON_TEXT,
-            callback_data=RETURN_TO_BACK,
-        )
+            text=f"{emoji.emojize(':BACK_arrow:')} Назад",
+            callback_data=RETURN_BACK,
+        ),
+        create_return_to_start_button(text=f"{emoji.emojize(':house:')} В главное меню"),
     ],
 ]
 
