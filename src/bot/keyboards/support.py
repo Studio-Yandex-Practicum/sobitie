@@ -112,17 +112,16 @@ DONATION_OPTIONS_MENU_BUTTONS = [
 SUPPORT_FOLLOW_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="ВКонтакте",
+            text=f'{emoji.emojize(":blue_heart:")} Вконтакте:\n',
             callback_data=FOLLOW_US_VKONTAKTE,
-            url="https://vk.com/sobytie.center"
-
+            url='https://vk.com/sobytie.center',
         )
     ],
     [
         InlineKeyboardButton(
-            text="Telegram",
+            text=f'{emoji.emojize(":star:")} Telegram:\n',
             callback_data=FOLLOW_US_TELEGRAM,
-            url="https://t.me/sobytiecenter"
+            url='https://t.me/sobytiecenter',
         )
     ],
     [
