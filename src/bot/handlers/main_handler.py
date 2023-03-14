@@ -11,16 +11,9 @@ from core.states import START_STATE
 main_conversation_handler = ConversationHandler(
     allow_reentry=True,
     entry_points=[
-        CommandHandler('start', send_start_menu),
-        CallbackQueryHandler(send_start_menu, pattern='^' + RETURN_TO_START + '$'),
+        CommandHandler("start", send_start_menu),
+        CallbackQueryHandler(send_start_menu, pattern="^" + RETURN_TO_START + "$"),
     ],
-    states={
-        START_STATE: [
-            about_us_conv,
-            support_conv,
-            event_conv,
-            interactive_conv,
-        ]
-    },
-    fallbacks=[CommandHandler('end', end)],
+    states={START_STATE: [about_us_conv, support_conv, event_conv, interactive_conv,]},
+    fallbacks=[CommandHandler("end", end)],
 )

@@ -5,21 +5,30 @@ from event.models import Category, Event, Quote
 
 class CategorySerializer(ModelSerializer):
     """Сериализатор для категорий."""
+
     event = StringRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Category
-        fields = ('name', 'add_time', 'change_time', 'event')
+        fields = ("name", "add_time", "change_time", "event")
 
 
 class EventSerializer(ModelSerializer):
     """Сериализатор для мероприятий."""
+
     category = StringRelatedField(read_only=True)
 
     class Meta:
         model = Event
-        fields = ('name', 'description', 'add_time', 'change_time', 'category',
-                  'event_time', 'location')
+        fields = (
+            "name",
+            "description",
+            "add_time",
+            "change_time",
+            "category",
+            "event_time",
+            "location",
+        )
 
 
 class QuoteSerializer(ModelSerializer):
@@ -27,4 +36,4 @@ class QuoteSerializer(ModelSerializer):
 
     class Meta:
         model = Quote
-        fields = ('text', 'author', 'image')
+        fields = ("text", "author", "image")

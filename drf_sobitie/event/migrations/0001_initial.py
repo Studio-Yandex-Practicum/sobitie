@@ -8,40 +8,89 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256, unique=True, verbose_name='Название категории')),
-                ('add_time', models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')),
-                ('change_time', models.DateTimeField(auto_now=True, verbose_name='Дата изменения')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=256, unique=True, verbose_name="Название категории"
+                    ),
+                ),
+                (
+                    "add_time",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата добавления"
+                    ),
+                ),
+                (
+                    "change_time",
+                    models.DateTimeField(auto_now=True, verbose_name="Дата изменения"),
+                ),
             ],
-            options={
-                'verbose_name': 'Категория',
-                'verbose_name_plural': 'Категории',
-            },
+            options={"verbose_name": "Категория", "verbose_name_plural": "Категории",},
         ),
         migrations.CreateModel(
-            name='Event',
+            name="Event",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256, unique=True, verbose_name='Название категории')),
-                ('description', models.TextField(blank=True, null=True, verbose_name='Подробное описание')),
-                ('add_time', models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')),
-                ('change_time', models.DateTimeField(auto_now=True, verbose_name='Дата изменения')),
-                ('category', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='event', to='event.category')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        max_length=256, unique=True, verbose_name="Название категории"
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        blank=True, null=True, verbose_name="Подробное описание"
+                    ),
+                ),
+                (
+                    "add_time",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата добавления"
+                    ),
+                ),
+                (
+                    "change_time",
+                    models.DateTimeField(auto_now=True, verbose_name="Дата изменения"),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="event",
+                        to="event.category",
+                    ),
+                ),
             ],
-            options={
-                'verbose_name': 'Событие',
-                'verbose_name_plural': 'События',
-            },
+            options={"verbose_name": "Событие", "verbose_name_plural": "События",},
         ),
         migrations.AddConstraint(
-            model_name='event',
-            constraint=models.UniqueConstraint(fields=('name', 'description'), name='unique_event'),
+            model_name="event",
+            constraint=models.UniqueConstraint(
+                fields=("name", "description"), name="unique_event"
+            ),
         ),
     ]

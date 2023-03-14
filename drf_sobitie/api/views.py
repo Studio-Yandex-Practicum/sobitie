@@ -9,12 +9,14 @@ from api.serializers import CategorySerializer, EventSerializer, QuoteSerializer
 
 class CategoryViewSet(ModelViewSet):
     """Вьюсет для категорий."""
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
 class EventViewSet(ModelViewSet):
     """Вьюсет для мероприятий."""
+
     serializer_class = EventSerializer
 
     def get_queryset(self):
@@ -25,5 +27,6 @@ class EventViewSet(ModelViewSet):
 
 class QuoteViewSet(ModelViewSet):
     """Вьюсет для цитат."""
-    queryset = Quote.objects.order_by('-add_time')[:1]
+
+    queryset = Quote.objects.order_by("-add_time")[:1]
     serializer_class = QuoteSerializer

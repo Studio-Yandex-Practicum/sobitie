@@ -7,7 +7,7 @@ from bot.convers_func.main_conversation import end
 
 contacts_conv = ConversationHandler(
     allow_reentry=True,
-    entry_points=[CallbackQueryHandler(show_contacts, pattern='^' + CONTACTS + '$')],
+    entry_points=[CallbackQueryHandler(show_contacts, pattern="^" + CONTACTS + "$")],
     states={},
-    fallbacks=[CommandHandler(END, end)]
+    fallbacks=[CommandHandler(END, end)],
 )
