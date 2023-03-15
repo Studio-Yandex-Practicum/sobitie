@@ -53,8 +53,8 @@ class Event(models.Model):
                 name='unique_event'
             ),
         )
-        verbose_name = 'Событие'
-        verbose_name_plural = 'События'
+        verbose_name = 'Мероприятие'
+        verbose_name_plural = 'Мероприятия'
 
     def __str__(self):
         return self.name
