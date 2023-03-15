@@ -7,9 +7,9 @@ services:
       dockerfile: Dockerfile
     container_name: drf_sobitie
     restart: always
-    command: bash -c "python drf_sobitie/manage.py migrate && python drf_sobitie/manage.py runserver"     
-    ports:
-      - "8000:8000"
+    command: python drf_sobitie/manage.py runserver 0:8000
+    volumes:
+      - static_value:/app/drf_sobitie/static/  
     env_file:
       - ./.env
   bot:
@@ -19,7 +19,22 @@ services:
     container_name: bot_sobitie
     restart: always
     command: python src/main.py
+    volumes:
+      - media_value:/app/src/media/
     depends_on:
       - web
     env_file:
       - ./.env
+  nginx:
+    image: nginx:1.21.3-alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+    depends_on:
+      - web
+volumes:
+  static_value:
+  media_value:
