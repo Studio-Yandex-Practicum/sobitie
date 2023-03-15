@@ -1,5 +1,6 @@
-from rest_framework.serializers import ModelSerializer, StringRelatedField
 from drf_extra_fields.fields import Base64ImageField
+from rest_framework.serializers import ModelSerializer, StringRelatedField
+
 from event.models import Category, Event, Quote
 
 

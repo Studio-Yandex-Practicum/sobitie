@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from event.models import Event, Category, Quote
+from event.models import Category, Event, Quote
 
 
 class QuoteAdmin(admin.ModelAdmin):
