@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from event.models import Category, Event, Quote
 
 LENGTH_OF_QUOTE_DISPLAY = 200
+EMPTY_VALUE = "-пусто-"
 
 
 class QuoteAdmin(admin.ModelAdmin):
@@ -18,7 +19,7 @@ class QuoteAdmin(admin.ModelAdmin):
     )
     list_display_links = ("id", "short_text")
     search_fields = ("text", "author")
-    empty_value_display = "-пусто-"
+    empty_value_display = EMPTY_VALUE
 
     @admin.display(description="Изображение")
     def thumbnail_of_image(self, obj):
@@ -48,7 +49,7 @@ class EventAdmin(admin.ModelAdmin):
     list_display_links = ("id", "name")
     search_fields = ("name", "location")
     list_filter = ("category",)
-    empty_value_display = "-пусто-"
+    empty_value_display = EMPTY_VALUE
 
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -56,7 +57,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ("id", "name", "add_time", "change_time")
     list_display_links = ("id", "name")
     search_fields = ("name",)
-    empty_value_display = "-пусто-"
+    empty_value_display = EMPTY_VALUE
 
 
 admin.site.register(Event, EventAdmin)
