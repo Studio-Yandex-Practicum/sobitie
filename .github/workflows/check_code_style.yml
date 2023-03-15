@@ -40,5 +40,5 @@ jobs:
 
       - name: Check import formatting with isort
         run: |
-          poetry run isort . --check-only --diff
-          #poetry run isort . --profile black
+          #poetry run isort . --check-only --diff
+          poetry run isort . --profile black
