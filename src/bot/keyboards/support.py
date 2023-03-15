@@ -1,7 +1,7 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import RETURN_TO_START, create_return_to_start_button
+from bot.keyboards.main import create_return_to_start_button
 
 # Константы для меню "Помочь"
 ATTEND_EVENT = "ATTEND_EVENT"

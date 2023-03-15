@@ -1,6 +1,6 @@
 from telegram import InlineKeyboardMarkup, Update
 
-from bot.keyboards.about_us import CONTACTS_BUTTONS, CONTACTS_INFO
+from bot.keyboards.about_us import CONTACTS_BUTTONS
 
 
 async def show_contacts(update: Update, _):

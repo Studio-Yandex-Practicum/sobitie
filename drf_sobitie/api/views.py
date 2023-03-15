@@ -1,10 +1,9 @@
 from datetime import datetime
 
 from rest_framework.viewsets import ModelViewSet
-from rest_framework import status
 
-from event.models import Category, Event, Quote
 from api.serializers import CategorySerializer, EventSerializer, QuoteSerializer
+from event.models import Category, Event, Quote
 
 
 class CategoryViewSet(ModelViewSet):
