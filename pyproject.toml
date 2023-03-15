@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "sobitie_bot"
 authors = [
     "Владислав Бойко", "Никита Цыбин", "Андрей Укладчиков",
-    "Екатерина Каричева", "Кирилл Резник", "внесите себя"
+    "Екатерина Каричева", "Кирилл Резник",
+    "Даниил Паутов <danpautoff@yandex.ru>", "внесите себя"
 ]
 readme = "README.md"
 
@@ -18,8 +19,13 @@ djangorestframework = "^3.14.0"
 requests = "^2.28.2"
 pillow = "^9.4.0"
 drf-extra-fields = "^3.4.1"
+flake8 = "^6.0.0"
+isort = "^5.12.0"
 
-
+[tool.isort]
+line_length = 120
+extend_skip_glob = ["*/migrations/*"]
+src_paths = ["src", "drf_sobitie"]
 
 [build-system]
 requires = ["poetry-core"]

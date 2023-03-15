@@ -156,12 +156,13 @@ PROJECTS_MENU_BUTTONS = [
     ],
 ]
 
-# КНОПКА ПОДМЕНЮ "НАЗАД"
-BUTTON_BACK = [
+RETURN_BACK_AND_TO_START_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=RETURN_TO_BACK_BUTTON_TEXT, callback_data=RETURN_TO_BACK,
-        )
+            text=f"{emoji.emojize(':BACK_arrow:')} Назад",
+            callback_data=RETURN_TO_BACK,
+        ),
+        create_return_to_start_button(text=f"{emoji.emojize(':house:')} В главное меню"),
     ],
 ]
 
@@ -169,7 +170,7 @@ BUTTON_BACK = [
 CONTACTS_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':envelope:')} " f"Электронная почта",
+            text=f"{emoji.emojize(':envelope:')} Электронная почта",
             url="mailto:sobytie.center@yandex.ru",
         )
     ],
