@@ -5,6 +5,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-LOG_LEVEL = 'INFO'
+LOG_LEVEL = "INFO"
 
-TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")

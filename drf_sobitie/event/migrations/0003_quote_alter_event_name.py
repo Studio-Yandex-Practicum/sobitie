@@ -6,27 +6,50 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('event', '0002_event_event_time_event_location'),
+        ("event", "0002_event_event_time_event_location"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Quote',
+            name="Quote",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.TextField(verbose_name='Текст цитаты')),
-                ('author', models.CharField(max_length=256, verbose_name='Автор цитаты')),
-                ('add_time', models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления')),
-                ('image', models.ImageField(blank=True, null=True, upload_to='images/', verbose_name='Изображение')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.TextField(verbose_name="Текст цитаты")),
+                (
+                    "author",
+                    models.CharField(max_length=256, verbose_name="Автор цитаты"),
+                ),
+                (
+                    "add_time",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата добавления"
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        blank=True,
+                        null=True,
+                        upload_to="images/",
+                        verbose_name="Изображение",
+                    ),
+                ),
             ],
-            options={
-                'verbose_name': 'Цитата',
-                'verbose_name_plural': 'Цитаты',
-            },
+            options={"verbose_name": "Цитата", "verbose_name_plural": "Цитаты",},
         ),
         migrations.AlterField(
-            model_name='event',
-            name='name',
-            field=models.CharField(max_length=256, unique=True, verbose_name='Название события'),
+            model_name="event",
+            name="name",
+            field=models.CharField(
+                max_length=256, unique=True, verbose_name="Название события"
+            ),
         ),
     ]

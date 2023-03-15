@@ -1,5 +1,5 @@
-import logging
+import logging  # noqa
 
-from .settings import LOG_LEVEL, BASE_DIR
+from .settings import BASE_DIR, LOG_LEVEL  # noqa
 
-FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
+FORMAT = "%(asctime)s - %(levelname)s - %(message)s" # noqa

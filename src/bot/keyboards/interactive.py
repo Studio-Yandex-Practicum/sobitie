@@ -3,16 +3,15 @@ from telegram import InlineKeyboardButton
 
 from bot.keyboards.main import create_return_to_start_button
 
-QUIZZES = 'QUIZZES'
-GET_STICKERS = 'GET_STICKERS'
-RANDOM_QUOTE = 'RANDOM_QUOTE'
+QUIZZES = "QUIZZES"
+GET_STICKERS = "GET_STICKERS"
+RANDOM_QUOTE = "RANDOM_QUOTE"
 
 # кнопки для меню интерактив
 INTERACTIVE_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':game_die:')}Викторины",
-            callback_data=QUIZZES,
+            text=f"{emoji.emojize(':game_die:')}Викторины", callback_data=QUIZZES,
         ),
     ],
     [
@@ -23,11 +22,8 @@ INTERACTIVE_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':books:')}Цитата недели",
-            callback_data=RANDOM_QUOTE,
+            text=f"{emoji.emojize(':books:')}Цитата недели", callback_data=RANDOM_QUOTE,
         ),
     ],
-    [
-        create_return_to_start_button(),
-    ],
+    [create_return_to_start_button(),],
 ]

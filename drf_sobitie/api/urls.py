@@ -5,10 +5,10 @@ from api.views import CategoryViewSet, EventViewSet, QuoteViewSet
 
 router = DefaultRouter()
 
-router.register('categories', CategoryViewSet, basename='categories')
-router.register('events', EventViewSet, basename='events')
-router.register('quotes', QuoteViewSet, basename='quotes')
+router.register("categories", CategoryViewSet, basename="categories")
+router.register("events", EventViewSet, basename="events")
+router.register("quotes", QuoteViewSet, basename="quotes")
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]

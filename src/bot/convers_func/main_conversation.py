@@ -13,11 +13,10 @@ async def send_start_menu(update: Update, _):
     else:
         send_method = query.message.edit_text
     await send_method(
-        text=MAIN_TEXT,
-        reply_markup=keyboard,
+        text=MAIN_TEXT, reply_markup=keyboard,
     )
     return START_STATE
 
 
 async def end(update: Update, _):
-    await update.message.reply_text('bye')
+    await update.message.reply_text("bye")

@@ -7,18 +7,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('event', '0001_initial'),
+        ("event", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='event_time',
-            field=models.DateTimeField(default=datetime.datetime.today, verbose_name='Дата события'),
+            model_name="event",
+            name="event_time",
+            field=models.DateTimeField(
+                default=datetime.datetime.today, verbose_name="Дата события"
+            ),
         ),
         migrations.AddField(
-            model_name='event',
-            name='location',
-            field=models.CharField(blank=True, max_length=256, null=True, verbose_name='Место проведения'),
+            model_name="event",
+            name="location",
+            field=models.CharField(
+                blank=True, max_length=256, null=True, verbose_name="Место проведения"
+            ),
         ),
     ]
