@@ -3,8 +3,14 @@ from dataclasses import dataclass
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.keyboards.about_us import (ABOUT_US_MENU_BUTTONS, RETURN_BACK_AND_TO_START_BUTTONS, DOCUMENTS_MENU_BUTTONS,
-                                    MINISTRY_REPORTS_BUTTONS, PROJECTS_MENU_BUTTONS, REPORTS_MENU_BUTTONS)
+from bot.keyboards.about_us import (
+    ABOUT_US_MENU_BUTTONS,
+    DOCUMENTS_MENU_BUTTONS,
+    MINISTRY_REPORTS_BUTTONS,
+    PROJECTS_MENU_BUTTONS,
+    REPORTS_MENU_BUTTONS,
+    RETURN_BACK_AND_TO_START_BUTTONS,
+)
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
 
@@ -21,10 +27,9 @@ async def show_about_us(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(ABOUT_US_MENU_BUTTONS)
-    message_text = 'Узнайте о нас побольше. Выберите интересующее Вас:'
+    message_text = "Узнайте о нас побольше. Выберите интересующее Вас:"
     await query.edit_message_text(
-        text=message_text,
-        reply_markup=keyboard,
+        text=message_text, reply_markup=keyboard,
     )
     return ABOUT_US_STATE
 
@@ -40,8 +45,7 @@ async def show_documents(update: Update, _: CallbackContext):
 ИНН: 7727301229
 ОГРН: 116700068051"""
     await query.edit_message_text(
-        text=message_text,
-        reply_markup=keyboard,
+        text=message_text, reply_markup=keyboard,
     )
 
 
@@ -56,8 +60,7 @@ async def show_reports(update: Update, _: CallbackContext):
 их использовании открыта.
 Мы ежегодно подаём финансовые отчёты в Министерство юстиции РФ и размещаем годовые отчёты на сайте."""
     await query.edit_message_text(
-        text=message_text,
-        reply_markup=keyboard,
+        text=message_text, reply_markup=keyboard,
     )
 
 
@@ -71,8 +74,7 @@ async def show_ministry_reports(update: Update, _: CallbackContext):
 
 Введите в поисковую строку ОГРН: 1167700068051"""
     await query.edit_message_text(
-        text=message_text,
-        reply_markup=keyboard,
+        text=message_text, reply_markup=keyboard,
     )
 
 
@@ -86,8 +88,7 @@ async def show_projects(update: Update, _: CallbackContext):
 школе для детей с особыми образовательными потребностями. Одной из важных задач нашей работы является развитие \
 социальной ответственности её участников."""
     await query.edit_message_text(
-        text=message_text,
-        reply_markup=keyboard,
+        text=message_text, reply_markup=keyboard,
     )
     return PROJECTS_STATE
 
@@ -98,7 +99,7 @@ async def show_inclusive_theatre(update: Update, _: CallbackContext):
         text="""Театр для наших <a href="https://sobytie.center/project-tag/aktyory/">актёров</a> - способ \
 взаимодействия с собой и миром вокруг, возможность созидать и делиться плодами сотворчества. В процессе работы \
 решаются реабилитационные, воспитательные, образовательные и эстетические задачи.""",
-        image_url='https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg',
+        image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
     )
     await _send_project_info(update=update, message=message)
 
@@ -110,7 +111,7 @@ async def show_inclusive_workshop(update: Update, _: CallbackContext):
 спектаклей, так и необычные вещи, сувениры, аксессуары для благотворительных ярмарок.
 Ребята не только сами учатся какому-либо рукоделию, но и проводят очные и дистанционные мастер-классы.
 """,
-        image_url='https://sobytie.center/wp-content/uploads/2022/07/Masterskaya-svechi.jpg',
+        image_url="https://sobytie.center/wp-content/uploads/2022/07/Masterskaya-svechi.jpg",
     )
     await _send_project_info(update=update, message=message)
 
@@ -122,7 +123,7 @@ async def show_theatre_school(update: Update, _: CallbackContext):
 особыми образовательными потребностями: ассистируют на занятиях, проводят разминки и тренинги, участвуют в совместных \
 творческих проектах, помогают изготавливать костюмы и реквизит для школьных спектаклей, сопровождают школьников во \
 время показов.""",
-        image_url='https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg',
+        image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
     )
     await _send_project_info(update=update, message=message)
 
@@ -134,7 +135,5 @@ async def _send_project_info(update: Update, message: ProjectInfoMessage):
     keyboard = InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
     message.text += '<a href="%s">&#8205;</a>' % message.image_url
     await query.edit_message_text(
-        text=message.text,
-        parse_mode='HTML',
-        reply_markup=keyboard,
+        text=message.text, parse_mode="HTML", reply_markup=keyboard,
     )

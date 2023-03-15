@@ -7,7 +7,7 @@ from bot.keyboards.main import END
 
 people_conv = ConversationHandler(
     allow_reentry=True,
-    entry_points=[CallbackQueryHandler(show_people, pattern='^' + PEOPLE + '$')],
+    entry_points=[CallbackQueryHandler(show_people, pattern="^" + PEOPLE + "$")],
     states={},
-    fallbacks=[CommandHandler(END, end)]
+    fallbacks=[CommandHandler(END, end)],
 )
