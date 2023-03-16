@@ -22,6 +22,9 @@ class ProjectInfoMessage:
     image_url: str
 
 
+
+
+
 async def show_about_us(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'О нас'."""
     import pdb
