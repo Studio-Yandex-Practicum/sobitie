@@ -3,14 +3,8 @@ from dataclasses import dataclass
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.keyboards.about_us import (
-    ABOUT_US_MENU_BUTTONS,
-    DOCUMENTS_MENU_BUTTONS,
-    MINISTRY_REPORTS_BUTTONS,
-    PROJECTS_MENU_BUTTONS,
-    REPORTS_MENU_BUTTONS,
-    RETURN_BACK_AND_TO_START_BUTTONS,
-)
+from bot.keyboards.about_us import (ABOUT_US_MENU_BUTTONS, DOCUMENTS_MENU_BUTTONS, MINISTRY_REPORTS_BUTTONS,
+                                    PROJECTS_MENU_BUTTONS, REPORTS_MENU_BUTTONS, RETURN_BACK_AND_TO_START_BUTTONS)
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
 
@@ -24,6 +18,8 @@ class ProjectInfoMessage:
 
 async def show_about_us(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'О нас'."""
+    import pdb
+    pdb.set_trace()
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(ABOUT_US_MENU_BUTTONS)
