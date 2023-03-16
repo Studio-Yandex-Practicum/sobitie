@@ -1,28 +1,28 @@
-from telegram import InlineKeyboardMarkup
+from telegram import InlineKeyboardMarkup, Update
+from telegram.ext import CallbackContext
 
-from bot.keyboards.event import BUTTON_BACK, CHOOSE_EVENT, EVENTS_BUTTONS
+from bot.keyboards.event import EVENT_MENU, EVENT_MENU_BUTTONS
 
 
-async def get_events(update, _) -> str:
-    keyboard = InlineKeyboardMarkup(EVENTS_BUTTONS)
+async def show_event_menu(update: Update, _: CallbackContext):
+    """Отправляет клавиатуру с меню раздела мероприятий."""
+    keyboard = InlineKeyboardMarkup(EVENT_MENU_BUTTONS)
     await update.callback_query.answer()
+    message_text = """Мы организуем показы спектаклей, проводим открытые репетиции, мастер-классы, участвуем в \
+благотворительных ярмарках, фестивалях...
+Хотите узнать больше о предстоящих событиях?"""
     await update.callback_query.edit_message_text(
-        text="Меню мероприятий", reply_markup=keyboard
+        text=message_text,
+        reply_markup=keyboard,
     )
-    return CHOOSE_EVENT
+    return EVENT_MENU
 
 
-async def get_master_classes(update, _):
-    keyboard = InlineKeyboardMarkup(BUTTON_BACK)
-    query = update.callback_query
-    await query.edit_message_text(
-        text="Ваши мастер классы: парам", reply_markup=keyboard,
-    )
+async def show_upcoming_events(update: Update, _: CallbackContext):
+    """Отправляет сообщения с ближайшими событиями."""
+    pass
 
 
-async def get_performances(update, _):
-    keyboard = InlineKeyboardMarkup(BUTTON_BACK)
-    query = update.callback_query
-    await query.edit_message_text(
-        "Ваши спектакли", reply_markup=keyboard,
-    )
+async def show_gratitude_and_subscribe_to_notifications(update: Update, _: CallbackContext):
+    """Отправляет сообщение благодарности за подписку и включает уведомления пользователю на события."""
+    pass
