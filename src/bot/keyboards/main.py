@@ -28,10 +28,30 @@ RETURN_TO_START_BUTTON_TEXT = (
 )
 
 START_MENU_BUTTONS = [
-    [InlineKeyboardButton(text="О нас", callback_data=ABOUT_US,)],
-    [InlineKeyboardButton(text="Мероприятия", callback_data=EVENTS,)],
-    [InlineKeyboardButton(text="Помочь", callback_data=GIVE_SUPPORT,)],
-    [InlineKeyboardButton(text="Интерактив", callback_data=INTERACTIVE_GAME,)],
+    [
+        InlineKeyboardButton(
+            text="О нас",
+            callback_data=ABOUT_US,
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text="Мероприятия",
+            callback_data=EVENTS,
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text="Помочь",
+            callback_data=GIVE_SUPPORT,
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text="Интерактив",
+            callback_data=INTERACTIVE_GAME,
+        )
+    ],
 ]
 
 

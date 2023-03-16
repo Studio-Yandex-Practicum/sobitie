@@ -51,7 +51,9 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=FOLLOW_US,
         )
     ],
-    [create_return_to_start_button(),],
+    [
+        create_return_to_start_button(),
+    ],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ВЫБРАТЬ СПОСОБ ПОЖЕРТВОВАНИЯ"

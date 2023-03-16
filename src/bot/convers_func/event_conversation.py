@@ -16,7 +16,8 @@ async def get_master_classes(update, _):
     keyboard = InlineKeyboardMarkup(BUTTON_BACK)
     query = update.callback_query
     await query.edit_message_text(
-        text="Ваши мастер классы: парам", reply_markup=keyboard,
+        text="Ваши мастер классы: парам",
+        reply_markup=keyboard,
     )
 
 
@@ -24,5 +25,6 @@ async def get_perfomances(update, _):
     keyboard = InlineKeyboardMarkup(BUTTON_BACK)
     query = update.callback_query
     await query.edit_message_text(
-        "Ваши спектакли", reply_markup=keyboard,
+        "Ваши спектакли",
+        reply_markup=keyboard,
     )

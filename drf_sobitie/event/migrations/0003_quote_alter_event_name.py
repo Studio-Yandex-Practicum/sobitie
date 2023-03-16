@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("event", "0002_event_event_time_event_location"),
     ]
@@ -43,7 +42,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "Цитата", "verbose_name_plural": "Цитаты",},
+            options={
+                "verbose_name": "Цитата",
+                "verbose_name_plural": "Цитаты",
+            },
         ),
         migrations.AlterField(
             model_name="event",

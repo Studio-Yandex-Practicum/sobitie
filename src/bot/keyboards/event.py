@@ -15,9 +15,21 @@ RETURN_TO_BACK_BUTTON_TEXT = (
 
 # КНОПКИ МЕНЮ "Мероприятия"
 EVENTS_BUTTONS = [
-    [InlineKeyboardButton(text="Мастер-классы", callback_data=GET_MASTER_CLASS,),],
-    [InlineKeyboardButton(text="Спектакли", callback_data=GET_PERFORMANCES,),],
-    [create_return_to_start_button(),],
+    [
+        InlineKeyboardButton(
+            text="Мастер-классы",
+            callback_data=GET_MASTER_CLASS,
+        ),
+    ],
+    [
+        InlineKeyboardButton(
+            text="Спектакли",
+            callback_data=GET_PERFORMANCES,
+        ),
+    ],
+    [
+        create_return_to_start_button(),
+    ],
 ]
 
 
@@ -25,7 +37,8 @@ EVENTS_BUTTONS = [
 BUTTON_BACK = [
     [
         InlineKeyboardButton(
-            text=RETURN_TO_BACK_BUTTON_TEXT, callback_data=RETURN_TO_BACK,
+            text=RETURN_TO_BACK_BUTTON_TEXT,
+            callback_data=RETURN_TO_BACK,
         )
     ],
 ]

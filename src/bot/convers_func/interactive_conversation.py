@@ -16,7 +16,8 @@ async def menu_interactive(update: Update, context):
 
     keyboard = InlineKeyboardMarkup(INTERACTIVE_BUTTONS)
     await query.edit_message_text(
-        text="Интерактив", reply_markup=keyboard,
+        text="Интерактив",
+        reply_markup=keyboard,
     )
     return INTERACTIVE_STATE
 

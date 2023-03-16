@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = []
@@ -40,7 +39,10 @@ class Migration(migrations.Migration):
                     models.DateTimeField(auto_now=True, verbose_name="Дата изменения"),
                 ),
             ],
-            options={"verbose_name": "Категория", "verbose_name_plural": "Категории",},
+            options={
+                "verbose_name": "Категория",
+                "verbose_name_plural": "Категории",
+            },
         ),
         migrations.CreateModel(
             name="Event",
@@ -85,7 +87,10 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "Событие", "verbose_name_plural": "События",},
+            options={
+                "verbose_name": "Событие",
+                "verbose_name_plural": "События",
+            },
         ),
         migrations.AddConstraint(
             model_name="event",

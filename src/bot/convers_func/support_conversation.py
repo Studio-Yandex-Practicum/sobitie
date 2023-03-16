@@ -12,7 +12,8 @@ async def give_support(update: Update, context):
 
     keyboard = InlineKeyboardMarkup(support.SUPPORT_MENU_BUTTONS)
     await query.edit_message_text(
-        text="Помочь", reply_markup=keyboard,
+        text="Помочь",
+        reply_markup=keyboard,
     )
     return states.SUPPORT_STATE
 
@@ -54,7 +55,8 @@ async def become_follower(update: Update, context):
 
     keyboard = InlineKeyboardMarkup(support.SUPPORT_FOLLOW_BUTTONS)
     await query.edit_message_text(
-        text="Подписаться на нас", reply_markup=keyboard,
+        text="Подписаться на нас",
+        reply_markup=keyboard,
     )
     return states.SUPPORT_FOLLOW_STATE
 
@@ -110,6 +112,7 @@ async def show_donations_options(update: Update, context):
     await query.answer()
     keyboard = InlineKeyboardMarkup(support.DONATION_OPTIONS_MENU_BUTTONS)
     await query.edit_message_text(
-        text="Сделать пожертвование", reply_markup=keyboard,
+        text="Сделать пожертвование",
+        reply_markup=keyboard,
     )
     return states.DONATION_OPTIONS_STATE

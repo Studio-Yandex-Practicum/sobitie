@@ -4,7 +4,11 @@ from django.db import models
 
 
 class Category(models.Model):
-    name = models.CharField("Название категории", unique=True, max_length=256,)
+    name = models.CharField(
+        "Название категории",
+        unique=True,
+        max_length=256,
+    )
     add_time = models.DateTimeField("Дата добавления", auto_now_add=True)
     change_time = models.DateTimeField("Дата изменения", auto_now=True)
 
@@ -17,8 +21,16 @@ class Category(models.Model):
 
 
 class Event(models.Model):
-    name = models.CharField("Название события", unique=True, max_length=256,)
-    description = models.TextField("Подробное описание", blank=True, null=True,)
+    name = models.CharField(
+        "Название события",
+        unique=True,
+        max_length=256,
+    )
+    description = models.TextField(
+        "Подробное описание",
+        blank=True,
+        null=True,
+    )
     add_time = models.DateTimeField("Дата добавления", auto_now_add=True)
     change_time = models.DateTimeField("Дата изменения", auto_now=True)
     category = models.ForeignKey(
@@ -26,7 +38,10 @@ class Event(models.Model):
     )
     event_time = models.DateTimeField("Дата события", default=datetime.datetime.today)
     location = models.CharField(
-        "Место проведения", max_length=256, null=True, blank=True,
+        "Место проведения",
+        max_length=256,
+        null=True,
+        blank=True,
     )
 
     class Meta:
