@@ -23,20 +23,17 @@ MAIN_TEXT = """Привет! Познакомимся?
 Выберите раздел меню, чтобы узнать больше.
 """
 RETURN_TO_START = "RETURN_TO_START"
-RETURN_TO_START_BUTTON_TEXT = (
-    f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню"
-)
+RETURN_TO_START_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню"
+SHORT_RETURN_TO_START_BUTTON_TEXT = f"{emoji.emojize(':house:')} В главное меню"
 
 START_MENU_BUTTONS = [
-    [InlineKeyboardButton(text="О нас", callback_data=ABOUT_US,)],
-    [InlineKeyboardButton(text="Мероприятия", callback_data=EVENTS,)],
-    [InlineKeyboardButton(text="Помочь", callback_data=GIVE_SUPPORT,)],
-    [InlineKeyboardButton(text="Интерактив", callback_data=INTERACTIVE_GAME,)],
+    [InlineKeyboardButton(text="О нас", callback_data=ABOUT_US)],
+    [InlineKeyboardButton(text="Мероприятия", callback_data=EVENTS)],
+    [InlineKeyboardButton(text="Помочь", callback_data=GIVE_SUPPORT)],
+    [InlineKeyboardButton(text="Интерактив", callback_data=INTERACTIVE_GAME)],
 ]
 
 
-def create_return_to_start_button(
-    text: str = RETURN_TO_START_BUTTON_TEXT,
-) -> InlineKeyboardButton:
+def create_return_to_start_button(text: str = RETURN_TO_START_BUTTON_TEXT) -> InlineKeyboardButton:
     """Создаёт объект кнопки для возвращения в стартовое меню."""
     return InlineKeyboardButton(text=text, callback_data=RETURN_TO_START)

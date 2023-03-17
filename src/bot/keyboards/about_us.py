@@ -1,7 +1,7 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import create_return_to_start_button
+from bot.keyboards.main import SHORT_RETURN_TO_START_BUTTON_TEXT, create_return_to_start_button
 
 # Константы для меню "О нас"
 CONTACTS = "CONTACTS"
@@ -162,7 +162,7 @@ RETURN_BACK_AND_TO_START_BUTTONS = [
             text=f"{emoji.emojize(':BACK_arrow:')} Назад", callback_data=RETURN_TO_BACK,
         ),
         create_return_to_start_button(
-            text=f"{emoji.emojize(':house:')} В главное меню"
+            text=SHORT_RETURN_TO_START_BUTTON_TEXT
         ),
     ],
 ]
