@@ -1,5 +1,6 @@
 import asyncio
 import logging
+from datetime import datetime
 from typing import Dict, List, Union
 
 import requests
@@ -32,7 +33,7 @@ async def show_event_menu(update: Update, _: CallbackContext):
 
 async def show_upcoming_events(update: Update, _: CallbackContext):
     """Отправляет сообщения с ближайшими событиями."""
-    message_template = """📅 {event_time}
+    message_template = """📅 {event_time_formatted}
 🎭 {name}
 
 📍 {location}
@@ -82,7 +83,9 @@ async def _process_no_events(query: CallbackQuery, closing_message: str) -> None
 async def _send_event_messages(query: CallbackQuery, events: List[Dict], message_template: str) -> None:
     """Отправляет сообщения с информацией о ближайших мероприятиях."""
     for event in events:
-        message = message_template.format(**event)
+        event_time = datetime.fromisoformat(event["event_time"])
+        event_time_formatted = event_time.strftime("%d.%m.%Y %H:%M")
+        message = message_template.format(**event, event_time_formatted=event_time_formatted)
         try:
             await query.message.reply_text(text=message, parse_mode="HTML")
         except BadRequest as exc:
