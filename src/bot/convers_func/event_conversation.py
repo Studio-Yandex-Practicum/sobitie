@@ -10,9 +10,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext
 
 from bot.keyboards.event import EVENT_MENU, EVENT_MENU_BUTTONS, FINISH_EVENT_BUTTONS, NOTIFICATION_BUTTONS
-
-# TODO: Для работы в контейнерах нужно другое решение для ссылки на API событий
-EVENTS_URL = "http://127.0.0.1:8000/api/events/"
+from core.settings import EVENTS_URL
 
 logger = logging.getLogger(__name__)
 

@@ -1,41 +1,43 @@
-import requests
 import urllib.request
+
 import emoji
+import requests
 from telegram import InlineKeyboardMarkup, Update
+from telegram.ext import CallbackContext
 
-from core.states import INTERACTIVE_STATE
 from bot.keyboards.interactive import INTERACTIVE_BUTTONS
+from core.settings import QUOTE_URL
+from core.states import INTERACTIVE_STATE
 
-QUOTE_URL = "http://127.0.0.1:8000/api/quotes"
 
-
-async def menu_interactive(update: Update, context):
+async def menu_interactive(update: Update, _: CallbackContext):
     """Меню 'Интерактив'."""
     query = update.callback_query
     await query.answer()
 
     keyboard = InlineKeyboardMarkup(INTERACTIVE_BUTTONS)
     await query.edit_message_text(
-        text="Интерактив", reply_markup=keyboard,
+        text="Интерактив",
+        reply_markup=keyboard,
     )
     return INTERACTIVE_STATE
 
 
-async def get_quiz(update: Update, context):
+async def get_quiz(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Викторины'."""
     query = update.callback_query
     await query.message.reply_text(text="Здесь будут викторины")
     return
 
 
-async def get_stickers(update: Update, context):
+async def get_stickers(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Стикерпаки'."""
     query = update.callback_query
     await query.message.reply_text(text="Стикерпаки")
     return
 
 
-async def get_quote(update: Update, context):
+async def get_quote(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Случайная цитата'."""
     response = requests.get(QUOTE_URL).json()
     quote = response[0].get("text")
