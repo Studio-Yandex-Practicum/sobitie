@@ -1,31 +1,42 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import create_return_to_start_button
+from bot.keyboards.main import SHORT_RETURN_TO_START_BUTTON_TEXT, create_return_to_start_button
 
-# Константы для меню "Мероприятия"
-CHOOSE_EVENT = "CHOOSE_EVENT"
-GET_MASTER_CLASS = "GET_MASTER_CLASS"
-GET_PERFORMANCES = "GET_PERFORMANCES"
-GET_EVENT = "GET_EVENT"
-RETURN_TO_BACK = "EVENTS"
-RETURN_TO_BACK_BUTTON_TEXT = (
-    f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу"
+UPCOMING_EVENTS = "UPCOMING_EVENTS"
+NOTIFICATIONS = "NOTIFICATIONS"
+EVENT_MENU = "EVENT_MENU"
+RETURN_TO_BACK_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу"
+
+UPCOMING_EVENTS_BUTTON = InlineKeyboardButton(
+    text=f"{emoji.emojize(':calendar:')} Ближайшие события",
+    callback_data=UPCOMING_EVENTS,
+)
+NOTIFICATIONS_BUTTON = InlineKeyboardButton(
+    text=f"{emoji.emojize(':bell:')} Включить уведомления",
+    callback_data=NOTIFICATIONS,
+)
+RETURN_TO_EVENT_MENU_BUTTON = InlineKeyboardButton(
+    text=RETURN_TO_BACK_BUTTON_TEXT,
+    callback_data=EVENT_MENU,
 )
 
-# КНОПКИ МЕНЮ "Мероприятия"
-EVENTS_BUTTONS = [
-    [InlineKeyboardButton(text="Мастер-классы", callback_data=GET_MASTER_CLASS,),],
-    [InlineKeyboardButton(text="Спектакли", callback_data=GET_PERFORMANCES,),],
-    [create_return_to_start_button(),],
+EVENT_MENU_BUTTONS = [
+    [UPCOMING_EVENTS_BUTTON],
+    [NOTIFICATIONS_BUTTON],
+    [create_return_to_start_button()],
 ]
 
-
-# Кнопка возврата на предыдущую страницу
-BUTTON_BACK = [
+FINISH_EVENT_BUTTONS = [
     [
-        InlineKeyboardButton(
-            text=RETURN_TO_BACK_BUTTON_TEXT, callback_data=RETURN_TO_BACK,
-        )
-    ],
+        NOTIFICATIONS_BUTTON,
+        create_return_to_start_button(SHORT_RETURN_TO_START_BUTTON_TEXT),
+    ]
+]
+
+NOTIFICATION_BUTTONS = [
+    [
+        UPCOMING_EVENTS_BUTTON,
+        create_return_to_start_button(text=SHORT_RETURN_TO_START_BUTTON_TEXT),
+    ]
 ]

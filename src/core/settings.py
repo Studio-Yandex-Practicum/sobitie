@@ -1,5 +1,6 @@
-from pathlib import Path
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -8,3 +9,5 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 LOG_LEVEL = "INFO"
 
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+EVENTS_URL = os.getenv("EVENTS_URL")
+QUOTE_URL = os.getenv("QUOTE_URL")
