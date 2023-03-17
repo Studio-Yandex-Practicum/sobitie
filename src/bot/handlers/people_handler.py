@@ -1,8 +1,8 @@
-from telegram.ext import ConversationHandler, CallbackQueryHandler, CommandHandler
+from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
 
-from bot.keyboards.about_us import PEOPLE
-from bot.convers_func.people_conversation import show_people
 from bot.convers_func.main_conversation import end
+from bot.convers_func.people_conversation import show_people
+from bot.keyboards.about_us import PEOPLE
 from bot.keyboards.main import END
 
 people_conv = ConversationHandler(
