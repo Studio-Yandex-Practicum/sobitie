@@ -1,9 +1,9 @@
-from telegram.ext import ConversationHandler, CallbackQueryHandler, CommandHandler
+from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
 
 from bot.convers_func.contacts_conversation import show_contacts
+from bot.convers_func.main_conversation import end
 from bot.keyboards.about_us import CONTACTS
 from bot.keyboards.main import END
-from bot.convers_func.main_conversation import end
 
 contacts_conv = ConversationHandler(
     allow_reentry=True,

@@ -1,12 +1,10 @@
-# объект класса ConversationHandler для меню с 8-ю кнопками "Помочь"
-from telegram.ext import ConversationHandler, CallbackQueryHandler, CommandHandler
+from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
 
 from bot.convers_func import support_conversation
 from bot.convers_func.main_conversation import end
-from bot.keyboards.main import END, GIVE_SUPPORT
 from bot.keyboards import support
+from bot.keyboards.main import END, GIVE_SUPPORT
 from core import states
-
 
 order_souvenir = ConversationHandler(
     allow_reentry=True,
@@ -40,7 +38,6 @@ support_conv = ConversationHandler(
     ],
     states={
         states.SUPPORT_STATE: [
-            # donation_conv,  вложенный объект ConversationHandler лишнее
             order_souvenir,
             CallbackQueryHandler(
                 support_conversation.show_donations_options,
@@ -69,7 +66,6 @@ support_conv = ConversationHandler(
                 pattern="^" + support.RETURN_TO_PREVIOUS + "$",
             ),
         ],
-        # выход из меню Сделать пожертвование
         states.DONATION_OPTIONS_STATE: [
             CallbackQueryHandler(
                 support_conversation.give_support,
