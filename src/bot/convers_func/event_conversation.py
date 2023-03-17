@@ -3,6 +3,7 @@ import logging
 from datetime import datetime
 from typing import Dict, List, Union
 
+import emoji
 import requests
 from telegram import CallbackQuery, InlineKeyboardMarkup, Update
 from telegram.error import BadRequest
@@ -33,13 +34,13 @@ async def show_event_menu(update: Update, _: CallbackContext):
 
 async def show_upcoming_events(update: Update, _: CallbackContext):
     """Отправляет сообщения с ближайшими событиями."""
-    message_template = """📅 {event_time_formatted}
-🎭 {name}
+    message_template = f"""{emoji.emojize(":calendar:")} {{event_time_formatted}}
+{emoji.emojize(":megaphone:")} {{name}}
 
-📍 {location}
+{emoji.emojize(":round_pushpin:")} {{location}}
 
-{description}
-🏷️ {category}"""
+{{description}}
+{emoji.emojize(":label:")} {{category}}"""
     closing_message = """Вы можете подписаться на уведомления об анонсах, чтобы первыми узнавать о наших \
 будущих мероприятиях. Также вы можете вернуться в главное меню и ознакомиться с другими разделами. Спасибо за интерес \
 к нашей организации."""
