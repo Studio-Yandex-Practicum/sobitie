@@ -54,8 +54,9 @@ def get_last_question_id(context: CallbackContext):
 
 def get_next_question(update: Update, context: CallbackContext):
     """Получить следующий вопрос викторины."""
-    current_quiz_id = get_current_quiz_id(update=update, context=context)
-    last_question_id = get_last_question_id(context=context)
+    # Раскоментировать для get-запроса к DRF
+    # current_quiz_id = get_current_quiz_id(update=update, context=context)
+    # last_question_id = get_last_question_id(context=context)
 
     question = None  # TODO: заменить заглушку на запрос к DRF
 
