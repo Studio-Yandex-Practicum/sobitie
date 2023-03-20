@@ -10,6 +10,8 @@ async def send_start_menu(update: Update, _):
     query = update.callback_query
     if query is None:
         send_method = update.message.reply_text
+    elif update.effective_message.text is None:
+        send_method = query.message.reply_text
     else:
         send_method = query.message.edit_text
     await send_method(

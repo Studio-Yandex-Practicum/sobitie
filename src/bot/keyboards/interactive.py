@@ -2,8 +2,8 @@ import emoji
 from telegram import InlineKeyboardButton
 
 from bot.keyboards.main import create_return_to_start_button
+from bot.keyboards.quiz import START_QUIZZES
 
-QUIZZES = "QUIZZES"
 GET_STICKERS = "GET_STICKERS"
 RANDOM_QUOTE = "RANDOM_QUOTE"
 
@@ -11,7 +11,7 @@ RANDOM_QUOTE = "RANDOM_QUOTE"
 INTERACTIVE_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':game_die:')}Викторины", callback_data=QUIZZES,
+            text=f"{emoji.emojize(':game_die:')}Викторины", callback_data=START_QUIZZES,
         ),
     ],
     [
