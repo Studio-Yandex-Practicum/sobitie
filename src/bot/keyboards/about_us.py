@@ -65,7 +65,7 @@ ABOUT_US_MENU_BUTTONS = [
             callback_data=PEOPLE,
         )
     ],
-    [create_return_to_start_button(text=RETURN_TO_BACK_BUTTON_TEXT),],
+    [create_return_to_start_button(text=RETURN_TO_BACK_BUTTON_TEXT)],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ДОКУМЕНТЫ"
@@ -91,7 +91,7 @@ DOCUMENTS_MENU_BUTTONS = [
             url="https://sobytie.center/documents/",
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ"
@@ -184,7 +184,7 @@ CONTACTS_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
 
 # Кнопки подменю "Люди"
@@ -206,5 +206,5 @@ PEOPLE_BUTTONS = [
             text=f'{emoji.emojize(":sparkles:")} Волонтёры', url="https://test.ru",
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
