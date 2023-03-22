@@ -31,11 +31,7 @@ order_souvenir = ConversationHandler(
 
 support_conv = ConversationHandler(
     allow_reentry=True,
-    entry_points=[
-        CallbackQueryHandler(
-            support_conversation.give_support, pattern="^" + GIVE_SUPPORT + "$"
-        )
-    ],
+    entry_points=[CallbackQueryHandler(support_conversation.give_support, pattern="^" + GIVE_SUPPORT + "$")],
     states={
         states.SUPPORT_STATE: [
             order_souvenir,
@@ -58,18 +54,6 @@ support_conv = ConversationHandler(
             CallbackQueryHandler(
                 support_conversation.move_to_help_chat,
                 pattern="^" + support.COMMUNICATE_FOR_HELP + "$",
-            ),
-        ],
-        states.SUPPORT_FOLLOW_STATE: [
-            CallbackQueryHandler(
-                support_conversation.give_support,
-                pattern="^" + support.RETURN_TO_PREVIOUS + "$",
-            ),
-        ],
-        states.DONATION_OPTIONS_STATE: [
-            CallbackQueryHandler(
-                support_conversation.give_support,
-                pattern="^" + support.RETURN_TO_PREVIOUS + "$",
             ),
         ],
     },
