@@ -40,8 +40,10 @@ async def show_documents(update: Update, _: CallbackContext):
     await query.answer()
     keyboard = InlineKeyboardMarkup(DOCUMENTS_MENU_BUTTONS)
     message_text = """Мы официально зарегистрированная некоммерческая организация.
+
 Полное название: Автономная некоммерческая организация "Центр социокультурных практик Событие"
 Сокращенное название: АНО "Событие"
+
 ИНН: 7727301229
 ОГРН: 116700068051"""
     await query.edit_message_text(
@@ -58,6 +60,7 @@ async def show_reports(update: Update, _: CallbackContext):
 
 Мы защищаем тайну обращений к нам за помощью. Но информация о нашей деятельности, проектах, полученных средствах и \
 их использовании открыта.
+
 Мы ежегодно подаём финансовые отчёты в Министерство юстиции РФ и размещаем годовые отчёты на сайте."""
     await query.edit_message_text(
         text=message_text, reply_markup=keyboard,
