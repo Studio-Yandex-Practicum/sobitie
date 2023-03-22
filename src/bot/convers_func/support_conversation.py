@@ -31,9 +31,11 @@ async def create_a_collection(update: Update, context):
     await query.answer()
     message = """Создайте сбор или организуйте благотворительное мероприятие на платформе \
 <a href="https://sluchaem.ru/">«Пользуясь случаем»</a>."""
-    await query.message.reply_text(
+    keyboard = InlineKeyboardMarkup(RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS)
+    await query.edit_message_text(
         text=message,
         parse_mode=ParseMode.HTML,
+        reply_markup=keyboard,
     )
 
 
@@ -69,7 +71,7 @@ async def show_social_links_and_gratitude(update: Update, _: CallbackContext):
 
 
 async def move_to_help_chat(update: Update, context):
-    """Обработчик кнопки 'Наши нужды'."""
+    """Обработчик кнопки 'Связь по вопросу помощи'."""
     query = update.callback_query
     await query.message.reply_text(text="Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>")
     return
