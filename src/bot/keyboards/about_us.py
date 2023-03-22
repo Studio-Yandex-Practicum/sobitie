@@ -97,11 +97,7 @@ DOCUMENTS_MENU_BUTTONS = [
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ"
 REPORTS_MENU_BUTTONS = [
-    [
-        InlineKeyboardButton(
-            text="Отчёты на портале Минюста РФ?", callback_data=REPORTS_MINISTRY,
-        )
-    ],
+    [InlineKeyboardButton(text="Посмотреть отчёты на портале Минюста РФ?", callback_data=REPORTS_MINISTRY)],
     [
         InlineKeyboardButton(
             text="Хотите посмотреть годовые отчёты?",
@@ -109,17 +105,13 @@ REPORTS_MENU_BUTTONS = [
             url="https://sobytie.center/reports/",
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ НА ПОРТАЛЕ МИНЮСТА"
 MINISTRY_REPORTS_BUTTONS = [
-    [
-        InlineKeyboardButton(
-            text="Нажмите для перехода", url="http://unro.minjust.ru/NKOReports.aspx",
-        )
-    ],
-    [create_return_to_start_button(),],
+    [InlineKeyboardButton(text="Информационный портал Минюста РФ", url="http://unro.minjust.ru/NKOReports.aspx")],
+    [create_return_to_start_button()],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ПРОЕКТЫ"

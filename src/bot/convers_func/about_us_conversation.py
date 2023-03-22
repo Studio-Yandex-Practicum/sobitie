@@ -75,9 +75,10 @@ async def show_ministry_reports(update: Update, _: CallbackContext):
     message_text = """Хотите посмотреть отчёты на  информационном портале Минюста РФ "О деятельности некоммерческих \
 организаций"?
 
+Перейдите на <a href="http://unro.minjust.ru/NKOReports.aspx">информационный портал Минюста РФ</a>
 Введите в поисковую строку ОГРН: 1167700068051"""
     await query.edit_message_text(
-        text=message_text, reply_markup=keyboard,
+        text=message_text, reply_markup=keyboard, parse_mode="HTML"
     )
 
 
