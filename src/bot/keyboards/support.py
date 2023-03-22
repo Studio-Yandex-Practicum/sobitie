@@ -55,7 +55,11 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=ORDER_SOUVENIRS,
         )
     ],
-    [InlineKeyboardButton(text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор", callback_data=CREATE_COLLECTION)],
+    [
+        InlineKeyboardButton(
+            text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор", callback_data=CREATE_COLLECTION
+        )
+    ],
     [InlineKeyboardButton(text=f"{emoji.emojize(':money_with_wings:')} Подключить кешбэк", callback_data=CASHBACK)],
     [
         InlineKeyboardButton(
