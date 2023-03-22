@@ -2,6 +2,7 @@ from drf_extra_fields.fields import Base64ImageField
 from rest_framework.serializers import ModelSerializer, StringRelatedField
 
 from event.models import Category, Event, Quote
+from quiz.models import Quiz, Question, Answer
 
 
 class CategorySerializer(ModelSerializer):
@@ -38,3 +39,39 @@ class QuoteSerializer(ModelSerializer):
     class Meta:
         model = Quote
         fields = ("text", "author", "image")
+
+
+class QuizSerializer(ModelSerializer):
+    """Сериализатор для квизов."""
+
+    class Meta:
+        model = Quiz
+        fields = (
+            "id",
+            "title",
+            "description"
+        )
+
+
+class AnswerSerializer(ModelSerializer):
+    """Сериализатор для ответов."""
+
+    class Meta:
+        model = Answer
+        fields = ("question", "answer_text", "is_right")
+
+
+class QuestionSerializer(ModelSerializer):
+    """Сериализатор для вопросов."""
+
+    answers = AnswerSerializer(many=True)
+    quiz = StringRelatedField
+
+    class Meta:
+        model = Question
+        fields = (
+            "quiz",
+            "image",
+            "question_text",
+            "answers"
+        )

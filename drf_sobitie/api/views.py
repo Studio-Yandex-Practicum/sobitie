@@ -2,8 +2,11 @@ from datetime import datetime
 
 from rest_framework.viewsets import ModelViewSet
 
-from api.serializers import CategorySerializer, EventSerializer, QuoteSerializer
+from api.serializers import (CategorySerializer, EventSerializer, QuoteSerializer,
+                             QuestionSerializer, QuizSerializer,)
+
 from event.models import Category, Event, Quote
+from quiz.models import Question, Quiz
 
 
 class CategoryViewSet(ModelViewSet):
@@ -29,3 +32,17 @@ class QuoteViewSet(ModelViewSet):
 
     queryset = Quote.objects.order_by("-add_time")[:1]
     serializer_class = QuoteSerializer
+
+
+class QuizViewSet(ModelViewSet):
+    """Вьюсет для квизов."""
+
+    queryset = Quiz.objects.all()
+    serializer_class = QuizSerializer
+
+
+class QuestionViewSet(ModelViewSet):
+    """Вьюсет для вопросов."""
+
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
