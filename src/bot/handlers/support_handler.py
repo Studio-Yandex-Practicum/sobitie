@@ -44,7 +44,7 @@ support_conv = ConversationHandler(
                 pattern="^" + support.FOLLOW_US + "$",
             ),
             CallbackQueryHandler(
-                support_conversation.connect_cashback,
+                support_conversation.show_cashback_connection_instructions,
                 pattern="^" + support.CASHBACK + "$",
             ),
             CallbackQueryHandler(

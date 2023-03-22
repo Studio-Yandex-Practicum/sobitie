@@ -1,7 +1,9 @@
 from telegram import InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
+from telegram.ext import CallbackContext
 
 from bot.keyboards import support
+from bot.keyboards.support import RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS
 from core import states
 
 
@@ -31,20 +33,21 @@ async def create_a_collection(update: Update, context):
     )
 
 
-async def connect_cashback(update: Update, context):
+async def show_cashback_connection_instructions(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Подключить кэшбэк'."""
     query = update.callback_query
     await query.answer()
-    await query.message.reply_text(
-        text=(
-            "Для клиентов банка «Тинькофф»"
-            "Оформите «Кэшбэк во благо» в приложении «Тинькофф»:"
-            "на главном экране нажмите на счёт карты → пролистайте"
-            "до блока «Куда зачислять» → «Кэшбэк» → "
-            "«В благотворительный фонд» → пролистать вниз и нажмите "
-            "«Все фонды» → введите в поиске: Событие (без кавычек)"
-        )
-    )
+    message = """Для клиентов банка «Тинькофф»
+Оформите «Кэшбэк во благо» в приложении «Тинькофф»:
+🔹 На главном экране нажмите на счёт карты
+🔸 Пролистайте вниз до блока «Куда зачислять»
+🔹 Нажмите на «Кэшбэк», далее «В благотворительный фонд»
+🔸 Пролистайте вниз и нажмите на кнопку «Все фонды»
+🔹 Введите в поиске: Событие
+✔️ Готово
+"""
+    keyboard = InlineKeyboardMarkup(RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS)
+    await query.edit_message_text(text=message, reply_markup=keyboard)
 
 
 async def become_follower(update: Update, context):
