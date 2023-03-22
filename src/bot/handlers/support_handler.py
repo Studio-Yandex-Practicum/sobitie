@@ -40,7 +40,7 @@ support_conv = ConversationHandler(
                 pattern="^" + support.SHOW_DONATION_OPTIONS + "$",
             ),
             CallbackQueryHandler(
-                support_conversation.become_follower,
+                support_conversation.show_social_links_and_gratitude,
                 pattern="^" + support.FOLLOW_US + "$",
             ),
             CallbackQueryHandler(

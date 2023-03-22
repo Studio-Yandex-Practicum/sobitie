@@ -55,7 +55,7 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=ORDER_SOUVENIRS,
         )
     ],
-    [InlineKeyboardButton(text="Создать сбор", callback_data=CREATE_COLLECTION)],
+    [InlineKeyboardButton(text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор", callback_data=CREATE_COLLECTION)],
     [InlineKeyboardButton(text=f"{emoji.emojize(':money_with_wings:')} Подключить кешбэк", callback_data=CASHBACK)],
     [
         InlineKeyboardButton(
@@ -112,7 +112,7 @@ SUPPORT_FOLLOW_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    [InlineKeyboardButton(text=RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT)],
+    *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
 ]
 
 MENU_ORDER_SUVENIR = [
