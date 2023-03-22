@@ -1,7 +1,7 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import SHORT_RETURN_TO_START_BUTTON_TEXT, create_return_to_start_button
+from bot.keyboards.main import ABOUT_US, SHORT_RETURN_TO_START_BUTTON_TEXT, create_return_to_start_button
 
 # Константы для меню "О нас"
 CONTACTS = "CONTACTS"
@@ -24,7 +24,6 @@ INCLUSIVE_THEATRE = "INCLUSIVE_THEATRE"
 INCLUSIVE_WORKSHOP = "INCLUSIVE_WORKSHOP"
 THEATRE_SCHOOL = "THEATRE_SCHOOL"
 MOSCOW_ONLINE = "MOSCOW_ONLINE"
-RETURN_TO_ABOUT_US = "RETURN_TO_ABOUT_US"
 
 # Константы для подменю "Контакты"
 CONTACTS_INFO = "CONTACTS_INFO"
@@ -143,7 +142,7 @@ PROJECTS_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=RETURN_TO_BACK_BUTTON_TEXT, callback_data=RETURN_TO_ABOUT_US,
+            text=RETURN_TO_BACK_BUTTON_TEXT, callback_data=ABOUT_US,
         )
     ],
 ]
