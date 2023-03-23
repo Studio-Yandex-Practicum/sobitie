@@ -20,7 +20,6 @@ from bot.keyboards.about_us import (
     PROJECTS,
     REPORTS,
     REPORTS_MINISTRY,
-    RETURN_TO_ABOUT_US,
     RETURN_TO_BACK,
     THEATRE_SCHOOL,
 )
@@ -42,7 +41,6 @@ about_us_conv = ConversationHandler(
             people_conv,
         ],
         PROJECTS_STATE: [
-            CallbackQueryHandler(show_about_us, pattern="^" + RETURN_TO_ABOUT_US + "$"),
             CallbackQueryHandler(
                 show_inclusive_theatre, pattern="^" + INCLUSIVE_THEATRE + "$"
             ),

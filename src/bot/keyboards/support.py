@@ -1,7 +1,13 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import create_return_to_start_button
+from bot.keyboards.main import (
+    GIVE_SUPPORT,
+    RETURN_BACK_BUTTON_TEXT,
+    SHORT_RETURN_BACK_BUTTON_TEXT,
+    SHORT_RETURN_TO_START_BUTTON_TEXT,
+    create_return_to_start_button,
+)
 
 # Константы для меню "Помочь"
 ATTEND_EVENT = "ATTEND_EVENT"
@@ -13,7 +19,6 @@ ORDER_SOUVENIRS = "ORDER_SOUVENIRS"
 BECOME_SPONSOR = "BECOME_SPONSOR"
 BECOME_VOLUNTEER = "BECOME_VOLUNTEER"
 FOLLOW_US = "FOLLOW_US"
-RETURN_TO_PREVIOUS = "RETURN_TO_PREVIOUS"
 FOLLOW_US_VKONTAKTE = "FOLLOW_US_VKONTAKTE"
 FOLLOW_US_TELEGRAM = "FOLLOW_US_TELEGRAM"
 CREATE_COLLECTION = "CREATE_COLLECTION"
@@ -22,6 +27,13 @@ CASHBACK = "CASHBACK"
 # Константы для подменю "Заказать сувениры"
 CHARITY_FAIR = "CHARITY_FAIR"
 CORPORATE_FAIR = "CORPORATE_FAIR"
+
+RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS = [
+    [
+        InlineKeyboardButton(text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT),
+        create_return_to_start_button(text=SHORT_RETURN_TO_START_BUTTON_TEXT),
+    ]
+]
 
 # КНОПКИ МЕНЮ "ПОМОЧЬ"
 SUPPORT_MENU_BUTTONS = [
@@ -43,29 +55,25 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=ORDER_SOUVENIRS,
         )
     ],
-    [InlineKeyboardButton(text="Создать сбор", callback_data=CREATE_COLLECTION)],
-    [InlineKeyboardButton(text="Подключить кешбэк", callback_data=CASHBACK)],
+    [
+        InlineKeyboardButton(
+            text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор", callback_data=CREATE_COLLECTION
+        )
+    ],
+    [InlineKeyboardButton(text=f"{emoji.emojize(':money_with_wings:')} Подключить кешбэк", callback_data=CASHBACK)],
     [
         InlineKeyboardButton(
             text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком",
             callback_data=FOLLOW_US,
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ВЫБРАТЬ СПОСОБ ПОЖЕРТВОВАНИЯ"
 DONATION_OPTIONS_MENU_BUTTONS = [
-    [
-        InlineKeyboardButton(
-            text="Форма на сайте", url="https://sobytie.center/howtohelp/"
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text="Тинькофф", url="https://www.tinkoff.ru/payments/provider-sobytie/"
-        )
-    ],
+    [InlineKeyboardButton(text="Форма на сайте", url="https://sobytie.center/howtohelp/")],
+    [InlineKeyboardButton(text="Тинькофф", url="https://www.tinkoff.ru/payments/provider-sobytie/")],
     [
         InlineKeyboardButton(
             text="Разовое или регулярное пожертвование",
@@ -86,8 +94,8 @@ DONATION_OPTIONS_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':reverse_button:')} Вернуться в меню помощи",
-            callback_data=RETURN_TO_PREVIOUS,
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=GIVE_SUPPORT,
         )
     ],
 ]
@@ -108,20 +116,11 @@ SUPPORT_FOLLOW_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    [
-        InlineKeyboardButton(
-            text="Вернуться на предыдущую страницу", callback_data=RETURN_TO_PREVIOUS
-        )
-    ],
+    *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
 ]
 
-
 MENU_ORDER_SUVENIR = [
-    [
-        InlineKeyboardButton(
-            text="Благотворительная ярмарка", callback_data=CHARITY_FAIR
-        )
-    ],
+    [InlineKeyboardButton(text="Благотворительная ярмарка", callback_data=CHARITY_FAIR)],
     [InlineKeyboardButton(text="Корпоративные подарки", callback_data=CORPORATE_FAIR)],
-    [InlineKeyboardButton(text="Назад", callback_data=RETURN_TO_PREVIOUS)],
+    [InlineKeyboardButton(text=RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT)],
 ]

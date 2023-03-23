@@ -1,12 +1,11 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import SHORT_RETURN_TO_START_BUTTON_TEXT, create_return_to_start_button
+from bot.keyboards.main import RETURN_BACK_BUTTON_TEXT, SHORT_RETURN_TO_START_BUTTON_TEXT, create_return_to_start_button
 
 UPCOMING_EVENTS = "UPCOMING_EVENTS"
 NOTIFICATIONS = "NOTIFICATIONS"
 EVENT_MENU = "EVENT_MENU"
-RETURN_TO_BACK_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу"
 
 UPCOMING_EVENTS_BUTTON = InlineKeyboardButton(
     text=f"{emoji.emojize(':calendar:')} Ближайшие события",
@@ -17,7 +16,7 @@ NOTIFICATIONS_BUTTON = InlineKeyboardButton(
     callback_data=NOTIFICATIONS,
 )
 RETURN_TO_EVENT_MENU_BUTTON = InlineKeyboardButton(
-    text=RETURN_TO_BACK_BUTTON_TEXT,
+    text=RETURN_BACK_BUTTON_TEXT,
     callback_data=EVENT_MENU,
 )
 

@@ -25,5 +25,5 @@ INTERACTIVE_BUTTONS = [
             text=f"{emoji.emojize(':books:')}Цитата недели", callback_data=RANDOM_QUOTE,
         ),
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]

@@ -25,6 +25,8 @@ MAIN_TEXT = """Привет! Познакомимся?
 RETURN_TO_START = "RETURN_TO_START"
 RETURN_TO_START_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню"
 SHORT_RETURN_TO_START_BUTTON_TEXT = f"{emoji.emojize(':house:')} В главное меню"
+RETURN_BACK_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу"
+SHORT_RETURN_BACK_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Назад"
 
 START_MENU_BUTTONS = [
     [InlineKeyboardButton(text="О нас", callback_data=ABOUT_US)],
