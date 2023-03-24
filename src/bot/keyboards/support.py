@@ -73,31 +73,14 @@ SUPPORT_MENU_BUTTONS = [
 # КНОПКИ ПОДМЕНЮ "ВЫБРАТЬ СПОСОБ ПОЖЕРТВОВАНИЯ"
 DONATION_OPTIONS_MENU_BUTTONS = [
     [InlineKeyboardButton(text="Форма на сайте", url="https://sobytie.center/howtohelp/")],
+    [
+        InlineKeyboardButton(
+            text='Благотворительный фонд "Нужна помощь"', url="https://nuzhnapomosh.ru/funds/centr-sobytie/"
+        )
+    ],
+    [InlineKeyboardButton(text='Подписка "Рубль в день"', url="https://365.nuzhnapomosh.ru/")],
     [InlineKeyboardButton(text="Тинькофф", url="https://www.tinkoff.ru/payments/provider-sobytie/")],
-    [
-        InlineKeyboardButton(
-            text="Разовое или регулярное пожертвование",
-            url="https://nuzhnapomosh.ru/funds/centr-sobytie/",
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text='Благотворительный фонд "Нужна помощь"',
-            url="https://nuzhnapomosh.ru/funds/centr-sobytie/",
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text='Подписка "Рубль в день"',
-            url="https://nuzhnapomosh.ru/funds/centr-sobytie/",
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text=RETURN_BACK_BUTTON_TEXT,
-            callback_data=GIVE_SUPPORT,
-        )
-    ],
+    *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
 ]
 
 # кнопки для подписок на соцсети
