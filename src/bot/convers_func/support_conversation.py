@@ -12,16 +12,16 @@ from bot.keyboards.support import (
 from core import states
 
 
-async def give_support(update: Update, context):
+async def show_give_support_menu(update: Update, _: CallbackContext):
     """Меню 'Помочь'."""
     query = update.callback_query
     await query.answer()
-
+    message_text = """АНО «Событие» — некоммерческая организация. Мы стараемся оказать помощь тем, кому она \
+необходима. Но это не значит, что сами не нуждаемся в поддержке. Чтобы чувствовать себя увереннее и планировать \
+долгосрочные проекты, нам тоже нужна помощь. Любой неравнодушный человек может поддержать НКО ниже приведёнными \
+способами."""
     keyboard = InlineKeyboardMarkup(SUPPORT_MENU_BUTTONS)
-    await query.edit_message_text(
-        text="Помочь",
-        reply_markup=keyboard,
-    )
+    await query.edit_message_text(text=message_text, reply_markup=keyboard)
     return states.SUPPORT_STATE
 
 
