@@ -63,6 +63,7 @@ async def show_gratitude_and_subscribe_to_notifications(update: Update, _: Callb
 А пока можете посмотреть опубликованные анонсы или вернуться в главное меню."""
     keyboard = InlineKeyboardMarkup(NOTIFICATION_BUTTONS)
     await query.edit_message_text(text=message_text, reply_markup=keyboard)
+    return EVENT_MENU
 
 
 async def _async_get_deserialized_json(url: str) -> Union[Dict, List]:

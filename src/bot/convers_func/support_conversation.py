@@ -4,7 +4,7 @@ from telegram.ext import CallbackContext
 
 from bot.keyboards.support import (
     DONATION_OPTIONS_MENU_BUTTONS,
-    MENU_ORDER_SUVENIR,
+    MENU_ORDER_SOUVENIR,
     RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
     SUPPORT_FOLLOW_BUTTONS,
     SUPPORT_MENU_BUTTONS,
@@ -70,35 +70,27 @@ async def show_social_links_and_gratitude(update: Update, _: CallbackContext):
     return states.SUPPORT_FOLLOW_STATE
 
 
-async def move_to_help_chat(update: Update, _: CallbackContext):
+async def show_link_to_support_chat(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Связь по вопросу помощи'."""
     query = update.callback_query
-    await query.message.reply_text(text="Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>")
-    return
+    # TODO: Здесь нужно улучшить текст сообщения и вставить реальную ссылку
+    message_text = "Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>"
+    keyboard_markup = InlineKeyboardMarkup(RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS)
+    await query.edit_message_text(text=message_text, reply_markup=keyboard_markup)
 
 
-async def order_souvenir(update: Update, _: CallbackContext):
-    """Обработчик кнопки 'Заказать сувенир'."""
+async def show_souvenir_purchase_menu(update: Update, _: CallbackContext):
+    """Обработчик кнопки 'Приобрести сувенир'."""
     query = update.callback_query
-    await query.message.reply_text(
-        text="Заказать сувенир",
-        reply_markup=InlineKeyboardMarkup(MENU_ORDER_SUVENIR),
-    )
+    message_text = """Посетите <a href="https://vk.com/market-190536221">наш благотворительный магазин во \
+«ВКонтакте»</a> и приобретите сувениры, сделанные в нашей инклюзивной мастерской ИТС "Событие", что поможет нам \
+реализовывать наши проекты и инициативы.
+
+Также вы можете включите уведомления о наших мероприятиях, чтобы всегда быть в курсе, когда и где пройдут \
+мастер-классы и благотворительная ярмарка. Ваша поддержка очень важна для нас, спасибо!"""
+    keyboard_markup = InlineKeyboardMarkup(MENU_ORDER_SOUVENIR)
+    await query.edit_message_text(text=message_text, reply_markup=keyboard_markup, parse_mode=ParseMode.HTML)
     return states.ORDER_SOUVENIR_STATE
-
-
-async def charity_fair_order(update: Update, _: CallbackContext):
-    """Обработчик кнопки 'Благотворительная ярмарка'."""
-    query = update.callback_query
-    await query.message.reply_text(text="Благотворительная ярмарка")
-    return
-
-
-async def corporate_gifts_order(update: Update, _: CallbackContext):
-    """Обработчик кнопки 'Корпоративные подарки'."""
-    query = update.callback_query
-    await query.message.reply_text(text="Корпоративные подарки")
-    return
 
 
 async def show_donations_options(update: Update, _: CallbackContext):

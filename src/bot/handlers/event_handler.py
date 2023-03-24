@@ -9,12 +9,16 @@ from bot.convers_func.main_conversation import end
 from bot.keyboards.event import EVENT_MENU, NOTIFICATIONS, UPCOMING_EVENTS
 from bot.keyboards.main import END, EVENTS
 
+subscribe_to_notifications_handler = CallbackQueryHandler(
+    show_gratitude_and_subscribe_to_notifications, pattern="^" + NOTIFICATIONS + "$"
+)
+
 event_conv = ConversationHandler(
     allow_reentry=True,
     entry_points=[CallbackQueryHandler(show_event_menu, pattern="^" + EVENTS + "$")],
     states={
         EVENT_MENU: [
-            CallbackQueryHandler(show_gratitude_and_subscribe_to_notifications, pattern="^" + NOTIFICATIONS + "$"),
+            subscribe_to_notifications_handler,
             CallbackQueryHandler(show_upcoming_events, pattern="^" + UPCOMING_EVENTS + "$"),
         ]
     },
