@@ -25,15 +25,15 @@ async def show_give_support_menu(update: Update, _: CallbackContext):
     return states.SUPPORT_STATE
 
 
-async def create_a_collection(update: Update, context):
+async def create_a_collection(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Создать сбор'."""
     query = update.callback_query
     await query.answer()
-    message = """Создайте сбор или организуйте благотворительное мероприятие на платформе \
+    message_text = """Создайте сбор или организуйте благотворительное мероприятие на платформе \
 <a href="https://sluchaem.ru/">«Пользуясь случаем»</a>."""
     keyboard = InlineKeyboardMarkup(RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS)
     await query.edit_message_text(
-        text=message,
+        text=message_text,
         parse_mode=ParseMode.HTML,
         reply_markup=keyboard,
     )
@@ -60,24 +60,24 @@ async def show_social_links_and_gratitude(update: Update, _: CallbackContext):
     """Меню 'Стать активным подписчиком'."""
     query = update.callback_query
     await query.answer()
-    message = """Спасибо большое за вашу поддержку! Вместе мы можем изменить мир к лучшему. Будем держать вас в курсе \
-наших проектов и достижений в соцсетях."""
+    message_text = """Спасибо большое за вашу поддержку! Вместе мы можем изменить мир к лучшему. Будем держать вас в \
+курсе наших проектов и достижений в соцсетях."""
     keyboard = InlineKeyboardMarkup(SUPPORT_FOLLOW_BUTTONS)
     await query.edit_message_text(
-        text=message,
+        text=message_text,
         reply_markup=keyboard,
     )
     return states.SUPPORT_FOLLOW_STATE
 
 
-async def move_to_help_chat(update: Update, context):
+async def move_to_help_chat(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Связь по вопросу помощи'."""
     query = update.callback_query
     await query.message.reply_text(text="Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>")
     return
 
 
-async def order_souvenir(update: Update, context):
+async def order_souvenir(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Заказать сувенир'."""
     query = update.callback_query
     await query.message.reply_text(
@@ -87,14 +87,14 @@ async def order_souvenir(update: Update, context):
     return states.ORDER_SOUVENIR_STATE
 
 
-async def charity_fair_order(update: Update, context):
+async def charity_fair_order(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Благотворительная ярмарка'."""
     query = update.callback_query
     await query.message.reply_text(text="Благотворительная ярмарка")
     return
 
 
-async def corporate_gifts_order(update: Update, context):
+async def corporate_gifts_order(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Корпоративные подарки'."""
     query = update.callback_query
     await query.message.reply_text(text="Корпоративные подарки")
