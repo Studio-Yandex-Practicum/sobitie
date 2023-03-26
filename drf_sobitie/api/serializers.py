@@ -31,6 +31,26 @@ class EventSerializer(ModelSerializer):
             "location",
         )
 
+class EventPostSerializer(ModelSerializer):
+    """Сериализатор для мероприятий."""
+    class Meta:
+        model = Event
+        fields = (
+            "name",
+            "description",
+            "vk_post_id",
+            "category",
+            "event_time",
+            "location",
+        )
+class CategoryPostSerializer(ModelSerializer):
+    """Сериализатор для создания категории."""
+    class Meta:
+        model = Category
+        fields = (
+            "name",
+        )
+
 
 class QuoteSerializer(ModelSerializer):
     image = Base64ImageField(required=False, allow_null=True)

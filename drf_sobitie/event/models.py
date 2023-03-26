@@ -20,6 +20,7 @@ class Event(models.Model):
     name = models.CharField("Название события", unique=True, max_length=256,)
     description = models.TextField("Подробное описание", blank=True, null=True,)
     add_time = models.DateTimeField("Дата добавления", auto_now_add=True)
+    vk_post_id = models.IntegerField("Id поста в вк", blank=True, null=True)
     change_time = models.DateTimeField("Дата изменения", auto_now=True)
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="event"
