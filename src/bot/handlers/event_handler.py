@@ -6,11 +6,11 @@ from bot.convers_func.event_conversation import (
     show_upcoming_events,
 )
 from bot.convers_func.main_conversation import end
-from bot.keyboards.event import EVENT_MENU, NOTIFICATIONS, UPCOMING_EVENTS
+from bot.keyboards.event import EVENT_MENU, NOTIFICATION_SUBSCRIBE_CALLBACK, UPCOMING_EVENTS
 from bot.keyboards.main import END, EVENTS
 
 subscribe_to_notifications_handler = CallbackQueryHandler(
-    show_gratitude_and_subscribe_to_notifications, pattern="^" + NOTIFICATIONS + "$"
+    show_gratitude_and_subscribe_to_notifications, pattern="^" + NOTIFICATION_SUBSCRIBE_CALLBACK + "$"
 )
 
 event_conv = ConversationHandler(

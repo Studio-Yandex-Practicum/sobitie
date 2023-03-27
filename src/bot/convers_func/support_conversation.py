@@ -4,10 +4,10 @@ from telegram.ext import CallbackContext
 
 from bot.keyboards.support import (
     DONATION_OPTIONS_MENU_BUTTONS,
-    MENU_ORDER_SOUVENIR,
     RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
     SUPPORT_FOLLOW_BUTTONS,
     SUPPORT_MENU_BUTTONS,
+    create_menu_order_souvenir,
 )
 from core import states
 
@@ -88,7 +88,8 @@ async def show_souvenir_purchase_menu(update: Update, _: CallbackContext):
 
 Также вы можете включите уведомления о наших мероприятиях, чтобы всегда быть в курсе, когда и где пройдут \
 мастер-классы и благотворительная ярмарка. Ваша поддержка очень важна для нас, спасибо!"""
-    keyboard_markup = InlineKeyboardMarkup(MENU_ORDER_SOUVENIR)
+    menu_order_souvenir = await create_menu_order_souvenir(user_id=query.from_user.id)
+    keyboard_markup = InlineKeyboardMarkup(menu_order_souvenir)
     await query.edit_message_text(text=message_text, reply_markup=keyboard_markup, parse_mode=ParseMode.HTML)
     return states.ORDER_SOUVENIR_STATE
 
