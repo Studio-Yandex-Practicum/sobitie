@@ -1,7 +1,9 @@
+from typing import Sequence
+
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.event import NOTIFICATIONS_BUTTON
+from bot.keyboards.event import create_notification_button_based_on_subscription_status
 from bot.keyboards.main import (
     GIVE_SUPPORT,
     SHORT_RETURN_BACK_BUTTON_TEXT,
@@ -23,7 +25,6 @@ FOLLOW_US_VKONTAKTE = "FOLLOW_US_VKONTAKTE"
 FOLLOW_US_TELEGRAM = "FOLLOW_US_TELEGRAM"
 CREATE_COLLECTION = "CREATE_COLLECTION"
 CASHBACK = "CASHBACK"
-
 
 RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS = [
     [
@@ -88,7 +89,12 @@ SUPPORT_FOLLOW_BUTTONS = [
     *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
 ]
 
-MENU_ORDER_SOUVENIR = [
-    [NOTIFICATIONS_BUTTON],
-    *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
-]
+
+async def create_menu_order_souvenir(user_id: int) -> Sequence[Sequence[InlineKeyboardButton]]:
+    """Создаёт кнопки для клавиатуры раздела приобретения сувениров."""
+    notification_button = await create_notification_button_based_on_subscription_status(user_id=user_id)
+    menu_order_souvenir = [
+        [notification_button],
+        *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
+    ]
+    return menu_order_souvenir

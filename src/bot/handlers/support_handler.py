@@ -2,7 +2,7 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandl
 
 from bot.convers_func import support_conversation
 from bot.convers_func.main_conversation import end
-from bot.handlers.event_handler import event_conv, subscribe_to_notifications_handler
+from bot.handlers.event_handler import event_conv, subscribe_to_notifications_handler, unsubscribe_handler
 from bot.keyboards import support
 from bot.keyboards.main import END, GIVE_SUPPORT
 from core import states
@@ -18,6 +18,7 @@ order_souvenir = ConversationHandler(
     states={
         states.ORDER_SOUVENIR_STATE: [
             subscribe_to_notifications_handler,
+            unsubscribe_handler,
         ],
         **event_conv.states,
     },

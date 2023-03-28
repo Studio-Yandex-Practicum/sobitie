@@ -35,8 +35,8 @@ class Event(models.Model):
                 fields=["name", "description"], name="unique_event"
             ),
         )
-        verbose_name = "Мероприятие"
-        verbose_name_plural = "Мероприятия"
+        verbose_name = "Событие"
+        verbose_name_plural = "События"
 
     def __str__(self):
         return self.name
@@ -56,3 +56,9 @@ class Quote(models.Model):
 
     def __str__(self):
         return self.text[:120]
+
+
+class Subscriber(models.Model):
+    """Модель подписчика на уведомления о событиях."""
+
+    user_id = models.BigIntegerField(verbose_name="id", unique=True, editable=False)
