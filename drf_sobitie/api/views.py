@@ -1,17 +1,12 @@
-from datetime import datetime
 import re
-from rest_framework.viewsets import ModelViewSet
-from rest_framework.views import APIView
-from api.serializers import CategorySerializer, CategoryPostSerializer, EventSerializer, EventPostSerializer, QuoteSerializer
-from event.models import Category, Event, Quote
-from rest_framework.response import Response
+from datetime import datetime
+
+from api.serializers import EventPostSerializer, EventSerializer, QuoteSerializer
+from event.models import Event, Quote
 from rest_framework import status
-
-class CategoryViewSet(ModelViewSet):
-    """Вьюсет для категорий."""
-
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 
 
 class EventViewSet(ModelViewSet):
@@ -34,46 +29,52 @@ class QuoteViewSet(ModelViewSet):
 
 class VKView(APIView):
     def common(self, text, pk=None):
-        events=[event.description for event in Event.objects.all()]
-        if 'афиша собития' in text.lower() and text not in events:
-            event_time=re.search(r'\d\d\.\d\d\.\d{4}', text).group(0)
-            event_time=datetime.strptime(event_time, '%d.%m.%Y') # %H:%M:%S.%f
-            description=text
-            location=re.search(r'Место события: г.[а-яА-Я-, ]+', text).group(0)
-            category=re.search(r'Жанр: [а-яА-Я-, ]+', text).group(0)
-            try:
-                category=Category.objects.get(name=category)
-            except:
-                name={'name': category}
-                category_serializer = CategoryPostSerializer(data=name)
-                if category_serializer.is_valid():
-                    category_serializer.save()
-                    category=Category.objects.get(name=category)
-            category=category.id
-            return event_time, description, location, category
-
-
+        events = [event.description for event in Event.objects.all()]
+        if "афиша собития" in text.lower() and text not in events:
+            event_time = re.search(r"\d\d\.\d\d\.\d{4}", text).group(0)
+            event_time = datetime.strptime(event_time, "%d.%m.%Y")  # %H:%M:%S.%f
+            description = text.split("#")[0]
+            location = re.search(r"Место события: г.[а-яА-Я-, ]+", text).group(0)
+            return event_time, description, location
+        else:
+            return None
 
     def post(self, request):
         data = dict(request.data)
-        event_time, description, location, category=self.common(text=data['text'][0])
-        vk_post_id=data['id']
-        data = {'event_time':event_time, 'name': description[0], 'location':location, 'description': description, 'vk_post_id': vk_post_id[0], 'category': category}
-        serializer=EventPostSerializer(data=data)
+        vk_post_id = int(data["id"][0])
+        data = self.common(text=data["text"][0])
+        if data is None:
+            return Response(status=status.HTTP_200_OK)
+        event_time, description, location = data
+        print(vk_post_id)
+        data = {
+            "event_time": event_time,
+            "name": description,
+            "location": location,
+            "description": description,
+            "vk_post_id": vk_post_id,
+        }
+        serializer = EventPostSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def put(self, request, pk):
-        event_time, description, location, category=self.common(text=request['text'])
-        vk_post_id=request['id']
+        event_time, description, location = self.common(text=request["text"])
+        vk_post_id = request["id"]
         event = Event.objects.get(vk_post_id=pk)
-        data = {'event_time':event_time, 'name': description, 'location':location, 'description': description, vk_post_id: vk_post_id, 'category': category}
-        serializer=EventPostSerializer(event, data=data) 
+        data = {
+            "event_time": event_time,
+            "name": description,
+            "location": location,
+            "description": description,
+            "vk_post_id": vk_post_id,
+        }
+        serializer = EventPostSerializer(event, data=data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -1,7 +1,11 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import RETURN_BACK_BUTTON_TEXT, SHORT_RETURN_TO_START_BUTTON_TEXT, create_return_to_start_button
+from bot.keyboards.main import (
+    RETURN_BACK_BUTTON_TEXT,
+    SHORT_RETURN_TO_START_BUTTON_TEXT,
+    create_return_to_start_button,
+)
 
 UPCOMING_EVENTS = "UPCOMING_EVENTS"
 NOTIFICATIONS = "NOTIFICATIONS"

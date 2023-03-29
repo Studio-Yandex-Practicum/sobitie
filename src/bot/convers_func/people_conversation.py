@@ -4,7 +4,7 @@ from bot.keyboards.about_us import PEOPLE_BUTTONS
 
 
 async def show_people(update: Update, _):
-    """Нажатие на кнопку людей. """
+    """Нажатие на кнопку людей."""
     query = update.callback_query
     await query.answer()
 

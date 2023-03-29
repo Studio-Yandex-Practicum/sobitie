@@ -11,7 +11,8 @@ RANDOM_QUOTE = "RANDOM_QUOTE"
 INTERACTIVE_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':game_die:')}Викторины", callback_data=QUIZZES,
+            text=f"{emoji.emojize(':game_die:')}Викторины",
+            callback_data=QUIZZES,
         ),
     ],
     [
@@ -22,7 +23,8 @@ INTERACTIVE_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':books:')}Цитата недели", callback_data=RANDOM_QUOTE,
+            text=f"{emoji.emojize(':books:')}Цитата недели",
+            callback_data=RANDOM_QUOTE,
         ),
     ],
     [create_return_to_start_button()],

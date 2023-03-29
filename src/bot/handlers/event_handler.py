@@ -14,8 +14,13 @@ event_conv = ConversationHandler(
     entry_points=[CallbackQueryHandler(show_event_menu, pattern="^" + EVENTS + "$")],
     states={
         EVENT_MENU: [
-            CallbackQueryHandler(show_gratitude_and_subscribe_to_notifications, pattern="^" + NOTIFICATIONS + "$"),
-            CallbackQueryHandler(show_upcoming_events, pattern="^" + UPCOMING_EVENTS + "$"),
+            CallbackQueryHandler(
+                show_gratitude_and_subscribe_to_notifications,
+                pattern="^" + NOTIFICATIONS + "$",
+            ),
+            CallbackQueryHandler(
+                show_upcoming_events, pattern="^" + UPCOMING_EVENTS + "$"
+            ),
         ]
     },
     fallbacks=[CommandHandler(END, end)],

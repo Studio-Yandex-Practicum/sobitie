@@ -1,8 +1,7 @@
 from django.contrib import admin
 from django.template.defaultfilters import truncatechars
 from django.utils.safestring import mark_safe
-
-from event.models import Category, Event, Quote
+from event.models import Event, Quote
 
 LENGTH_OF_QUOTE_DISPLAY = 200
 EMPTY_VALUE = "-пусто-"
@@ -42,24 +41,13 @@ class EventAdmin(admin.ModelAdmin):
         "name",
         "location",
         "event_time",
-        "category",
         "add_time",
         "change_time",
     )
     list_display_links = ("id", "name")
     search_fields = ("name", "location")
-    list_filter = ("category",)
-    empty_value_display = EMPTY_VALUE
-
-
-class CategoryAdmin(admin.ModelAdmin):
-    date_hierarchy = "add_time"
-    list_display = ("id", "name", "add_time", "change_time")
-    list_display_links = ("id", "name")
-    search_fields = ("name",)
     empty_value_display = EMPTY_VALUE
 
 
 admin.site.register(Event, EventAdmin)
-admin.site.register(Category, CategoryAdmin)
 admin.site.register(Quote, QuoteAdmin)

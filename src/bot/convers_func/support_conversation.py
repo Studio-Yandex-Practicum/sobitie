@@ -73,7 +73,9 @@ async def show_social_links_and_gratitude(update: Update, _: CallbackContext):
 async def move_to_help_chat(update: Update, context):
     """Обработчик кнопки 'Связь по вопросу помощи'."""
     query = update.callback_query
-    await query.message.reply_text(text="Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>")
+    await query.message.reply_text(
+        text="Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>"
+    )
     return
 
 

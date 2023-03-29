@@ -31,7 +31,11 @@ order_souvenir = ConversationHandler(
 
 support_conv = ConversationHandler(
     allow_reentry=True,
-    entry_points=[CallbackQueryHandler(support_conversation.give_support, pattern="^" + GIVE_SUPPORT + "$")],
+    entry_points=[
+        CallbackQueryHandler(
+            support_conversation.give_support, pattern="^" + GIVE_SUPPORT + "$"
+        )
+    ],
     states={
         states.SUPPORT_STATE: [
             order_souvenir,

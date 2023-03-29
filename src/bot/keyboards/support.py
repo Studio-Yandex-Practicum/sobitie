@@ -30,7 +30,9 @@ CORPORATE_FAIR = "CORPORATE_FAIR"
 
 RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS = [
     [
-        InlineKeyboardButton(text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT),
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
+        ),
         create_return_to_start_button(text=SHORT_RETURN_TO_START_BUTTON_TEXT),
     ]
 ]
@@ -57,10 +59,16 @@ SUPPORT_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор", callback_data=CREATE_COLLECTION
+            text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор",
+            callback_data=CREATE_COLLECTION,
         )
     ],
-    [InlineKeyboardButton(text=f"{emoji.emojize(':money_with_wings:')} Подключить кешбэк", callback_data=CASHBACK)],
+    [
+        InlineKeyboardButton(
+            text=f"{emoji.emojize(':money_with_wings:')} Подключить кешбэк",
+            callback_data=CASHBACK,
+        )
+    ],
     [
         InlineKeyboardButton(
             text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком",
@@ -72,8 +80,16 @@ SUPPORT_MENU_BUTTONS = [
 
 # КНОПКИ ПОДМЕНЮ "ВЫБРАТЬ СПОСОБ ПОЖЕРТВОВАНИЯ"
 DONATION_OPTIONS_MENU_BUTTONS = [
-    [InlineKeyboardButton(text="Форма на сайте", url="https://sobytie.center/howtohelp/")],
-    [InlineKeyboardButton(text="Тинькофф", url="https://www.tinkoff.ru/payments/provider-sobytie/")],
+    [
+        InlineKeyboardButton(
+            text="Форма на сайте", url="https://sobytie.center/howtohelp/"
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text="Тинькофф", url="https://www.tinkoff.ru/payments/provider-sobytie/"
+        )
+    ],
     [
         InlineKeyboardButton(
             text="Разовое или регулярное пожертвование",
@@ -120,7 +136,11 @@ SUPPORT_FOLLOW_BUTTONS = [
 ]
 
 MENU_ORDER_SUVENIR = [
-    [InlineKeyboardButton(text="Благотворительная ярмарка", callback_data=CHARITY_FAIR)],
+    [
+        InlineKeyboardButton(
+            text="Благотворительная ярмарка", callback_data=CHARITY_FAIR
+        )
+    ],
     [InlineKeyboardButton(text="Корпоративные подарки", callback_data=CORPORATE_FAIR)],
     [InlineKeyboardButton(text=RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT)],
 ]
