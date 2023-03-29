@@ -2,9 +2,7 @@ from datetime import datetime
 
 from rest_framework.viewsets import ModelViewSet
 
-from api.serializers import (CategorySerializer, EventSerializer, QuoteSerializer,
-                             QuestionSerializer, QuizSerializer,)
-
+from api.serializers import CategorySerializer, EventSerializer, QuestionSerializer, QuizSerializer, QuoteSerializer
 from event.models import Category, Event, Quote
 from quiz.models import Question, Quiz
 

@@ -1,8 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api.views import (CategoryViewSet, EventViewSet, QuoteViewSet,
-                       QuestionViewSet, QuizViewSet)
+from api.views import CategoryViewSet, EventViewSet, QuestionViewSet, QuizViewSet, QuoteViewSet
 
 router = DefaultRouter()
 

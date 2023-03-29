@@ -1,22 +1,29 @@
 
 from django.contrib import admin
 
-from .models import Quiz, Question, Answer
+from .models import Answer, Question, Quiz
 
 
-class AnswerAdmin(admin.TabularInline):
+class AnswerAdmin(admin.ModelAdmin):
+    pass
+
+
+class AnswerInline(admin.TabularInline):
     model = Answer
 
 
-class QuestionAdmin(admin.TabularInline):
+class QuestionAdmin(admin.ModelAdmin):
+    inlines = [AnswerInline]
+
+
+class QuestionInline(admin.TabularInline):
     model = Question
-    inlines = [AnswerAdmin]
 
 
 class QuizAdmin(admin.ModelAdmin):
-    inlines = [QuestionAdmin]
+    inlines = [QuestionInline]
 
 
-admin.site.register(Answer)
-admin.site.register(Question)
+admin.site.register(Answer, AnswerAdmin)
+admin.site.register(Question, QuestionAdmin)
 admin.site.register(Quiz, QuizAdmin)
