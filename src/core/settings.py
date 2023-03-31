@@ -11,3 +11,4 @@ LOG_LEVEL = "INFO"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 EVENTS_URL = os.getenv("EVENTS_URL")
 QUOTE_URL = os.getenv("QUOTE_URL")
+QUIZZES_URL = os.getenv("QUIZZES_URL")

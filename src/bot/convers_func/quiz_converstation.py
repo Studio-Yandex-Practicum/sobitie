@@ -1,13 +1,23 @@
+import urllib
+from http import HTTPStatus
+
+import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Poll, Update
 from telegram.ext import CallbackContext
 
 from bot.keyboards.main import QUIZZES, create_return_to_start_button
 from bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
+from core.settings import QUIZZES_URL
 
 
 def get_quizzes():
     """Получить список викторин."""
-    return None  # TODO: заменить заглушку на запрос к DRF
+    response = requests.get(QUIZZES_URL)
+    if response.status_code != HTTPStatus.OK.value:
+        return None
+    if len(response.json()) < 1:
+        return None
+    return response.json()
 
 
 def get_quizzes_inline_button():
@@ -52,19 +62,36 @@ def get_last_question_id(context: CallbackContext):
     return context.user_data["last_question_id"]
 
 
+def get_image(image_url):
+    request = urllib.request.Request(image_url)
+    response = urllib.request.urlopen(request)
+    if response.status != HTTPStatus.OK.value:
+        return None
+    return response.read()
+
+
 def get_next_question(update: Update, context: CallbackContext):
     """Получить следующий вопрос викторины."""
     # Раскоментировать для get-запроса к DRF
-    # current_quiz_id = get_current_quiz_id(update=update, context=context)
-    # last_question_id = get_last_question_id(context=context)
-
-    question = None  # TODO: заменить заглушку на запрос к DRF
-
-    if question is None:
-        return None
+    current_quiz_id = get_current_quiz_id(update=update, context=context)
+    last_question_id = get_last_question_id(context=context)
+    if last_question_id is None:
+        clear_context(context)
+    questions_url = f"{QUIZZES}/{current_quiz_id}/questions/"
+    params = {"last_question_id": last_question_id}
+    response = requests.get(questions_url, params=params)
+    if response.status_code != HTTPStatus.OK.value:
+        return None, None
+    question = response.json()
+    image = None
+    if len(question) < 1:
+        return None, None
+    if "image" in question:
+        image = get_image(question["image"])
+        del question["image"]
     context.user_data["last_question_id"] = question["id"]
     del question["id"]
-    return question
+    return question, image
 
 
 def correct_answer_count(update: Update, context: CallbackContext):
@@ -93,7 +120,33 @@ def scoring(context: CallbackContext):
         questions_count = context.user_data["questions_counter"]
     if "correct_answer_counter" in context.user_data:
         correct_answer_count = context.user_data["correct_answer_counter"]
-    return questions_count, correct_answer_count
+        # перевести в процент от общего кол-ва
+        correct_answer_count = correct_answer_count * 100 / questions_count
+    return correct_answer_count, questions_count
+
+
+def get_message_for_result(update: Update, context: CallbackContext):
+    """Получить текст сообщения из DRF по результату прохождения викторины."""
+    correct_answer_count, questions_count = scoring(context)
+    current_quiz_id = get_current_quiz_id(update, context)
+    message_url = f'{QUIZZES_URL}/{current_quiz_id}/results/'
+    params = {
+        "correct_answer_count": correct_answer_count,
+        "questions_cnt": questions_count,
+    }
+    response = requests.get(message_url, params=params)
+    if response.status_code != HTTPStatus.OK.value:
+        return None
+    data = response.json()
+    if len(data) < 1:
+        return None
+    if "image" in data:
+        image = get_image(data["image"])
+        if image is None:
+            del data["image"]
+        data["image"] = image
+        return data
+    return data
 
 
 def clear_context(context: CallbackContext):
@@ -117,10 +170,22 @@ async def send_quiz_result(update: Update, context: CallbackContext):
             reply_markup=markup
         )
         return
-    # посчитать и отобразить результат,
-    questions_cnt, answer_cnt = scoring(context)
+
+    # отобразить результат,
+    message_result = get_message_for_result(update, context)
+    if message_result is None:
+        correct_answer_count, questions_count = scoring(context)
+        await update.effective_message.reply_text(
+                text=f"Ваш результат: {correct_answer_count}%",
+                reply_markup=markup
+            )
+
+    if "image" in message_result:
+        await update.effective_message.reply_photo(
+            photo=message_result["image"])
+
     await update.effective_message.reply_text(
-            text=f"Ваш результат: {answer_cnt} из {questions_cnt}",
+            text=message_result["result_text"],
             reply_markup=markup
         )
     clear_context(context)
@@ -134,7 +199,7 @@ async def send_quiz_question(update: Update, context: CallbackContext):
         # если прошлый пост был вопросом викторины, проверяем ответ
         correct_answer_count(update, context)
 
-    question_data = get_next_question(update=update, context=context)
+    question_data, image = get_next_question(update=update, context=context)
 
     if question_data is None:
         # если следующий вопрос не получен значит викторина завершена
@@ -145,6 +210,9 @@ async def send_quiz_question(update: Update, context: CallbackContext):
     increase_questions_count(context)
 
     # отправляем следующий вопрос викторины
+    if image is not None:
+        await update.effective_message.reply_photo(photo=image)
+
     markup = InlineKeyboardMarkup(QUESTIONS_MENU_BUTTON)
     await update.effective_message.reply_poll(
         type=Poll.QUIZ, reply_markup=markup, **question_data
