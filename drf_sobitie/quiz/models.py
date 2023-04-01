@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Quiz(models.Model):
-    title = models.CharField(
+    name = models.CharField(
         max_length=50,
         unique=True,
         blank=False,
@@ -15,15 +15,7 @@ class Quiz(models.Model):
         help_text='напишите, о чем этот квиз'
     )
     created_at = models.DateTimeField(auto_now_add=True)
-    success_text = models.TextField(
-        blank=True,
-        help_text="Текст при успешном прохождении.",
-        verbose_name="этот текст пользователь увидит при успешном прохождении")
-    fail_text = models.TextField(
-        verbose_name="Текст при неуспешном прохождении.",
-        blank=True,
-        help_text="этот текст пользователь увидит при неуспешном прохождении")
-
+    
     def __str__(self):
         return self.title
 
@@ -31,6 +23,26 @@ class Quiz(models.Model):
         verbose_name = 'Квиз'
         verbose_name_plural = 'Квизы'
         db_table = 'quiz'
+
+
+class QuizResult(models.Model):
+    quiz_id = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    image = models.ImageField(
+        upload_to='quiz_results/%Y/%m/%d/',
+        validators=[FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png', 'mp4'])],
+        blank=True,
+        verbose_name='Изображение',
+        help_text='при желании прикрепите картинку'
+    )
+    text = models.TextField(
+        verbose_name="Текст результата.",
+        blank=True,
+        help_text="этот текст может отличаться в зависимости от кол-ва правильных ответов"
+    )
+    correct_answer_cnt = models.IntegerField(
+        verbose_name="Необходимое кол-во правильных ответов.",
+        help_text="при достижении определенного количества определеяет текст результата"
+    )
 
 
 class Question(models.Model):
