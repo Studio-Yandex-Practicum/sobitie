@@ -3,18 +3,19 @@ import re
 from datetime import datetime
 
 import vk_api
-from api.views import VKView
 from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import register_job
 from dotenv import load_dotenv
-from event.models import Event
 from vk_api.tools import VkTools
+
+from api.views import VKView
+from event.models import Event
 
 load_dotenv()
 scheduler = BackgroundScheduler()
 
-VK_APP_KEY = os.getenv("VK_APP_KEY")
-vk_session = vk_api.VkApi(token=VK_APP_KEY)
+VK_SERVICE_KEY = os.getenv("VK_SERVICE_KEY")
+vk_session = vk_api.VkApi(token=VK_SERVICE_KEY)
 tools = VkTools(vk_session)
 
 
@@ -26,6 +27,7 @@ def task():
     """
     events_db = Event.objects.all().filter(event_time__gte=datetime.now())
     list_vk_post_id = [event.vk_post_id for event in events_db]
+
     for event in tools.get_all_iter("wall.get", 100, {"owner_id": -215478360}):
         try:
             if Event.objects.get(vk_post_id=event["id"]).event_time.replace(
@@ -33,7 +35,8 @@ def task():
             ) < datetime.now().replace(hour=0, minute=0, second=0, microsecond=0):
                 break
             event_db = Event.objects.get(vk_post_id=event["id"])
-            if event["text"] == event_db.description:
+            text = event["text"].split("#")[0].rstrip()
+            if text == event_db.description:
                 spent = list_vk_post_id.index(event_db.vk_post_id)
                 list_vk_post_id.pop(spent)
                 continue

@@ -4,11 +4,6 @@ from django.db import models
 
 
 class Event(models.Model):
-    name = models.CharField(
-        "Название события",
-        unique=True,
-        max_length=256,
-    )
     description = models.TextField(
         "Подробное описание",
         blank=True,
@@ -27,9 +22,7 @@ class Event(models.Model):
 
     class Meta:
         constraints = (
-            models.UniqueConstraint(
-                fields=["name", "description"], name="unique_event"
-            ),
+            models.UniqueConstraint(fields=["description"], name="unique_event"),
         )
         verbose_name = "Мероприятие"
         verbose_name_plural = "Мероприятия"

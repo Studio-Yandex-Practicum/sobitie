@@ -1,6 +1,7 @@
 from drf_extra_fields.fields import Base64ImageField
-from event.models import Event, Quote
 from rest_framework.serializers import ModelSerializer, StringRelatedField
+
+from event.models import Event, Quote
 
 
 class EventSerializer(ModelSerializer):
@@ -26,7 +27,6 @@ class EventPostSerializer(ModelSerializer):
     class Meta:
         model = Event
         fields = (
-            "name",
             "description",
             "vk_post_id",
             "event_time",

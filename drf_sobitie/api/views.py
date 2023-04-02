@@ -1,12 +1,13 @@
 import re
 from datetime import datetime
 
-from api.serializers import EventPostSerializer, EventSerializer, QuoteSerializer
-from event.models import Event, Quote
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
+
+from api.serializers import EventPostSerializer, EventSerializer, QuoteSerializer
+from event.models import Event, Quote
 
 
 class EventViewSet(ModelViewSet):
@@ -28,11 +29,11 @@ class QuoteViewSet(ModelViewSet):
 
 
 class VKView(APIView):
-    def common(self, text, pk=None):
+    def common(self, text):
         events = [event.description for event in Event.objects.all()]
         if "афиша собития" in text.lower() and text not in events:
-            event_time = re.search(r"\d\d\.\d\d\.\d{4}", text).group(0)
-            event_time = datetime.strptime(event_time, "%d.%m.%Y")  # %H:%M:%S.%f
+            event_time = re.search(r"\d\d\.\d\d\.\d{4} \d{2}:\d{2}", text).group(0)
+            event_time = datetime.strptime(event_time, "%d.%m.%Y %H:%M")
             description = text.split("#")[0]
             location = re.search(r"Место события: г.[а-яА-Я-, ]+", text).group(0)
             return event_time, description, location
@@ -46,10 +47,8 @@ class VKView(APIView):
         if data is None:
             return Response(status=status.HTTP_200_OK)
         event_time, description, location = data
-        print(vk_post_id)
         data = {
             "event_time": event_time,
-            "name": description,
             "location": location,
             "description": description,
             "vk_post_id": vk_post_id,
@@ -67,7 +66,6 @@ class VKView(APIView):
         event = Event.objects.get(vk_post_id=pk)
         data = {
             "event_time": event_time,
-            "name": description,
             "location": location,
             "description": description,
             "vk_post_id": vk_post_id,
