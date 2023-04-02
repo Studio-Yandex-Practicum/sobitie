@@ -2,6 +2,7 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandl
 
 from bot.convers_func import support_conversation
 from bot.convers_func.main_conversation import end
+from bot.handlers.event_handler import event_conv, subscribe_to_notifications_handler, unsubscribe_handler
 from bot.keyboards import support
 from bot.keyboards.main import END, GIVE_SUPPORT
 from core import states
@@ -10,32 +11,23 @@ order_souvenir = ConversationHandler(
     allow_reentry=True,
     entry_points=[
         CallbackQueryHandler(
-            support_conversation.order_souvenir,
+            support_conversation.show_souvenir_purchase_menu,
             pattern="^" + support.ORDER_SOUVENIRS + "$",
         )
     ],
     states={
         states.ORDER_SOUVENIR_STATE: [
-            CallbackQueryHandler(
-                support_conversation.charity_fair_order,
-                pattern="^" + support.CHARITY_FAIR + "$",
-            ),
-            CallbackQueryHandler(
-                support_conversation.corporate_gifts_order,
-                pattern="^" + support.CORPORATE_FAIR + "$",
-            ),
-        ]
+            subscribe_to_notifications_handler,
+            unsubscribe_handler,
+        ],
+        **event_conv.states,
     },
     fallbacks=[CommandHandler(END, end)],
 )
 
 support_conv = ConversationHandler(
     allow_reentry=True,
-    entry_points=[
-        CallbackQueryHandler(
-            support_conversation.give_support, pattern="^" + GIVE_SUPPORT + "$"
-        )
-    ],
+    entry_points=[CallbackQueryHandler(support_conversation.show_give_support_menu, pattern="^" + GIVE_SUPPORT + "$")],
     states={
         states.SUPPORT_STATE: [
             order_souvenir,
@@ -56,7 +48,7 @@ support_conv = ConversationHandler(
                 pattern="^" + support.CREATE_COLLECTION + "$",
             ),
             CallbackQueryHandler(
-                support_conversation.move_to_help_chat,
+                support_conversation.show_link_to_support_chat,
                 pattern="^" + support.COMMUNICATE_FOR_HELP + "$",
             ),
         ],
