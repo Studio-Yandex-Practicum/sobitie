@@ -18,7 +18,7 @@ vk_session = vk_api.VkApi(token=VK_SERVICE_KEY)
 tools = VkTools(vk_session)
 
 
-@register_job(scheduler, "interval", minutes=1)
+@register_job(scheduler, "interval", minutes=15)
 def task():
     """Обновление записей в бд при их изменении в ВК (а также при их удалении),
     работает через планировщик. В параметре minutes указывается через сколько
