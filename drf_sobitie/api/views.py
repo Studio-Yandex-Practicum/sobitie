@@ -9,12 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from api.mixins import BaseListCreateDeleteViewSet
-from api.serializers import (
-    EventPostSerializer,
-    EventSerializer,
-    QuoteSerializer,
-    SubscriberSerializer,
-)
+from api.serializers import EventPostSerializer, EventSerializer, QuoteSerializer, SubscriberSerializer
 from event.models import Event, Quote, Subscriber
 
 
@@ -55,7 +50,7 @@ class CheckForSubscription(APIView):
 class VKView(APIView):
     def common(self, text):
         events = [event.description for event in Event.objects.all()]
-        if "афиша собития" in text.lower() and text not in events:
+        if "афиша события" in text.lower() and text not in events:
             event_time = re.search(r"\d\d\.\d\d\.\d{4} \d{2}:\d{2}", text).group(0)
             event_time = datetime.strptime(event_time, "%d.%m.%Y %H:%M")
             description = text.split("#")[0]
