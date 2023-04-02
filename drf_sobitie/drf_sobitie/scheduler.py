@@ -1,5 +1,4 @@
 import os
-import re
 from datetime import datetime
 
 import vk_api
@@ -52,5 +51,5 @@ def task():
 
 try:
     scheduler.start()
-except Exception as e:
+except Exception:
     scheduler.shutdown()
