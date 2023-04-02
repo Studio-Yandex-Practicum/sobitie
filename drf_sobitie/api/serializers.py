@@ -1,5 +1,5 @@
 from drf_extra_fields.fields import Base64ImageField
-from rest_framework.serializers import IntegerField, ModelSerializer, StringRelatedField
+from rest_framework.serializers import IntegerField, ModelSerializer
 from rest_framework.validators import UniqueValidator
 
 from event.models import Event, Quote, Subscriber
