@@ -1,14 +1,14 @@
-import os
 from asyncio import create_task
 
 from fastapi import FastAPI, Request
 from telegram import Bot
 
 from bot.convers_func.event_conversation import notify_subscribers_about_new_event
+from core.settings import TELEGRAM_TOKEN
 
 fastapi_app = FastAPI()
 
-bot = Bot(token=os.getenv("TELEGRAM_TOKEN"))
+bot = Bot(token=TELEGRAM_TOKEN)
 
 
 @fastapi_app.post("/send-event-notification/")

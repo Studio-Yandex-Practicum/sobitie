@@ -28,7 +28,9 @@ CASHBACK = "CASHBACK"
 
 RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS = [
     [
-        InlineKeyboardButton(text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT),
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
+        ),
         create_return_to_start_button(text=SHORT_RETURN_TO_START_BUTTON_TEXT),
     ]
 ]
@@ -36,38 +38,65 @@ RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS = [
 SUPPORT_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросу помощи", callback_data=COMMUNICATE_FOR_HELP
+            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросу помощи",
+            callback_data=COMMUNICATE_FOR_HELP,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':credit_card:')} Сделать пожертвование", callback_data=SHOW_DONATION_OPTIONS
+            text=f"{emoji.emojize(':credit_card:')} Сделать пожертвование",
+            callback_data=SHOW_DONATION_OPTIONS,
         )
     ],
-    [InlineKeyboardButton(text=f"{emoji.emojize(':package:')} Приобрести сувениры", callback_data=ORDER_SOUVENIRS)],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор", callback_data=CREATE_COLLECTION
+            text=f"{emoji.emojize(':package:')} Приобрести сувениры",
+            callback_data=ORDER_SOUVENIRS,
         )
     ],
-    [InlineKeyboardButton(text=f"{emoji.emojize(':money_with_wings:')} Подключить кешбэк", callback_data=CASHBACK)],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком", callback_data=FOLLOW_US
+            text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор",
+            callback_data=CREATE_COLLECTION,
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=f"{emoji.emojize(':money_with_wings:')} Подключить кешбэк",
+            callback_data=CASHBACK,
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком",
+            callback_data=FOLLOW_US,
         )
     ],
     [create_return_to_start_button()],
 ]
 
 DONATION_OPTIONS_MENU_BUTTONS = [
-    [InlineKeyboardButton(text="Форма на сайте", url="https://sobytie.center/howtohelp/")],
     [
         InlineKeyboardButton(
-            text='Благотворительный фонд "Нужна помощь"', url="https://nuzhnapomosh.ru/funds/centr-sobytie/"
+            text="Форма на сайте", url="https://sobytie.center/howtohelp/"
         )
     ],
-    [InlineKeyboardButton(text='Подписка "Рубль в день"', url="https://365.nuzhnapomosh.ru/")],
-    [InlineKeyboardButton(text="Тинькофф", url="https://www.tinkoff.ru/payments/provider-sobytie/")],
+    [
+        InlineKeyboardButton(
+            text='Благотворительный фонд "Нужна помощь"',
+            url="https://nuzhnapomosh.ru/funds/centr-sobytie/",
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text='Подписка "Рубль в день"', url="https://365.nuzhnapomosh.ru/"
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text="Тинькофф", url="https://www.tinkoff.ru/payments/provider-sobytie/"
+        )
+    ],
     *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
 ]
 
@@ -90,9 +119,13 @@ SUPPORT_FOLLOW_BUTTONS = [
 ]
 
 
-async def create_menu_order_souvenir(user_id: int) -> Sequence[Sequence[InlineKeyboardButton]]:
+async def create_menu_order_souvenir(
+    user_id: int,
+) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры раздела приобретения сувениров."""
-    notification_button = await create_notification_button_based_on_subscription_status(user_id=user_id)
+    notification_button = await create_notification_button_based_on_subscription_status(
+        user_id=user_id
+    )
     menu_order_souvenir = [
         [notification_button],
         *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,

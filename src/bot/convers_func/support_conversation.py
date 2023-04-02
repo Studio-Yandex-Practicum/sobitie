@@ -75,7 +75,9 @@ async def show_link_to_support_chat(update: Update, _: CallbackContext):
     query = update.callback_query
     # TODO: Здесь нужно улучшить текст сообщения и вставить реальную ссылку
     message_text = "Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>"
-    keyboard_markup = InlineKeyboardMarkup(RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS)
+    keyboard_markup = InlineKeyboardMarkup(
+        RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS
+    )
     await query.edit_message_text(text=message_text, reply_markup=keyboard_markup)
 
 
@@ -90,7 +92,9 @@ async def show_souvenir_purchase_menu(update: Update, _: CallbackContext):
 мастер-классы и благотворительная ярмарка. Ваша поддержка очень важна для нас, спасибо!"""
     menu_order_souvenir = await create_menu_order_souvenir(user_id=query.from_user.id)
     keyboard_markup = InlineKeyboardMarkup(menu_order_souvenir)
-    await query.edit_message_text(text=message_text, reply_markup=keyboard_markup, parse_mode=ParseMode.HTML)
+    await query.edit_message_text(
+        text=message_text, reply_markup=keyboard_markup, parse_mode=ParseMode.HTML
+    )
     return states.ORDER_SOUVENIR_STATE
 
 
@@ -108,5 +112,7 @@ async def show_donations_options(update: Update, _: CallbackContext):
 🔸Сделать пожертвование в банке «Тинькофф» (для клиентов банка)
 
 Спасибо, что поддерживаете нас!"""
-    await query.edit_message_text(text=message_text, reply_markup=keyboard, parse_mode=ParseMode.HTML)
+    await query.edit_message_text(
+        text=message_text, reply_markup=keyboard, parse_mode=ParseMode.HTML
+    )
     return states.DONATION_OPTIONS_STATE

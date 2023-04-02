@@ -16,13 +16,12 @@ from bot.keyboards.event import EVENT_MENU, NOTIFICATION_BUTTONS, create_event_m
 from core.settings import EVENTS_URL, NOTIFICATIONS_API_URL
 
 EVENT_MESSAGE_TEMPLATE = emoji.emojize(
-    """:calendar: {event_time_formatted}
-:megaphone: {name}
+        """:calendar: {event_time_formatted}
 
 :round_pushpin: {location}
 
 {description}
-:label: {category}"""
+"""
 )
 CLOSING_NOTIFICATION_TEXT = "\n\nА пока можете посмотреть опубликованные анонсы или вернуться в главное меню."
 

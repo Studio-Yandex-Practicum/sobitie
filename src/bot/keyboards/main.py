@@ -23,9 +23,13 @@ MAIN_TEXT = """Привет! Познакомимся?
 Выберите раздел меню, чтобы узнать больше.
 """
 RETURN_TO_START = "RETURN_TO_START"
-RETURN_TO_START_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню"
+RETURN_TO_START_BUTTON_TEXT = (
+    f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню"
+)
 SHORT_RETURN_TO_START_BUTTON_TEXT = f"{emoji.emojize(':house:')} В главное меню"
-RETURN_BACK_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу"
+RETURN_BACK_BUTTON_TEXT = (
+    f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу"
+)
 SHORT_RETURN_BACK_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Назад"
 
 START_MENU_BUTTONS = [
@@ -36,6 +40,8 @@ START_MENU_BUTTONS = [
 ]
 
 
-def create_return_to_start_button(text: str = RETURN_TO_START_BUTTON_TEXT) -> InlineKeyboardButton:
+def create_return_to_start_button(
+    text: str = RETURN_TO_START_BUTTON_TEXT,
+) -> InlineKeyboardButton:
     """Создаёт объект кнопки для возвращения в стартовое меню."""
     return InlineKeyboardButton(text=text, callback_data=RETURN_TO_START)

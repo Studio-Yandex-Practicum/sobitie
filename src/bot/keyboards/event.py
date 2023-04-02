@@ -34,9 +34,13 @@ SUBSCRIBE_BUTTON_TEXT = emoji.emojize(":bell: Включить уведомле�
 logger = logging.getLogger(__name__)
 
 
-async def create_event_menu_buttons(user_id: int) -> Sequence[Sequence[InlineKeyboardButton]]:
+async def create_event_menu_buttons(
+    user_id: int,
+) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры меню Событий."""
-    notification_button = await create_notification_button_based_on_subscription_status(user_id=user_id)
+    notification_button = await create_notification_button_based_on_subscription_status(
+        user_id=user_id
+    )
     event_menu_buttons = [
         [UPCOMING_EVENTS_BUTTON],
         [notification_button],
@@ -45,9 +49,13 @@ async def create_event_menu_buttons(user_id: int) -> Sequence[Sequence[InlineKey
     return event_menu_buttons
 
 
-async def create_finish_event_buttons(user_id: int) -> Sequence[Sequence[InlineKeyboardButton]]:
+async def create_finish_event_buttons(
+    user_id: int,
+) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры актуальных событий."""
-    notification_button = await create_notification_button_based_on_subscription_status(user_id=user_id)
+    notification_button = await create_notification_button_based_on_subscription_status(
+        user_id=user_id
+    )
     finish_event_buttons = [
         [
             notification_button,
@@ -57,11 +65,19 @@ async def create_finish_event_buttons(user_id: int) -> Sequence[Sequence[InlineK
     return finish_event_buttons
 
 
-async def create_notification_button_based_on_subscription_status(user_id: int) -> InlineKeyboardButton:
+async def create_notification_button_based_on_subscription_status(
+    user_id: int,
+) -> InlineKeyboardButton:
     """В зависимости от наличия подписки создаёт кнопку: подписаться/отписаться."""
-    button = InlineKeyboardButton(text=SUBSCRIBE_BUTTON_TEXT, callback_data=NOTIFICATION_SUBSCRIBE_CALLBACK)
-    response = await async_get_request(url=f"{CHECK_FOR_SUBSCRIPTION_API_URL}{user_id}/")
-    button = await _process_and_update_button_based_on_api_response(button=button, response=response)
+    button = InlineKeyboardButton(
+        text=SUBSCRIBE_BUTTON_TEXT, callback_data=NOTIFICATION_SUBSCRIBE_CALLBACK
+    )
+    response = await async_get_request(
+        url=f"{CHECK_FOR_SUBSCRIPTION_API_URL}{user_id}/"
+    )
+    button = await _process_and_update_button_based_on_api_response(
+        button=button, response=response
+    )
     return button
 
 
@@ -71,7 +87,9 @@ async def _process_and_update_button_based_on_api_response(
     """Обрабатывает ответ API и изменяет кнопку."""
     content_type_ = response.headers.get("content-type")
     if "application/json" in content_type_:
-        button = await _update_notification_button_if_subscribed(button=button, response=response)
+        button = await _update_notification_button_if_subscribed(
+            button=button, response=response
+        )
     else:
         logger.warning(
             f"Не удалось десериализовать ответ API по эндпоинту {response.url}, код ответа: {response.status_code}"
@@ -85,5 +103,8 @@ async def _update_notification_button_if_subscribed(
     """Если пользователь подписан, то возвращает изменённый текст кнопки и callback."""
     data = response.json()
     if data.get("is_subscribed") is True:
-        button = InlineKeyboardButton(text=UNSUBSCRIBE_BUTTON_TEXT, callback_data=NOTIFICATION_UNSUBSCRIBE_CALLBACK)
+        button = InlineKeyboardButton(
+            text=UNSUBSCRIBE_BUTTON_TEXT,
+            callback_data=NOTIFICATION_UNSUBSCRIBE_CALLBACK,
+        )
     return button
