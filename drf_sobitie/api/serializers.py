@@ -2,18 +2,15 @@ from drf_extra_fields.fields import Base64ImageField
 from rest_framework.serializers import IntegerField, ModelSerializer, StringRelatedField
 from rest_framework.validators import UniqueValidator
 
-from event.models import Event, Quote
+from event.models import Event, Quote, Subscriber
 
 
 class EventSerializer(ModelSerializer):
     """Сериализатор для мероприятий."""
 
-    category = StringRelatedField(read_only=True)
-
     class Meta:
         model = Event
         fields = (
-            "name",
             "description",
             "add_time",
             "change_time",

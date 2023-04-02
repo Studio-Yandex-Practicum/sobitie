@@ -16,7 +16,8 @@ from bot.keyboards.event import (
 from bot.keyboards.main import END, EVENTS
 
 subscribe_to_notifications_handler = CallbackQueryHandler(
-    show_gratitude_and_subscribe_to_notifications, pattern="^" + NOTIFICATION_SUBSCRIBE_CALLBACK + "$"
+    show_gratitude_and_subscribe_to_notifications,
+    pattern="^" + NOTIFICATION_SUBSCRIBE_CALLBACK + "$",
 )
 unsubscribe_handler = CallbackQueryHandler(
     unsubscribe_and_notify_user, pattern="^" + NOTIFICATION_UNSUBSCRIBE_CALLBACK + "$"
@@ -29,7 +30,9 @@ event_conv = ConversationHandler(
         EVENT_MENU: [
             subscribe_to_notifications_handler,
             unsubscribe_handler,
-            CallbackQueryHandler(show_upcoming_events, pattern="^" + UPCOMING_EVENTS + "$"),
+            CallbackQueryHandler(
+                show_upcoming_events, pattern="^" + UPCOMING_EVENTS + "$"
+            ),
         ]
     },
     fallbacks=[CommandHandler(END, end)],
