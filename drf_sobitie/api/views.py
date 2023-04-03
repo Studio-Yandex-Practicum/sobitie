@@ -9,12 +9,7 @@ from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from api.mixins import BaseListCreateDeleteViewSet
-from api.serializers import (
-    EventPostSerializer,
-    EventSerializer,
-    QuoteSerializer,
-    SubscriberSerializer,
-)
+from api.serializers import EventPostSerializer, EventSerializer, QuoteSerializer, SubscriberSerializer
 from event.models import Event, Quote, Subscriber
 
 
