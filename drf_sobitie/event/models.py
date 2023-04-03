@@ -21,23 +21,19 @@ class Event(models.Model):
     )
 
     class Meta:
-        constraints = (
-            models.UniqueConstraint(fields=["description"], name="unique_event"),
-        )
+        constraints = (models.UniqueConstraint(fields=["description"], name="unique_event"),)
         verbose_name = "Событие"
         verbose_name_plural = "События"
 
     def __str__(self):
-        return self.name
+        return self.description[:200]
 
 
 class Quote(models.Model):
     text = models.TextField(verbose_name="Текст цитаты")
     author = models.CharField(max_length=256, verbose_name="Автор цитаты")
     add_time = models.DateTimeField(auto_now_add=True, verbose_name="Дата добавления")
-    image = models.ImageField(
-        upload_to="images/", null=True, blank=True, verbose_name="Изображение"
-    )
+    image = models.ImageField(upload_to="images/", null=True, blank=True, verbose_name="Изображение")
 
     class Meta:
         verbose_name = "Цитата"
