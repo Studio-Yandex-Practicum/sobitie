@@ -1,33 +1,33 @@
 from drf_extra_fields.fields import Base64ImageField
-from rest_framework.serializers import ModelSerializer, StringRelatedField
+from rest_framework.serializers import IntegerField, ModelSerializer
+from rest_framework.validators import UniqueValidator
 
-from event.models import Category, Event, Quote
+from event.models import Event, Quote, Subscriber
 from quiz.models import Answer, Question, Quiz, QuizResult
-
-
-class CategorySerializer(ModelSerializer):
-    """Сериализатор для категорий."""
-
-    event = StringRelatedField(many=True, read_only=True)
-
-    class Meta:
-        model = Category
-        fields = ("name", "add_time", "change_time", "event")
 
 
 class EventSerializer(ModelSerializer):
     """Сериализатор для мероприятий."""
 
-    category = StringRelatedField(read_only=True)
+    class Meta:
+        model = Event
+        fields = (
+            "description",
+            "add_time",
+            "change_time",
+            "event_time",
+            "location",
+        )
+
+
+class EventPostSerializer(ModelSerializer):
+    """Сериализатор для мероприятий."""
 
     class Meta:
         model = Event
         fields = (
-            "name",
             "description",
-            "add_time",
-            "change_time",
-            "category",
+            "vk_post_id",
             "event_time",
             "location",
         )
@@ -87,3 +87,16 @@ class QuizResultSerializer(ModelSerializer):
     class Meta:
         model = QuizResult
         fields = ("quiz_id", "image", "text")
+ 
+ 
+class SubscriberSerializer(ModelSerializer):
+    """Сериализатор для модели подписчика на уведомления на события."""
+
+    user_id = IntegerField(
+        min_value=0,
+        validators=[UniqueValidator(queryset=Subscriber.objects.all())],
+    )
+
+    class Meta:
+        model = Subscriber
+        fields = ("user_id",)

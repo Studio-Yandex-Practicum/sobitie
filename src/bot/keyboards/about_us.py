@@ -1,7 +1,13 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import SHORT_RETURN_TO_START_BUTTON_TEXT, create_return_to_start_button
+from bot.keyboards.main import (
+    ABOUT_US,
+    RETURN_BACK_BUTTON_TEXT,
+    SHORT_RETURN_BACK_BUTTON_TEXT,
+    SHORT_RETURN_TO_START_BUTTON_TEXT,
+    create_return_to_start_button,
+)
 
 # Константы для меню "О нас"
 CONTACTS = "CONTACTS"
@@ -24,16 +30,12 @@ INCLUSIVE_THEATRE = "INCLUSIVE_THEATRE"
 INCLUSIVE_WORKSHOP = "INCLUSIVE_WORKSHOP"
 THEATRE_SCHOOL = "THEATRE_SCHOOL"
 MOSCOW_ONLINE = "MOSCOW_ONLINE"
-RETURN_TO_ABOUT_US = "RETURN_TO_ABOUT_US"
 
 # Константы для подменю "Контакты"
 CONTACTS_INFO = "CONTACTS_INFO"
 
 # Константы кнопки "НАЗАД"
 RETURN_TO_BACK = "RETURN_TO_BACK"
-RETURN_TO_BACK_BUTTON_TEXT = (
-    f"{emoji.emojize(':BACK_arrow:')} Вернуться на предыдущую страницу"
-)
 
 # КНОПКИ МЕНЮ "О НАС"
 ABOUT_US_MENU_BUTTONS = [
@@ -57,7 +59,8 @@ ABOUT_US_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':hatching_chick:')} Проекты", callback_data=PROJECTS,
+            text=f"{emoji.emojize(':hatching_chick:')} Проекты",
+            callback_data=PROJECTS,
         )
     ],
     [
@@ -66,7 +69,7 @@ ABOUT_US_MENU_BUTTONS = [
             callback_data=PEOPLE,
         )
     ],
-    [create_return_to_start_button(text=RETURN_TO_BACK_BUTTON_TEXT),],
+    [create_return_to_start_button(text=RETURN_BACK_BUTTON_TEXT)],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ДОКУМЕНТЫ"
@@ -92,14 +95,15 @@ DOCUMENTS_MENU_BUTTONS = [
             url="https://sobytie.center/documents/",
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ"
 REPORTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Отчёты на портале Минюста РФ?", callback_data=REPORTS_MINISTRY,
+            text="Посмотреть отчёты на портале Минюста РФ?",
+            callback_data=REPORTS_MINISTRY,
         )
     ],
     [
@@ -109,17 +113,18 @@ REPORTS_MENU_BUTTONS = [
             url="https://sobytie.center/reports/",
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ НА ПОРТАЛЕ МИНЮСТА"
 MINISTRY_REPORTS_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Нажмите для перехода", url="http://unro.minjust.ru/NKOReports.aspx",
+            text="Информационный портал Минюста РФ",
+            url="http://unro.minjust.ru/NKOReports.aspx",
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ПРОЕКТЫ"
@@ -151,7 +156,8 @@ PROJECTS_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=RETURN_TO_BACK_BUTTON_TEXT, callback_data=RETURN_TO_ABOUT_US,
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=ABOUT_US,
         )
     ],
 ]
@@ -159,11 +165,10 @@ PROJECTS_MENU_BUTTONS = [
 RETURN_BACK_AND_TO_START_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':BACK_arrow:')} Назад", callback_data=RETURN_TO_BACK,
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=RETURN_TO_BACK,
         ),
-        create_return_to_start_button(
-            text=SHORT_RETURN_TO_START_BUTTON_TEXT
-        ),
+        create_return_to_start_button(text=SHORT_RETURN_TO_START_BUTTON_TEXT),
     ],
 ]
 
@@ -193,7 +198,7 @@ CONTACTS_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
 
 # Кнопки подменю "Люди"
@@ -212,8 +217,9 @@ PEOPLE_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":sparkles:")} Волонтёры', url="https://test.ru",
+            text=f'{emoji.emojize(":sparkles:")} Волонтёры',
+            url="https://test.ru",
         )
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]
