@@ -19,6 +19,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+if DEBUG is True:
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost",
+    ]
 
 # Application definition
 
@@ -102,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "ru-ru"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "Europe/Moscow"
 
 USE_I18N = True
 

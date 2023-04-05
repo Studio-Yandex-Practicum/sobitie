@@ -8,15 +8,8 @@ from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 from api.mixins import BaseListCreateDeleteViewSet
-from api.serializers import (
-    CategorySerializer,
-    EventPostSerializer,
-    EventSerializer,
-    QuestionSerializer,
-    QuizSerializer,
-    QuizResultSerializer,
-    QuoteSerializer,
-    SubscriberSerializer,
+
+from api.serializers import CategorySerializer, EventPostSerializer, EventSerializer, QuestionSerializer, QuizSerializer, QuizResultSerializer, QuoteSerializer, SubscriberSerializer
 
 from event.models import Event, Quote, Subscriber
 from quiz.models import Question, Quiz, QuizResult

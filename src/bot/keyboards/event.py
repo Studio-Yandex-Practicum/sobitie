@@ -6,11 +6,7 @@ from requests import Response
 from telegram import InlineKeyboardButton
 
 from bot.async_requests import async_get_request
-from bot.keyboards.main import (
-    RETURN_BACK_BUTTON_TEXT,
-    SHORT_RETURN_TO_START_BUTTON_TEXT,
-    create_return_to_start_button,
-)
+from bot.keyboards.main import RETURN_BACK_BUTTON_TEXT, SHORT_RETURN_TO_START_BUTTON_TEXT, create_return_to_start_button
 from core.settings import CHECK_FOR_SUBSCRIPTION_API_URL
 
 UPCOMING_EVENTS = "UPCOMING_EVENTS"
