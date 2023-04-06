@@ -1,4 +1,5 @@
 from drf_extra_fields.fields import Base64ImageField
+from rest_framework.relations import StringRelatedField
 from rest_framework.serializers import IntegerField, ModelSerializer
 from rest_framework.validators import UniqueValidator
 
@@ -46,11 +47,7 @@ class QuizSerializer(ModelSerializer):
 
     class Meta:
         model = Quiz
-        fields = (
-            "id",
-            "name",
-            "description"
-        )
+        fields = ("id", "name", "description")
 
 
 class AnswerSerializer(ModelSerializer):
@@ -63,19 +60,14 @@ class AnswerSerializer(ModelSerializer):
 
 class QuestionSerializer(ModelSerializer):
     """Сериализатор для вопросов."""
-    
+
     options = AnswerSerializer(many=True)
     quiz = StringRelatedField
     image = Base64ImageField(required=False, allow_null=True)
 
     class Meta:
         model = Question
-        fields = (
-            "quiz",
-            "image",
-            "question_text",
-            "answers"
-        )
+        fields = ("quiz", "image", "question_text", "answers")
 
 
 class QuizResultSerializer(ModelSerializer):
@@ -87,8 +79,8 @@ class QuizResultSerializer(ModelSerializer):
     class Meta:
         model = QuizResult
         fields = ("quiz_id", "image", "text")
- 
- 
+
+
 class SubscriberSerializer(ModelSerializer):
     """Сериализатор для модели подписчика на уведомления на события."""
 
