@@ -47,7 +47,7 @@ class QuizViewSet(ModelViewSet):
     queryset = Quiz.objects.all()
     serializer_class = QuizSerializer
 
-    @action(method=["GET"])
+    @action(methods=["GET"], detail=False)
     def questions(self):
         req = self.request
         quiz_id = req.query_params.get("quiz_id")
