@@ -133,3 +133,6 @@ media/
 
 # nektos/act: run GitHub Actions locally
 /.secrets
+
+#longpoll
+vk_config.v2.json

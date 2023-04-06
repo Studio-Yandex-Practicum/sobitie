@@ -29,7 +29,8 @@ async def show_about_us(update: Update, _: CallbackContext):
     keyboard = InlineKeyboardMarkup(ABOUT_US_MENU_BUTTONS)
     message_text = "Узнайте о нас побольше. Выберите интересующее Вас:"
     await query.edit_message_text(
-        text=message_text, reply_markup=keyboard,
+        text=message_text,
+        reply_markup=keyboard,
     )
     return ABOUT_US_STATE
 
@@ -40,12 +41,15 @@ async def show_documents(update: Update, _: CallbackContext):
     await query.answer()
     keyboard = InlineKeyboardMarkup(DOCUMENTS_MENU_BUTTONS)
     message_text = """Мы официально зарегистрированная некоммерческая организация.
+
 Полное название: Автономная некоммерческая организация "Центр социокультурных практик Событие"
 Сокращенное название: АНО "Событие"
+
 ИНН: 7727301229
 ОГРН: 116700068051"""
     await query.edit_message_text(
-        text=message_text, reply_markup=keyboard,
+        text=message_text,
+        reply_markup=keyboard,
     )
 
 
@@ -58,9 +62,11 @@ async def show_reports(update: Update, _: CallbackContext):
 
 Мы защищаем тайну обращений к нам за помощью. Но информация о нашей деятельности, проектах, полученных средствах и \
 их использовании открыта.
+
 Мы ежегодно подаём финансовые отчёты в Министерство юстиции РФ и размещаем годовые отчёты на сайте."""
     await query.edit_message_text(
-        text=message_text, reply_markup=keyboard,
+        text=message_text,
+        reply_markup=keyboard,
     )
 
 
@@ -72,9 +78,10 @@ async def show_ministry_reports(update: Update, _: CallbackContext):
     message_text = """Хотите посмотреть отчёты на  информационном портале Минюста РФ "О деятельности некоммерческих \
 организаций"?
 
+Перейдите на <a href="http://unro.minjust.ru/NKOReports.aspx">информационный портал Минюста РФ</a>
 Введите в поисковую строку ОГРН: 1167700068051"""
     await query.edit_message_text(
-        text=message_text, reply_markup=keyboard,
+        text=message_text, reply_markup=keyboard, parse_mode="HTML"
     )
 
 
@@ -88,7 +95,8 @@ async def show_projects(update: Update, _: CallbackContext):
 школе для детей с особыми образовательными потребностями. Одной из важных задач нашей работы является развитие \
 социальной ответственности её участников."""
     await query.edit_message_text(
-        text=message_text, reply_markup=keyboard,
+        text=message_text,
+        reply_markup=keyboard,
     )
     return PROJECTS_STATE
 
@@ -135,5 +143,7 @@ async def _send_project_info(update: Update, message: ProjectInfoMessage):
     keyboard = InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
     message.text += '<a href="%s">&#8205;</a>' % message.image_url
     await query.edit_message_text(
-        text=message.text, parse_mode="HTML", reply_markup=keyboard,
+        text=message.text,
+        parse_mode="HTML",
+        reply_markup=keyboard,
     )

@@ -7,11 +7,11 @@ from bot.keyboards.quiz import START_QUIZZES
 GET_STICKERS = "GET_STICKERS"
 RANDOM_QUOTE = "RANDOM_QUOTE"
 
-# кнопки для меню интерактив
 INTERACTIVE_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':game_die:')}Викторины", callback_data=START_QUIZZES,
+            text=f"{emoji.emojize(':game_die:')}Викторины",
+            callback_data=START_QUIZZES,
         ),
     ],
     [
@@ -22,8 +22,9 @@ INTERACTIVE_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':books:')}Цитата недели", callback_data=RANDOM_QUOTE,
+            text=f"{emoji.emojize(':books:')}Цитата недели",
+            callback_data=RANDOM_QUOTE,
         ),
     ],
-    [create_return_to_start_button(),],
+    [create_return_to_start_button()],
 ]

@@ -18,7 +18,7 @@ services:
       dockerfile: Dockerfile
     container_name: bot_sobitie
     restart: always
-    command: python src/main.py
+    command: sh -c "cd src/; python main.py & uvicorn fastapi_app:fastapi_app --host 0 --port 8000"
     volumes:
       - media_value:/app/src/media/
     depends_on:
