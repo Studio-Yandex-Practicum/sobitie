@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "api.apps.ApiConfig",
     "event.apps.EventConfig",
+    "quiz.apps.QuizConfig",
 ]
 
 MIDDLEWARE = [

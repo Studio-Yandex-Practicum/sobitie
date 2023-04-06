@@ -3,14 +3,24 @@ from datetime import datetime
 
 from django.http import JsonResponse
 from rest_framework import status
+from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
 from api.mixins import BaseListCreateDeleteViewSet
-from api.serializers import EventPostSerializer, EventSerializer, QuoteSerializer, SubscriberSerializer
+from api.serializers import (
+    EventPostSerializer,
+    EventSerializer,
+    QuestionSerializer,
+    QuizResultSerializer,
+    QuizSerializer,
+    QuoteSerializer,
+    SubscriberSerializer,
+)
 from event.models import Event, Quote, Subscriber
+from quiz.models import Question, Quiz, QuizResult
 
 
 class EventViewSet(ModelViewSet):
@@ -29,6 +39,41 @@ class QuoteViewSet(ModelViewSet):
 
     queryset = Quote.objects.order_by("-add_time")[:1]
     serializer_class = QuoteSerializer
+
+
+class QuizViewSet(ModelViewSet):
+    """Вьюсет для квизов."""
+
+    queryset = Quiz.objects.all()
+    serializer_class = QuizSerializer
+
+    @action(method=["GET"])
+    def questions(self):
+        req = self.request
+        quiz_id = req.query_params.get("quiz_id")
+        last_question_id = req.query_params.get("last_question_id")
+        if quiz_id is None:
+            return None
+        if last_question_id:
+            self.queryset = Quiz.objects.filter(quiz_id=quiz_id).order_by("id")
+            return self.queryset
+        else:
+            self.queryset = Quiz.objects.filter(quiz_id=quiz_id).order_by("id").first()
+            return self.queryset
+
+
+class QuizResultViewSet(ModelViewSet):
+    """Вьюсет для результатов квизов."""
+
+    queryset = QuizResult.objects.all()
+    serializer_class = QuizResultSerializer
+
+
+class QuestionViewSet(ModelViewSet):
+    """Вьюсет для вопросов."""
+
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
 
 
 class NotificationsViewSet(BaseListCreateDeleteViewSet):
