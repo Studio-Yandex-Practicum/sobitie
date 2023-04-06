@@ -6,6 +6,7 @@ END = "END"
 EVENTS = "EVENTS"
 GIVE_SUPPORT = "GIVE_SUPPORT"
 INTERACTIVE_GAME = "INTERACTIVE_GAME"
+QUIZZES = "QUIZZES"
 MAIN_TEXT = """Привет! Познакомимся?
 
 «Событие» — творческое содружество.
