@@ -29,9 +29,7 @@ def get_quizzes_inline_button():
         [InlineKeyboardButton(text=quiz["name"], callback_data=START_QUESTIONS + f"#{quiz['id']}")]
         for quiz in get_quizzes()
     ]
-    quizzes_menu.append(
-        [create_return_to_start_button()]
-    )
+    quizzes_menu.append([create_return_to_start_button()])
     return quizzes_menu
 
 
@@ -42,7 +40,7 @@ def get_current_quiz_id(update: Update, context: CallbackContext):
     return context.user_data["current_quiz_id"]
 
 
-async def send_start_quizzes_menu(update: Update, context: CallbackContext):
+async def send_start_quizzes_menu(update: Update, _: CallbackContext):
     """Отправить меню выбора викторины."""
     query = update.callback_query
     await query.answer()
@@ -77,7 +75,7 @@ def get_next_question(update: Update, context: CallbackContext):
     last_question_id = get_last_question_id(context=context)
     if last_question_id is None:
         clear_context(context)
-    questions_url = f"{QUIZZES}/{current_quiz_id}/questions/"
+    questions_url = f"{QUIZZES_URL}/{current_quiz_id}/questions/"
     params = {"last_question_id": last_question_id}
     response = requests.get(questions_url, params=params)
     if response.status_code != HTTPStatus.OK.value:
@@ -97,7 +95,7 @@ def get_next_question(update: Update, context: CallbackContext):
 def correct_answer_count(update: Update, context: CallbackContext):
     """Обновление счетчика корректных ответов."""
     poll_data = update.callback_query.message.poll
-    if poll_data.options[poll_data.correct_option_id]['voter_count'] > 0:
+    if poll_data.options[poll_data.correct_option_id]["voter_count"] > 0:
         if "correct_answer_counter" in context.user_data:
             context.user_data["correct_answer_counter"] += 1
         else:
@@ -129,7 +127,7 @@ def get_message_for_result(update: Update, context: CallbackContext):
     """Получить текст сообщения из DRF по результату прохождения викторины."""
     correct_answer_count, questions_count = scoring(context)
     current_quiz_id = get_current_quiz_id(update, context)
-    message_url = f'{QUIZZES_URL}/{current_quiz_id}/results/'
+    message_url = f"{QUIZZES_URL}/{current_quiz_id}/results/"
     params = {
         "correct_answer_count": correct_answer_count,
         "questions_cnt": questions_count,
@@ -157,7 +155,7 @@ def clear_context(context: CallbackContext):
     if "current_quiz_id" not in context.user_data:
         del context.user_data["current_quiz_id"]
     if "last_question_id" in context.user_data:
-        context.user_data["last_question_id"]
+        del context.user_data["last_question_id"]
 
 
 async def send_quiz_result(update: Update, context: CallbackContext):
@@ -166,8 +164,7 @@ async def send_quiz_result(update: Update, context: CallbackContext):
     if "last_question_id" not in context.user_data:
         # если нет ID последнего вопроса, значит вопросов по викторине нет
         await update.effective_message.reply_text(
-            text="К сожалению в данной викторине еще нет вопросов.",
-            reply_markup=markup
+            text="К сожалению в данной викторине еще нет вопросов.", reply_markup=markup
         )
         return
 
@@ -175,19 +172,12 @@ async def send_quiz_result(update: Update, context: CallbackContext):
     message_result = get_message_for_result(update, context)
     if message_result is None:
         correct_answer_count, questions_count = scoring(context)
-        await update.effective_message.reply_text(
-                text=f"Ваш результат: {correct_answer_count}%",
-                reply_markup=markup
-            )
+        await update.effective_message.reply_text(text=f"Ваш результат: {correct_answer_count}%", reply_markup=markup)
 
     if "image" in message_result:
-        await update.effective_message.reply_photo(
-            photo=message_result["image"])
+        await update.effective_message.reply_photo(photo=message_result["image"])
 
-    await update.effective_message.reply_text(
-            text=message_result["result_text"],
-            reply_markup=markup
-        )
+    await update.effective_message.reply_text(text=message_result["result_text"], reply_markup=markup)
     clear_context(context)
     return QUIZZES
 
@@ -214,6 +204,4 @@ async def send_quiz_question(update: Update, context: CallbackContext):
         await update.effective_message.reply_photo(photo=image)
 
     markup = InlineKeyboardMarkup(QUESTIONS_MENU_BUTTON)
-    await update.effective_message.reply_poll(
-        type=Poll.QUIZ, reply_markup=markup, **question_data
-    )
+    await update.effective_message.reply_poll(type=Poll.QUIZ, reply_markup=markup, **question_data)
