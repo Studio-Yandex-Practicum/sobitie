@@ -50,6 +50,7 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ("description", "location")
     empty_value_display = EMPTY_VALUE
 
+
 admin.site.unregister(jobstores.DjangoJobExecution)
 admin.site.unregister(jobstores.DjangoJob)
 admin.site.register(Event, EventAdmin)
