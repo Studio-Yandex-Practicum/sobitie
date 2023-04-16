@@ -9,6 +9,7 @@ from api.views import (
     QuizResultViewSet,
     QuizViewSet,
     QuoteViewSet,
+    VKView,
 )
 
 router = DefaultRouter()
@@ -23,5 +24,6 @@ router.register(r"quizzes/(?P<quiz_id>\d+)/questions", QuizViewSet, basename="re
 
 urlpatterns = [
     path("", include(router.urls)),
+    path('vk/', VKView.as_view()),
     path("check_for_subscription/<int:user_id>/", CheckForSubscription.as_view()),
 ]
