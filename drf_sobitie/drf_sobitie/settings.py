@@ -12,17 +12,13 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJ_SECRET_KEY", default="djangosecretkey_WG312t0k130fk13f")
+SECRET_KEY = os.getenv("DJ_SECRET_KEY",
+                       default="djangosecretkey_WG312t0k130fk13f")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv("DEBUG", default=False)
 
 ALLOWED_HOSTS = ["*"]
-
-if DEBUG is True:
-    CSRF_TRUSTED_ORIGINS = [
-        "http://localhost",
-    ]
 
 # Application definition
 
@@ -70,17 +66,15 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "drf_sobitie.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "NAME": BASE_DIR / "db/db.sqlite3",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -100,7 +94,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -111,7 +104,6 @@ TIME_ZONE = "Europe/Moscow"
 USE_I18N = True
 
 USE_TZ = False
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
@@ -125,3 +117,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://*.localhost',
+    'http://localhost*',
+    'http://*.127.0.0.1',
+    "http://127.0.0.1*",
+    "http://84.201.189.83*",
+    "http://*.84.201.189.83"
+]

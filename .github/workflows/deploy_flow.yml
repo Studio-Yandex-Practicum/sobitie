@@ -1,0 +1,81 @@
+name: CI/CD sobitie
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pep8-naming flake8-broken-line flake8-return flake8-isort
+
+      - name: flake8
+        run: |
+          python -m flake8
+
+  build_and_push_to_docker_hub:
+    name: Push image to Docker Hub
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to Docker
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Push sobitie to Docker Hub
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ secrets.DOCKER_USERNAME }}/sobitie:latest
+
+  deploy:
+    name: Deploy to server
+    runs-on: ubuntu-latest
+    needs: build_and_push_to_docker_hub
+    steps:
+      - name: executing remote ssh commands to deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            sudo docker-compose down
+            sudo docker-compose rm bot
+            sudo docker-compose rm web
+            touch .env
+            cat /dev/null > .env
+            echo DJ_SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
+            echo TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }} >> .env
+            echo EVENTS_URL=${{ secrets.EVENTS_URL }} >> .env
+            echo QUOTE_URL=${{ secrets.QUOTE_URL }} >> .env
+            echo QUIZZES_URL=${{ secrets.QUIZZES_URL }} >> .env
+            echo NOTIFICATIONS_API_URL=${{ secrets.NOTIFICATIONS_API_URL }} >> .env
+            echo CHECK_FOR_SUBSCRIPTION_API_URL=${{ secrets.CHECK_FOR_SUBSCRIPTION_API_URL }} >> .env
+            echo SEND_EVENT_NOTIFICATION_URL=${{ secrets.SEND_EVENT_NOTIFICATION_URL }} >> .env
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sobitie:latest
+            sudo docker-compose up -d 
+            sudo docker-compose exec web python manage.py migrate
+            sudo docker-compose exec web python manage.py collectstatic --no-input
+  
+
