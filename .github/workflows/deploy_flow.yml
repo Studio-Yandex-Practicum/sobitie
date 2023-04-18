@@ -1,5 +1,5 @@
 name: CI/CD sobitie
-
+run-name: ${{ github.actor }} CI/CD process...
 on:
   push:
     branches: [ "master" ]
