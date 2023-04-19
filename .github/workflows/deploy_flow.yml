@@ -65,7 +65,7 @@ jobs:
             sudo docker-compose rm web
             touch .env
             cat /dev/null > .env
-            echo DJ_SECRET_KEY=${{ secrets.DJ_SECRET_KEY }} >> .env
+            echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
             echo TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }} >> .env
             echo EVENTS_URL=${{ secrets.EVENTS_URL }} >> .env
             echo QUOTE_URL=${{ secrets.QUOTE_URL }} >> .env
