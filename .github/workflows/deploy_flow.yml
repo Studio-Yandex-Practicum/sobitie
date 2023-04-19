@@ -75,7 +75,9 @@ jobs:
             echo SEND_EVENT_NOTIFICATION_URL=${{ secrets.SEND_EVENT_NOTIFICATION_URL }} >> .env
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sobitie:latest
             sudo docker-compose up -d 
+            sudo docker-compose exec web python drf_sobitie/manage.py migrate
             sudo docker-compose exec web python drf_sobitie/manage.py collectstatic --no-input
+            echo "OK"
 
 
   
