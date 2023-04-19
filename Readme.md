@@ -80,6 +80,15 @@ cd src/
 uvicorn fastapi_app:fastapi_app --port <незанятый порт>
 # Напоминаю, что в .env-example были приведены ссылки для запуска бота в контейнерах, поэтому в .env их следовало скорректировать
 ```
+### CI-CD
+- залить файл docker-compose на сервер в домашнюю директорию
+- залить каталог nginx на сервер в домашнюю директорию
+
+```
+sudo apt update && apt upgrade
+sudo apt install docker-compose
+```
+
 ## Авторы 
 - [Бойко Владислав](https://github.com/bdwayne11)
 - [Кирилл Резник](https://github.com/Invictus-7)
@@ -91,3 +100,4 @@ uvicorn fastapi_app:fastapi_app --port <незанятый порт>
 - [Вячеслав Роев](https://github.com/VyacheslavRoev)
 - [Оксана Шеремет](https://github.com/sheremet-o)
 - [Сергей Разуваев](https://github.com/RazuvaevSD)
+- [Мясищев Максим](https://github.com/mnmyasis)
