@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 
+import requests
 import vk_api
 from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import register_job
@@ -18,35 +19,42 @@ vk_session = vk_api.VkApi(token=VK_SERVICE_KEY)
 tools = VkTools(vk_session)
 
 
+def remove_not_actual_events(events, vk_posts):
+    for event in events:
+        if event not in [post["id"] for post in vk_posts["items"]]:
+            event.delete()
+
+
 @register_job(scheduler, "interval", minutes=15)
 def task():
     """Обновление записей в бд при их изменении в ВК (а также при их удалении),
     работает через планировщик. В параметре minutes указывается через сколько
     произойдет проверка обновлений на стене сообщества.
     """
-    events_db = Event.objects.all().filter(event_time__gte=datetime.now())
-    list_vk_post_id = [event.vk_post_id for event in events_db]
+    events = Event.objects.order_by("-event_time")
+    vk_posts = tools.get_all("wall.get", 1, {"owner_id": -215478360})
+    remove_not_actual_events(events, vk_posts)
 
-    for event in tools.get_all_iter("wall.get", 100, {"owner_id": -215478360}):
-        try:
-            if Event.objects.get(vk_post_id=event["id"]).event_time.replace(
-                hour=0, minute=0, second=0, microsecond=0, tzinfo=None
-            ) < datetime.now().replace(hour=0, minute=0, second=0, microsecond=0):
+    for post in vk_posts["items"]:
+        post_id = post["id"]
+        if events.filter(pk=post_id).exists():
+            event = events.get(pk=post_id)
+            event_date = event.event_time
+            current_date = datetime.now()
+            if event_date < current_date:
                 break
-            event_db = Event.objects.get(vk_post_id=event["id"])
             text = event["text"].split("#")[0].rstrip()
-            if text == event_db.description:
-                spent = list_vk_post_id.index(event_db.vk_post_id)
-                list_vk_post_id.pop(spent)
+
+            if text == event.description:
                 continue
             VKView().put(event, event["id"])
-            spent = list_vk_post_id.index(event_db.vk_post_id)
-            list_vk_post_id.pop(spent)
-        except Event.DoesNotExist:
-            if len(list_vk_post_id) != 0:
-                for vk_post_id in list_vk_post_id:
-                    event_db = Event.objects.get(vk_post_id=vk_post_id)
-                    event_db.delete()
+        else:
+            text = post["text"]
+            request_data = {
+                "text": text,
+                "id": post_id
+            }
+            requests.post("http://localhost:8000/api/vk/", data=request_data)
 
 
 try:

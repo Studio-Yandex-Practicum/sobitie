@@ -24,6 +24,15 @@ if DEBUG is True:
         "http://localhost",
     ]
 
+SCHEDULER_CONFIG = {
+    "apscheduler.jobstores.default": {
+        "class": "django_apscheduler.jobstores:DjangoJobStore"
+    },
+    'apscheduler.executors.processpool': {
+        "type": "threadpool"
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
