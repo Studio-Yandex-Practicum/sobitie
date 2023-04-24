@@ -9,7 +9,7 @@ from api.views import (
     QuizResultViewSet,
     QuizViewSet,
     QuoteViewSet,
-    VKView
+    VKView,
 )
 
 router = DefaultRouter()
