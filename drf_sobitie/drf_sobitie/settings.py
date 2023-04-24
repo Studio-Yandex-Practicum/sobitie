@@ -20,6 +20,20 @@ DEBUG = os.getenv("DEBUG", default=False)
 
 ALLOWED_HOSTS = ["*"]
 
+if DEBUG is True:
+    CSRF_TRUSTED_ORIGINS = [
+        "http://localhost",
+    ]
+
+SCHEDULER_CONFIG = {
+    "apscheduler.jobstores.default": {
+        "class": "django_apscheduler.jobstores:DjangoJobStore"
+    },
+    'apscheduler.executors.processpool': {
+        "type": "threadpool"
+    },
+}
+
 # Application definition
 
 INSTALLED_APPS = [
