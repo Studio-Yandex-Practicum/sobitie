@@ -26,7 +26,9 @@ def get_quizzes_inline_button():
     if quizzes is None:
         return FINISH_QUIZ_MENU_BUTTON
     quizzes_menu = [
-        [InlineKeyboardButton(text=quiz["name"], callback_data=START_QUESTIONS + f"#{quiz['id']}")]
+        [InlineKeyboardButton(
+            text=quiz["name"],
+            callback_data=START_QUESTIONS + f"#{quiz['id']}")]
         for quiz in get_quizzes()
     ]
     quizzes_menu.append([create_return_to_start_button()])
@@ -36,7 +38,9 @@ def get_quizzes_inline_button():
 def get_current_quiz_id(update: Update, context: CallbackContext):
     """Получить текущий ID викторины."""
     if "current_quiz_id" not in context.user_data:
-        context.user_data["current_quiz_id"] = int(update.callback_query.data.split("#")[1])
+        context.user_data["current_quiz_id"] = int(
+            update.callback_query.data.split("#")[1]
+        )
     return context.user_data["current_quiz_id"]
 
 
@@ -60,35 +64,39 @@ def get_last_question_id(context: CallbackContext):
     return context.user_data["last_question_id"]
 
 
-def get_image(image_url):
-    request = urllib.request.Request(image_url)
-    response = urllib.request.urlopen(request)
-    if response.status != HTTPStatus.OK.value:
-        return None
-    return response.read()
+#  зачем?
+# def get_image(image_url):
+#     request = urllib.request.Request(image_url)
+#     response = urllib.request.urlopen(request)
+#     if response.status != HTTPStatus.OK.value:
+#         return None
+#     return response.read()
 
 
 def get_next_question(update: Update, context: CallbackContext):
     """Получить следующий вопрос викторины."""
-    # Раскоментировать для get-запроса к DRF
     current_quiz_id = get_current_quiz_id(update=update, context=context)
+    questions_url = f"{QUIZZES_URL}{current_quiz_id}/quiz_questions/"
     last_question_id = get_last_question_id(context=context)
-    if last_question_id is None:
-        clear_context(context)
-    questions_url = f"{QUIZZES_URL}/{current_quiz_id}/questions/"
     params = {"last_question_id": last_question_id}
     response = requests.get(questions_url, params=params)
     if response.status_code != HTTPStatus.OK.value:
         return None, None
     question = response.json()
     image = None
-    if len(question) < 1:
+    # если нет вопросов в викторине
+    # или в вопросе нет текста
+    # или в вопросе нет ответа
+    # Возвращаем информацию о том, что викторина еще не готова
+    if len(question) < 1 or not question[0]["answers"] or not question[0]["question_text"]:
         return None, None
-    if "image" in question:
-        image = get_image(question["image"])
-        del question["image"]
+    question = question[0]
+    if question["image"]:
+        image = question.get("image")
+        image = urllib.request.urlopen(image).read()
     context.user_data["last_question_id"] = question["id"]
     del question["id"]
+    del question["image"]
     return question, image
 
 
@@ -118,8 +126,6 @@ def scoring(context: CallbackContext):
         questions_count = context.user_data["questions_counter"]
     if "correct_answer_counter" in context.user_data:
         correct_answer_count = context.user_data["correct_answer_counter"]
-        # перевести в процент от общего кол-ва
-        correct_answer_count = correct_answer_count * 100 / questions_count
     return correct_answer_count, questions_count
 
 
@@ -127,10 +133,9 @@ def get_message_for_result(update: Update, context: CallbackContext):
     """Получить текст сообщения из DRF по результату прохождения викторины."""
     correct_answer_count, questions_count = scoring(context)
     current_quiz_id = get_current_quiz_id(update, context)
-    message_url = f"{QUIZZES_URL}/{current_quiz_id}/results/"
+    message_url = f"{QUIZZES_URL}{current_quiz_id}/quiz_result/"
     params = {
-        "correct_answer_count": correct_answer_count,
-        "questions_cnt": questions_count,
+        "correct_answer_count": correct_answer_count
     }
     response = requests.get(message_url, params=params)
     if response.status_code != HTTPStatus.OK.value:
@@ -138,13 +143,13 @@ def get_message_for_result(update: Update, context: CallbackContext):
     data = response.json()
     if len(data) < 1:
         return None
-    if "image" in data:
-        image = get_image(data["image"])
-        if image is None:
-            del data["image"]
-        data["image"] = image
-        return data
-    return data
+    data = data[0]
+    image = None
+    if data["image"]:
+        image = data.get("image")
+        image = urllib.request.urlopen(image).read()
+    del data["image"]
+    return data, image
 
 
 def clear_context(context: CallbackContext):
@@ -152,7 +157,7 @@ def clear_context(context: CallbackContext):
         del context.user_data["questions_counter"]
     if "correct_answer_counter" in context.user_data:
         del context.user_data["correct_answer_counter"]
-    if "current_quiz_id" not in context.user_data:
+    if "current_quiz_id" in context.user_data:
         del context.user_data["current_quiz_id"]
     if "last_question_id" in context.user_data:
         del context.user_data["last_question_id"]
@@ -164,20 +169,36 @@ async def send_quiz_result(update: Update, context: CallbackContext):
     if "last_question_id" not in context.user_data:
         # если нет ID последнего вопроса, значит вопросов по викторине нет
         await update.effective_message.reply_text(
-            text="К сожалению в данной викторине еще нет вопросов.", reply_markup=markup
+            text="К сожалению в данной викторине еще нет вопросов.",
+            reply_markup=markup
         )
-        return
+        clear_context(context)
+        return QUIZZES
 
     # отобразить результат,
-    message_result = get_message_for_result(update, context)
+    message_result, image = get_message_for_result(update, context)
+    correct_answer_count, questions_count = scoring(context)
+    per_correct_answers = 0
+    if correct_answer_count != 0:
+        per_correct_answers = round(
+            (correct_answer_count * 100 / questions_count), 2
+        )
     if message_result is None:
-        correct_answer_count, questions_count = scoring(context)
-        await update.effective_message.reply_text(text=f"Ваш результат: {correct_answer_count}%", reply_markup=markup)
+        await update.effective_message.reply_text(
+            text=f"Ваш результат: {per_correct_answers}%",
+            reply_markup=markup
+        )
 
-    if "image" in message_result:
-        await update.effective_message.reply_photo(photo=message_result["image"])
+    if image is not None:
+        await update.effective_message.reply_photo(photo=image)
 
-    await update.effective_message.reply_text(text=message_result["result_text"], reply_markup=markup)
+    await update.effective_message.reply_text(
+        text=(f"{message_result['text']}\n"
+              f"Вопросов в викторине: {questions_count}\n"
+              f"Правильных ответов: {correct_answer_count}\n"
+              f"Результативность: {per_correct_answers}%\n"),
+        reply_markup=markup
+    )
     clear_context(context)
     return QUIZZES
 
@@ -188,9 +209,9 @@ async def send_quiz_question(update: Update, context: CallbackContext):
     if update.callback_query.message.poll:
         # если прошлый пост был вопросом викторины, проверяем ответ
         correct_answer_count(update, context)
-
-    question_data, image = get_next_question(update=update, context=context)
-
+    question_data, image = get_next_question(
+        update=update, context=context
+    )
     if question_data is None:
         # если следующий вопрос не получен значит викторина завершена
         await send_quiz_result(update, context)
@@ -204,4 +225,16 @@ async def send_quiz_question(update: Update, context: CallbackContext):
         await update.effective_message.reply_photo(photo=image)
 
     markup = InlineKeyboardMarkup(QUESTIONS_MENU_BUTTON)
-    await update.effective_message.reply_poll(type=Poll.QUIZ, reply_markup=markup, **question_data)
+
+    correct_answer = int
+    for index, i in enumerate(question_data["answers"]):
+        if i["is_right"]:
+            correct_answer = index
+
+    await update.effective_message.reply_poll(
+        question=question_data["question_text"],
+        options=[str(x["answer_text"]) for x in question_data["answers"]],
+        correct_option_id=correct_answer,
+        type=Poll.QUIZ,
+        reply_markup=markup
+    )

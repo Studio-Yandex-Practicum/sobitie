@@ -6,6 +6,7 @@ from .models import Answer, Question, Quiz, QuizResult
 
 class AnswerAdmin(admin.ModelAdmin):
     pass
+    list_filter = ("question",)
 
 
 class AnswerInline(admin.TabularInline):
@@ -14,6 +15,7 @@ class AnswerInline(admin.TabularInline):
 
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
+    list_filter = ("quiz_id",)
 
 
 class QuestionInline(admin.TabularInline):
@@ -22,6 +24,7 @@ class QuestionInline(admin.TabularInline):
 
 class QuizResultAdmin(admin.ModelAdmin):
     model = QuizResult
+    list_filter = ("quiz_id",)
 
 
 class QuizResultInline(admin.TabularInline):
@@ -30,7 +33,7 @@ class QuizResultInline(admin.TabularInline):
 
 class QuizAdmin(admin.ModelAdmin):
     inlines = [QuestionInline, QuizResultInline]
-    search_fields = ("id", "name")
+    list_filter = ("name",)
 
 
 admin.site.register(Answer, AnswerAdmin)
