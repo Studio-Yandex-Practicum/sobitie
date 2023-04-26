@@ -51,16 +51,16 @@ class QuizResultViewSet(ModelViewSet):
 
     def get_queryset(self):
         quiz_id = self.kwargs['quiz_id']
-        correct_answer_count = self.request.query_params.get("correct_answer_count")
-        if int(correct_answer_count) < 1:
+        correct_answer_count = int(self.request.query_params.get("correct_answer_count"))
+        if correct_answer_count:
             return [QuizResult.objects.filter(
                 quiz_id=quiz_id,
-                correct_answer_cnt__gt=0
-            ).last()]
+                correct_answer_cnt__lte=correct_answer_count
+            ).first()]
         return [QuizResult.objects.filter(
             quiz_id=quiz_id,
-            correct_answer_cnt__lte=correct_answer_count
-        ).first()]
+            correct_answer_cnt__gte=correct_answer_count
+        ).last()]
 
 
 class QuestionQuizViewSet(ModelViewSet):

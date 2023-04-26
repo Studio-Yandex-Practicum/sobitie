@@ -44,7 +44,7 @@ def get_current_quiz_id(update: Update, context: CallbackContext):
     return context.user_data["current_quiz_id"]
 
 
-async def send_start_quizzes_menu(update: Update, _: CallbackContext):
+async def send_start_quizzes_menu(update: Update, context: CallbackContext):
     """Отправить меню выбора викторины."""
     query = update.callback_query
     await query.answer()
@@ -54,6 +54,7 @@ async def send_start_quizzes_menu(update: Update, _: CallbackContext):
         msg_text = "К сожалению пока нет ни одной викторины."
     markup = InlineKeyboardMarkup(quizzes_menu_buttons)
     await query.edit_message_text(text=msg_text, reply_markup=markup)
+    clear_context(context)
     return QUIZZES
 
 
@@ -62,15 +63,6 @@ def get_last_question_id(context: CallbackContext):
     if "last_question_id" not in context.user_data:
         return None
     return context.user_data["last_question_id"]
-
-
-#  зачем?
-# def get_image(image_url):
-#     request = urllib.request.Request(image_url)
-#     response = urllib.request.urlopen(request)
-#     if response.status != HTTPStatus.OK.value:
-#         return None
-#     return response.read()
 
 
 def get_next_question(update: Update, context: CallbackContext):
@@ -82,15 +74,15 @@ def get_next_question(update: Update, context: CallbackContext):
     response = requests.get(questions_url, params=params)
     if response.status_code != HTTPStatus.OK.value:
         return None, None
-    question = response.json()
-    image = None
-    # если нет вопросов в викторине
-    # или в вопросе нет текста
-    # или в вопросе нет ответа
-    # Возвращаем информацию о том, что викторина еще не готова
-    if len(question) < 1 or not question[0]["answers"] or not question[0]["question_text"]:
+    questions = response.json()
+    if len(questions) < 1:
         return None, None
-    question = question[0]
+    image = None
+    question = questions[0]
+    question_exist = question["question_text"]
+    result_exist = question["result_exist"]
+    if not question_exist or not result_exist:
+        return None, None
     if question["image"]:
         image = question.get("image")
         image = urllib.request.urlopen(image).read()
@@ -167,9 +159,8 @@ async def send_quiz_result(update: Update, context: CallbackContext):
     """Отправка результатов викторины."""
     markup = InlineKeyboardMarkup(FINISH_QUIZ_MENU_BUTTON)
     if "last_question_id" not in context.user_data:
-        # если нет ID последнего вопроса, значит вопросов по викторине нет
         await update.effective_message.reply_text(
-            text="К сожалению в данной викторине еще нет вопросов.",
+            text="К сожалению викторина пока не готова.",
             reply_markup=markup
         )
         clear_context(context)
@@ -226,7 +217,7 @@ async def send_quiz_question(update: Update, context: CallbackContext):
 
     markup = InlineKeyboardMarkup(QUESTIONS_MENU_BUTTON)
 
-    correct_answer = int
+    correct_answer = None
     for index, i in enumerate(question_data["answers"]):
         if i["is_right"]:
             correct_answer = index
