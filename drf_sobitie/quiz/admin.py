@@ -1,10 +1,11 @@
-from django.contrib import admin
 from django import forms
-from .models import Answer, Question, Quiz, QuizResult
+from django.contrib import admin
 from django.core.exceptions import ValidationError
 from django.urls import reverse
-from django.utils.http import urlencode
 from django.utils.html import format_html
+from django.utils.http import urlencode
+
+from .models import Answer, Question, Quiz, QuizResult
 
 
 class RequiredFormSet(forms.models.BaseInlineFormSet):
