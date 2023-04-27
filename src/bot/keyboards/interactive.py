@@ -1,7 +1,7 @@
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import create_return_to_start_button, RETURN_BACK_BUTTON_TEXT, INTERACTIVE_GAME
+from bot.keyboards.main import INTERACTIVE_GAME, RETURN_BACK_BUTTON_TEXT, create_return_to_start_button
 from bot.keyboards.quiz import START_QUIZZES
 
 GET_STICKERS = "GET_STICKERS"
