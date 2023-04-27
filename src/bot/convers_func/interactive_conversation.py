@@ -50,5 +50,5 @@ async def get_quote(update: Update, _: CallbackContext):
         photo = urllib.request.urlopen(image).read()
         await query.message.reply_photo(photo=photo, caption=caption)
         return
-    await query.message.reply_text(text=caption, reply_markup=keyboard)
+    await query.edit_message_text(text=caption, reply_markup=keyboard)
     return
