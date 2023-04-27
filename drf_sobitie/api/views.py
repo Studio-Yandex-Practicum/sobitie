@@ -3,7 +3,6 @@ from datetime import datetime
 
 from django.http import JsonResponse
 from rest_framework import status
-from rest_framework.decorators import action
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -30,8 +29,7 @@ class EventViewSet(ModelViewSet):
 
     def get_queryset(self):
         """Возвращаем только актуальные события."""
-        actual_events = Event.objects.filter(event_time__gte=datetime.now())
-        return actual_events
+        return Event.objects.filter(event_time__gte=datetime.now())
 
 
 class QuoteViewSet(ModelViewSet):
@@ -43,30 +41,44 @@ class QuoteViewSet(ModelViewSet):
 
 class QuizViewSet(ModelViewSet):
     """Вьюсет для квизов."""
-
     queryset = Quiz.objects.all()
     serializer_class = QuizSerializer
-
-    @action(methods=["GET"], detail=False)
-    def questions(self):
-        req = self.request
-        quiz_id = req.query_params.get("quiz_id")
-        last_question_id = req.query_params.get("last_question_id")
-        if quiz_id is None:
-            return None
-        if last_question_id:
-            self.queryset = Quiz.objects.filter(quiz_id=quiz_id).order_by("id")
-            return self.queryset
-        else:
-            self.queryset = Quiz.objects.filter(quiz_id=quiz_id).order_by("id").first()
-            return self.queryset
 
 
 class QuizResultViewSet(ModelViewSet):
     """Вьюсет для результатов квизов."""
-
-    queryset = QuizResult.objects.all()
     serializer_class = QuizResultSerializer
+
+    def get_queryset(self):
+        quiz_id = self.kwargs['quiz_id']
+        correct_answer_count = int(self.request.query_params.get("correct_answer_count"))
+        if correct_answer_count:
+            return [QuizResult.objects.filter(
+                quiz_id=quiz_id,
+                correct_answer_cnt__lte=correct_answer_count
+            ).first()]
+        return [QuizResult.objects.filter(
+            quiz_id=quiz_id,
+            correct_answer_cnt__gte=correct_answer_count
+        ).last()]
+
+
+class QuestionQuizViewSet(ModelViewSet):
+    """Вьюсет для вопросов."""
+    serializer_class = QuestionSerializer
+
+    def get_queryset(self):
+        quiz_id = self.kwargs['quiz_id']
+        last_question_id = self.request.query_params.get("last_question_id")
+        if last_question_id:
+            return Question.objects.filter(
+                quiz_id=quiz_id, id=int(last_question_id)+1
+            )
+        return [
+            Question.objects.filter(
+                quiz_id=quiz_id
+            ).order_by("id").first()
+        ]
 
 
 class QuestionViewSet(ModelViewSet):
@@ -101,8 +113,7 @@ class VKView(APIView):
             description = text.split("#")[0]
             location = re.search(r"Место события: г.[а-яА-Я-, ]+", text).group(0)
             return event_time, description, location
-        else:
-            return None
+        return None
 
     def post(self, request):
         data = dict(request.data)
@@ -121,8 +132,7 @@ class VKView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def put(self, request, pk):
         event_time, description, location = self.common(text=request["text"])
@@ -138,5 +148,4 @@ class VKView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

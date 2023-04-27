@@ -5,7 +5,7 @@ import requests
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.keyboards.interactive import INTERACTIVE_BUTTONS
+from bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
 from core.settings import QUOTE_URL
 from core.states import INTERACTIVE_STATE
 
@@ -44,10 +44,11 @@ async def get_quote(update: Update, _: CallbackContext):
     author = response[0].get("author")
     caption = f"{quote} \n\n{emoji.emojize(':writing_hand:')} {author}"
     query = update.callback_query
-    if "image" in response[0]:
+    keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
+    if "image" in response[0] and response[0].get("image") is not None:
         image = response[0].get("image")
         photo = urllib.request.urlopen(image).read()
-        await query.message.reply_photo(photo=photo, caption=caption)
+        await query.message.reply_photo(photo=photo, caption=caption, reply_markup=keyboard)
         return
-    await query.message.reply_text(text=caption)
+    await query.edit_message_text(text=caption, reply_markup=keyboard)
     return
