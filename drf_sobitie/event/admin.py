@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.template.defaultfilters import truncatechars
 from django.utils.safestring import mark_safe
+from django_apscheduler import jobstores
 
 from event.models import Event, Quote
 
@@ -50,5 +51,7 @@ class EventAdmin(admin.ModelAdmin):
     empty_value_display = EMPTY_VALUE
 
 
+admin.site.unregister(jobstores.DjangoJobExecution)
+admin.site.unregister(jobstores.DjangoJob)
 admin.site.register(Event, EventAdmin)
 admin.site.register(Quote, QuoteAdmin)
