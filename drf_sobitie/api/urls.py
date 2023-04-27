@@ -10,6 +10,7 @@ from api.views import (
     QuizResultViewSet,
     QuizViewSet,
     QuoteViewSet,
+    StickerpackViewSet,
     VKView,
 )
 
@@ -18,6 +19,7 @@ router = DefaultRouter()
 router.register("events", EventViewSet, basename="events")
 router.register("notifications", NotificationsViewSet, basename="notifications")
 router.register("quotes", QuoteViewSet, basename="quotes")
+router.register(r"stickerpack", StickerpackViewSet, basename="stickerpack")
 router.register("quizzes", QuizViewSet, basename="quizzes")
 router.register("questions", QuestionViewSet, basename="questions")
 router.register(r"quizzes/(?P<quiz_id>\d+)/quiz_result", QuizResultViewSet, basename="results")
