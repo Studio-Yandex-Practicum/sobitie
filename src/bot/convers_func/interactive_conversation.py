@@ -48,7 +48,7 @@ async def get_quote(update: Update, _: CallbackContext):
     if "image" in response[0] and response[0].get("image") is not None:
         image = response[0].get("image")
         photo = urllib.request.urlopen(image).read()
-        await query.message.reply_photo(photo=photo, caption=caption)
+        await query.message.reply_photo(photo=photo, caption=caption, reply_markup=keyboard)
         return
     await query.edit_message_text(text=caption, reply_markup=keyboard)
     return
