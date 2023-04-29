@@ -5,6 +5,22 @@ from rest_framework.validators import UniqueValidator
 
 from event.models import Event, Quote, Subscriber
 from quiz.models import Answer, Question, Quiz, QuizResult
+from sticker_pack.models import Stickerpack
+
+
+class StickerpackSerializer(ModelSerializer):
+    """Сериализатор для стикеров."""
+    image = Base64ImageField(required=False, allow_null=True)
+
+    class Meta:
+        model = Stickerpack
+        fields = (
+            "name",
+            "description",
+            "image",
+            "url_sticker",
+            "is_active",
+        )
 
 
 class EventSerializer(ModelSerializer):

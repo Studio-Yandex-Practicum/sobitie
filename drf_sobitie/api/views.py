@@ -16,10 +16,19 @@ from api.serializers import (
     QuizResultSerializer,
     QuizSerializer,
     QuoteSerializer,
+    StickerpackSerializer,
     SubscriberSerializer,
 )
 from event.models import Event, Quote, Subscriber
 from quiz.models import Question, Quiz, QuizResult
+from sticker_pack.models import Stickerpack
+
+
+class StickerpackViewSet(ModelViewSet):
+    """Вьюсет для стикеров."""
+
+    queryset = Stickerpack.objects.all()
+    serializer_class = StickerpackSerializer
 
 
 class EventViewSet(ModelViewSet):
