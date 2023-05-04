@@ -2,12 +2,9 @@ FROM python:3.9-slim
 
 
 RUN mkdir /app
-RUN pip install poetry
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
 WORKDIR /app
-COPY poetry.lock pyproject.toml /app/
-
-RUN poetry config virtualenvs.create false
-RUN poetry install --no-interaction
 
 COPY . /app
