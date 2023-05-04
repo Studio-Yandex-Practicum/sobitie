@@ -1,10 +1,26 @@
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework.relations import StringRelatedField
-from rest_framework.serializers import IntegerField, ModelSerializer
+from rest_framework.serializers import IntegerField, ModelSerializer, SerializerMethodField
 from rest_framework.validators import UniqueValidator
 
 from event.models import Event, Quote, Subscriber
 from quiz.models import Answer, Question, Quiz, QuizResult
+from sticker_pack.models import Stickerpack
+
+
+class StickerpackSerializer(ModelSerializer):
+    """Сериализатор для стикеров."""
+    image = Base64ImageField(required=False, allow_null=True)
+
+    class Meta:
+        model = Stickerpack
+        fields = (
+            "name",
+            "description",
+            "image",
+            "url_sticker",
+            "is_active",
+        )
 
 
 class EventSerializer(ModelSerializer):
@@ -42,32 +58,39 @@ class QuoteSerializer(ModelSerializer):
         fields = ("text", "author", "image")
 
 
-class QuizSerializer(ModelSerializer):
-    """Сериализатор для квизов."""
-
-    class Meta:
-        model = Quiz
-        fields = ("id", "name", "description")
-
-
 class AnswerSerializer(ModelSerializer):
     """Сериализатор для ответов."""
 
     class Meta:
         model = Answer
-        fields = ("question", "answer_text", "is_right")
+        fields = ("id", "answer_text", "is_right")
 
 
 class QuestionSerializer(ModelSerializer):
     """Сериализатор для вопросов."""
 
-    options = AnswerSerializer(many=True)
+    answers = AnswerSerializer(read_only=True, many=True)
     quiz = StringRelatedField
     image = Base64ImageField(required=False, allow_null=True)
+    result_exist = SerializerMethodField(read_only=True)
+
+    def get_result_exist(self, obj):
+        if QuizResult.objects.filter(quiz_id=obj.quiz_id).exists():
+            return True
+        return False
 
     class Meta:
         model = Question
-        fields = ("quiz", "image", "question_text", "answers")
+        fields = ("id", "image", "question_text", "answers", "result_exist")
+
+
+class QuizSerializer(ModelSerializer):
+    """Сериализатор для квизов."""
+    questions = QuestionSerializer(many=True)
+
+    class Meta:
+        model = Quiz
+        fields = ("id", "name", "description", "questions")
 
 
 class QuizResultSerializer(ModelSerializer):
@@ -78,7 +101,7 @@ class QuizResultSerializer(ModelSerializer):
 
     class Meta:
         model = QuizResult
-        fields = ("quiz_id", "image", "text")
+        fields = ("id", "quiz_id", "image", "text", "correct_answer_cnt")
 
 
 class SubscriberSerializer(ModelSerializer):

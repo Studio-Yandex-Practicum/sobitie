@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "api.apps.ApiConfig",
     "event.apps.EventConfig",
     "quiz.apps.QuizConfig",
+    "sticker_pack.apps.StickersConfig",
 ]
 
 MIDDLEWARE = [

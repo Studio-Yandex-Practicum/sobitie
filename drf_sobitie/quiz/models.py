@@ -10,7 +10,7 @@ class Quiz(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return self.name
 
     class Meta:
         verbose_name = "Квиз"
@@ -37,9 +37,16 @@ class QuizResult(models.Model):
         help_text="при достижении определенного количества определеяет текст результата",
     )
 
+    def __str__(self):
+        return f'{self.quiz_id}, результат: {self.text}'
+
+    class Meta:
+        verbose_name = "Результат"
+        verbose_name_plural = "Результаты"
+
 
 class Question(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
     image = models.ImageField(
         upload_to="quiz_quiestions/%Y/%m/%d/",
         validators=[FileExtensionValidator(allowed_extensions=["jpeg", "jpg", "png", "mp4"])],
@@ -51,6 +58,9 @@ class Question(models.Model):
         max_length=250, blank=False, verbose_name="Вопрос", help_text="введите текст вопроса"
     )
 
+    def __str__(self):
+        return f'{self.quiz}, вопрос: {self.question_text}'
+
     class Meta:
         verbose_name = "Вопрос"
         verbose_name_plural = "Вопросы"
@@ -61,6 +71,9 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
     answer_text = models.CharField(max_length=100, blank=False, verbose_name="Ответ", help_text="введите текст ответа")
     is_right = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.question}, ответ: {self.answer_text}'
 
     class Meta:
         verbose_name = "Ответ"
