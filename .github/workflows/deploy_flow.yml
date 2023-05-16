@@ -71,15 +71,12 @@ jobs:
             echo EVENTS_URL=${{ secrets.EVENTS_URL }} >> .env
             echo QUOTE_URL=${{ secrets.QUOTE_URL }} >> .env
             echo QUIZZES_URL=${{ secrets.QUIZZES_URL }} >> .env
+            echo STICKERPACK_URL=${{ secrets.STICKERPACK_URL }} >> .env
             echo NOTIFICATIONS_API_URL=${{ secrets.NOTIFICATIONS_API_URL }} >> .env
             echo CHECK_FOR_SUBSCRIPTION_API_URL=${{ secrets.CHECK_FOR_SUBSCRIPTION_API_URL }} >> .env
             echo SEND_EVENT_NOTIFICATION_URL=${{ secrets.SEND_EVENT_NOTIFICATION_URL }} >> .env
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sobitie:latest
-            sudo docker-compose up -d 
+            sudo docker-compose up -d
             sudo docker-compose exec web python drf_sobitie/manage.py migrate
             sudo docker-compose exec web python drf_sobitie/manage.py collectstatic --no-input
             echo "OK"
-
-
-  
-
