@@ -33,9 +33,16 @@ async def get_quiz(update: Update, _: CallbackContext):
 
 async def get_stickers(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Стикерпаки'."""
-    response = requests.get(STICKERPACK_URL).text
-    print(response)
-    response = json.loads(response)
+    response = requests.get(STICKERPACK_URL)
+    print()
+    print(response.status_code)
+    print()
+    print(response.url)
+    print()
+    print(response.text)
+    print()
+
+    response = json.loads(response.text)
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
     query = update.callback_query
 
