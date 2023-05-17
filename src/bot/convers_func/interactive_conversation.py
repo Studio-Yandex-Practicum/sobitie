@@ -2,7 +2,6 @@ import urllib.request
 
 import emoji
 import requests
-import json
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
@@ -33,16 +32,7 @@ async def get_quiz(update: Update, _: CallbackContext):
 
 async def get_stickers(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Стикерпаки'."""
-    response = requests.get(STICKERPACK_URL)
-    print()
-    print(response.status_code)
-    print()
-    print(response.url)
-    print()
-    print(response.text)
-    print()
-
-    response = json.loads(response.text)
+    response = requests.get(STICKERPACK_URL).json()
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
     query = update.callback_query
 
