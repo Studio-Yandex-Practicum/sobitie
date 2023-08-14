@@ -58,12 +58,13 @@ async def show_reports(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(REPORTS_MENU_BUTTONS)
-    message_text = """Открытость и прозрачность деятельности - наш принцип.
-
-Мы защищаем тайну обращений к нам за помощью. Но информация о нашей деятельности, проектах, полученных средствах и \
-их использовании открыта.
-
-Мы ежегодно подаём финансовые отчёты в Министерство юстиции РФ и размещаем годовые отчёты на сайте."""
+    message_text = (
+        "Наш принцип — открытость и прозрачность. Информация о нашей работе, "
+        "проектах, полученных средствах и их использовании находится в открытом "
+        "доступе. Исключением является информация об обращениях к нам за помощью.\n\n"
+        "Ежегодно мы подаём финансовые отчёты в Министерство юстиции РФ, а также "
+        "размещаем их у себя на сайте."
+    )
     await query.edit_message_text(
         text=message_text,
         reply_markup=keyboard,
@@ -75,11 +76,11 @@ async def show_ministry_reports(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(MINISTRY_REPORTS_BUTTONS)
-    message_text = """Хотите посмотреть отчёты на  информационном портале Минюста РФ "О деятельности некоммерческих \
-организаций"?
-
-Перейдите на <a href="http://unro.minjust.ru/NKOReports.aspx">информационный портал Минюста РФ</a>
-Введите в поисковую строку ОГРН: 1167700068051"""
+    message_text = (
+        "Перейдите <a href='http://unro.minjust.ru/NKOReports.aspx'>на "
+        "информационный портал Минюста РФ «О деятельности некоммерческих "
+        "организаций»</a> и введите в строку «ОГРН» номер: 1167700068051"
+    )
     await query.edit_message_text(
         text=message_text, reply_markup=keyboard, parse_mode="HTML"
     )
