@@ -7,6 +7,7 @@ EVENTS = "EVENTS"
 GIVE_SUPPORT = "GIVE_SUPPORT"
 INTERACTIVE_GAME = "INTERACTIVE_GAME"
 QUIZZES = "QUIZZES"
+WHAT_WE_DO = "WHAT_WE_DO"
 MAIN_TEXT = """Привет! Познакомимся?
 
 «Событие» — творческое содружество.
@@ -34,6 +35,7 @@ RETURN_BACK_BUTTON_TEXT = (
 SHORT_RETURN_BACK_BUTTON_TEXT = f"{emoji.emojize(':BACK_arrow:')} Назад"
 
 START_MENU_BUTTONS = [
+    [InlineKeyboardButton(text="Чем вы занимаетесь?", callback_data=WHAT_WE_DO)],
     [InlineKeyboardButton(text="О нас", callback_data=ABOUT_US)],
     [InlineKeyboardButton(text="События", callback_data=EVENTS)],
     [InlineKeyboardButton(text="Помочь", callback_data=GIVE_SUPPORT)],
