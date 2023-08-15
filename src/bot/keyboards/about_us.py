@@ -86,13 +86,13 @@ DOCUMENTS_MENU_BUTTONS = [
 REPORTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Посмотреть отчёты на портале Минюста РФ?",
+            text="Посмотреть отчёты на сайте Минюста РФ",
             callback_data=REPORTS_MINISTRY,
         )
     ],
     [
         InlineKeyboardButton(
-            text="Хотите посмотреть годовые отчёты?",
+            text="Ознакомиться с годовыми отчётами",
             callback_data=ANNUAL_REPORTS,
             url="https://sobytie.center/reports/",
         )
