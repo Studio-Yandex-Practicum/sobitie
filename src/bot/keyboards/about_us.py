@@ -17,9 +17,7 @@ PROJECTS = "PROJECTS"
 PEOPLE = "PEOPLE"
 
 # Константы для подменю "Документы"
-FOUNDERS = "FOUNDERS"
 STATUTORY_DOCUMENTS = "STATUTORY_DOCUMENTS"
-REQUISITES = "REQUISITES"
 
 # Константы для подменю "Отчёты"
 REPORTS_MINISTRY = "REPORTS_MINISTRY"
@@ -76,22 +74,8 @@ ABOUT_US_MENU_BUTTONS = [
 DOCUMENTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Хотите узнать об учредителях?",
-            callback_data=FOUNDERS,
-            url="https://sobytie.center/documents/",
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text="Хотите ознакомиться с уставными документами?",
+            text="Уставные документы. Реквизиты",
             callback_data=STATUTORY_DOCUMENTS,
-            url="https://sobytie.center/documents/",
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text="Хотите узнать реквизиты?",
-            callback_data=REQUISITES,
             url="https://sobytie.center/documents/",
         )
     ],
