@@ -40,11 +40,13 @@ async def show_documents(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(DOCUMENTS_MENU_BUTTONS)
-    message_text = """Мы официально зарегистрированная некоммерческая организация.
-Полное название: Автономная некоммерческая организация «Центр социокультурных практик «Событие»
-Сокращённое название: АНО «Событие»
-ИНН: 7727301229
-ОГРН: 1167700068051"""
+    message_text = (
+        "Мы официально зарегистрированная некоммерческая организация.\n"
+        "Полное название: Автономная некоммерческая организация «Центр социокультурных практик «Событие»\n"
+        "Сокращённое название: АНО «Событие»\n"
+        "ИНН: 7727301229\n"
+        "ОГРН: 1167700068051\n"
+    )
     await query.edit_message_text(
         text=message_text,
         reply_markup=keyboard,
