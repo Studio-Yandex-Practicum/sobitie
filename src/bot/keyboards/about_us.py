@@ -35,6 +35,14 @@ CONTACTS_INFO = "CONTACTS_INFO"
 # Константы кнопки "НАЗАД"
 RETURN_TO_BACK = "RETURN_TO_BACK"
 
+
+def create_return_to_about_us_button(
+    text: str = RETURN_BACK_BUTTON_TEXT,
+) -> InlineKeyboardButton:
+    """Создаёт объект кнопки для возвращения в меню 'О Нас'."""
+    return InlineKeyboardButton(text=text, callback_data=ABOUT_US)
+
+
 # КНОПКИ МЕНЮ "О НАС"
 ABOUT_US_MENU_BUTTONS = [
     [
@@ -187,7 +195,7 @@ CONTACTS_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    [create_return_to_start_button()],
+    [create_return_to_about_us_button()],
 ]
 
 # Кнопки подменю "Люди"
