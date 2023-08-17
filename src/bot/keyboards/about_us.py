@@ -87,7 +87,7 @@ DOCUMENTS_MENU_BUTTONS = [
             url="https://sobytie.center/documents/",
         )
     ],
-    [create_return_to_start_button()],
+    [create_return_to_about_us_button()],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ"
