@@ -77,9 +77,9 @@ async def show_ministry_reports(update: Update, _: CallbackContext):
     await query.answer()
     keyboard = InlineKeyboardMarkup(MINISTRY_REPORTS_BUTTONS)
     message_text = (
-        "Перейдите <a href='http://unro.minjust.ru/NKOReports.aspx'>на "
+        "Перейдите на "
         "информационный портал Минюста РФ «О деятельности некоммерческих "
-        "организаций»</a> и введите в строку «ОГРН» номер: 1167700068051"
+        "организаций» и введите в строку «ОГРН» номер: 1167700068051"
     )
     await query.edit_message_text(
         text=message_text, reply_markup=keyboard, parse_mode="HTML"
