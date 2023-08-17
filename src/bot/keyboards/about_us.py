@@ -108,7 +108,12 @@ MINISTRY_REPORTS_BUTTONS = [
             url="http://unro.minjust.ru/NKOReports.aspx",
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=REPORTS,
+        )
+    ],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ПРОЕКТЫ"
