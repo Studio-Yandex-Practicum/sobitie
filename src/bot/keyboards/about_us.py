@@ -230,3 +230,20 @@ INCLUSIVE_WORKSHOP_BUTTON = [
     ],
 
 ]
+
+# Кнопки подменю "Инклюзивная мастерская"
+THEATRE_SCHOOL_BUTTON = [
+    [
+        InlineKeyboardButton(
+            text='О студии',
+            url="https://sobytie.center/teatrischool",
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=RETURN_TO_BACK,
+        )
+    ],
+
+]

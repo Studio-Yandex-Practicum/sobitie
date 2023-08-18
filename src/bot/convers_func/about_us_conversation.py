@@ -9,7 +9,7 @@ from bot.keyboards.about_us import (
     MINISTRY_REPORTS_BUTTONS,
     PROJECTS_MENU_BUTTONS,
     REPORTS_MENU_BUTTONS,
-    RETURN_BACK_AND_TO_START_BUTTONS, INCLUSIVE_WORKSHOP_BUTTON,
+    RETURN_BACK_AND_TO_START_BUTTONS, INCLUSIVE_WORKSHOP_BUTTON, THEATRE_SCHOOL_BUTTON,
 )
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
@@ -127,7 +127,7 @@ async def show_inclusive_workshop(update: Update, _: CallbackContext):
         image_url="https://sobytie.center/wp-content/uploads/2022/07/Masterskaya-svechi.jpg",
     )
     await query.edit_message_text(
-        text=message.text,
+        text=(message.text + '<a href="%s">&#8205;</a>' % message.image_url),
         parse_mode="HTML",
         reply_markup=keyboard,
     )
@@ -135,6 +135,9 @@ async def show_inclusive_workshop(update: Update, _: CallbackContext):
 
 async def show_theatre_school(update: Update, _: CallbackContext):
     """Нажатие кнопки 'Театральная студия i-Школы'."""
+    query = update.callback_query
+    await query.answer()
+    keyboard = InlineKeyboardMarkup(THEATRE_SCHOOL_BUTTON)
     message = ProjectInfoMessage(
         text="""Актёры ИТС "Событие" принимают активное участие в жизни Театральной студии i-Школы для учеников с \
 особыми образовательными потребностями: ассистируют на занятиях, проводят разминки и тренинги, участвуют в совместных \
@@ -142,7 +145,11 @@ async def show_theatre_school(update: Update, _: CallbackContext):
 время показов.""",
         image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
     )
-    await _send_project_info(update=update, message=message)
+    await query.edit_message_text(
+        text=(message.text + '<a href="%s">&#8205;</a>' % message.image_url),
+        parse_mode="HTML",
+        reply_markup=keyboard,
+    )
 
 
 async def _send_project_info(update: Update, message: ProjectInfoMessage):
