@@ -17,9 +17,7 @@ PROJECTS = "PROJECTS"
 PEOPLE = "PEOPLE"
 
 # Константы для подменю "Документы"
-FOUNDERS = "FOUNDERS"
 STATUTORY_DOCUMENTS = "STATUTORY_DOCUMENTS"
-REQUISITES = "REQUISITES"
 
 # Константы для подменю "Отчёты"
 REPORTS_MINISTRY = "REPORTS_MINISTRY"
@@ -76,22 +74,8 @@ ABOUT_US_MENU_BUTTONS = [
 DOCUMENTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Хотите узнать об учредителях?",
-            callback_data=FOUNDERS,
-            url="https://sobytie.center/documents/",
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text="Хотите ознакомиться с уставными документами?",
+            text="Уставные документы. Реквизиты",
             callback_data=STATUTORY_DOCUMENTS,
-            url="https://sobytie.center/documents/",
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text="Хотите узнать реквизиты?",
-            callback_data=REQUISITES,
             url="https://sobytie.center/documents/",
         )
     ],
@@ -102,13 +86,13 @@ DOCUMENTS_MENU_BUTTONS = [
 REPORTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Посмотреть отчёты на портале Минюста РФ?",
+            text="Посмотреть отчёты на сайте Минюста РФ",
             callback_data=REPORTS_MINISTRY,
         )
     ],
     [
         InlineKeyboardButton(
-            text="Хотите посмотреть годовые отчёты?",
+            text="Ознакомиться с годовыми отчётами",
             callback_data=ANNUAL_REPORTS,
             url="https://sobytie.center/reports/",
         )
@@ -124,7 +108,12 @@ MINISTRY_REPORTS_BUTTONS = [
             url="http://unro.minjust.ru/NKOReports.aspx",
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=REPORTS,
+        )
+    ],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ПРОЕКТЫ"
