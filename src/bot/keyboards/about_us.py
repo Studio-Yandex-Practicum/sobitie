@@ -212,3 +212,21 @@ PEOPLE_BUTTONS = [
     ],
     [create_return_to_start_button()],
 ]
+
+
+# Кнопки подменю "Инклюзивная мастерская"
+INCLUSIVE_WORKSHOP_BUTTON = [
+    [
+        InlineKeyboardButton(
+            text='О мастерской',
+            url="https://sobytie.center/project/inklyuzivnaya-masterskaya/",
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=RETURN_TO_BACK,
+        )
+    ],
+
+]

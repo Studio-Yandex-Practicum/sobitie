@@ -9,7 +9,7 @@ from bot.keyboards.about_us import (
     MINISTRY_REPORTS_BUTTONS,
     PROJECTS_MENU_BUTTONS,
     REPORTS_MENU_BUTTONS,
-    RETURN_BACK_AND_TO_START_BUTTONS,
+    RETURN_BACK_AND_TO_START_BUTTONS, INCLUSIVE_WORKSHOP_BUTTON,
 )
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
@@ -116,6 +116,9 @@ async def show_inclusive_theatre(update: Update, _: CallbackContext):
 
 async def show_inclusive_workshop(update: Update, _: CallbackContext):
     """Нажатие кнопки 'Инклюзивная мастерская'."""
+    query = update.callback_query
+    await query.answer()
+    keyboard = InlineKeyboardMarkup(INCLUSIVE_WORKSHOP_BUTTON)
     message = ProjectInfoMessage(
         text="""В инклюзивной мастерской актёры ИТС "Событие" создают как костюмы, реквизит и декорации для \
 спектаклей, так и необычные вещи, сувениры, аксессуары для благотворительных ярмарок.
@@ -123,7 +126,11 @@ async def show_inclusive_workshop(update: Update, _: CallbackContext):
 """,
         image_url="https://sobytie.center/wp-content/uploads/2022/07/Masterskaya-svechi.jpg",
     )
-    await _send_project_info(update=update, message=message)
+    await query.edit_message_text(
+        text=message.text,
+        parse_mode="HTML",
+        reply_markup=keyboard,
+    )
 
 
 async def show_theatre_school(update: Update, _: CallbackContext):
