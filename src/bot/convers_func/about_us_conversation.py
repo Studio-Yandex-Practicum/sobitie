@@ -106,9 +106,12 @@ async def show_projects(update: Update, _: CallbackContext):
 async def show_inclusive_theatre(update: Update, _: CallbackContext):
     """Нажатие кнопки 'Инклюзивный театр'."""
     message = ProjectInfoMessage(
-        text="""Театр для наших <a href="https://sobytie.center/project-tag/aktyory/">актёров</a> - способ \
-взаимодействия с собой и миром вокруг, возможность созидать и делиться плодами сотворчества. В процессе работы \
-решаются реабилитационные, воспитательные, образовательные и эстетические задачи.""",
+        text=(
+            "Актёры Инклюзивного театра-студии «Событие» — молодые люди с "
+            "инвалидностью и их условно здоровые сверстники. Театр для наших "
+            "актёров — способ взаимодействия с собой и миром вокруг, а также "
+            "возможность созидать и делиться плодами сотворчества."
+        ),
         image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
     )
     await _send_project_info(update=update, message=message)
