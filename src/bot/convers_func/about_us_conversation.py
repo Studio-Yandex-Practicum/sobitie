@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Optional
 
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
@@ -21,7 +20,9 @@ class ProjectInfoMessage:
 
     text: str
     image_url: str
-    keyboard: Optional[InlineKeyboardMarkup] = None
+    keyboard: InlineKeyboardMarkup = (
+        InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
+    )
 
 
 async def show_about_us(update: Update, _: CallbackContext):
@@ -146,12 +147,9 @@ async def _send_project_info(update: Update, message: ProjectInfoMessage):
     """Отправка сообщения с информацией о проекте."""
     query = update.callback_query
     await query.answer()
-    keyboard = message.keyboard if message.keyboard is not None else (
-        InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
-    )
     message.text += '<a href="%s">&#8205;</a>' % message.image_url
     await query.edit_message_text(
         text=message.text,
         parse_mode="HTML",
-        reply_markup=keyboard,
+        reply_markup=message.keyboard,
     )
