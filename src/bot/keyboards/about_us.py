@@ -221,5 +221,10 @@ PEOPLE_BUTTONS = [
             url="https://test.ru",
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=ABOUT_US,
+        )
+    ],
 ]
