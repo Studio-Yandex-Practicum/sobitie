@@ -103,7 +103,12 @@ REPORTS_MENU_BUTTONS = [
             url="https://sobytie.center/reports/",
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=ABOUT_US
+        )
+    ],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ НА ПОРТАЛЕ МИНЮСТА"
