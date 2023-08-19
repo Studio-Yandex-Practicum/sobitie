@@ -35,6 +35,7 @@ CONTACTS_INFO = "CONTACTS_INFO"
 # Константы кнопки "НАЗАД"
 RETURN_TO_BACK = "RETURN_TO_BACK"
 
+
 # КНОПКИ МЕНЮ "О НАС"
 ABOUT_US_MENU_BUTTONS = [
     [
@@ -79,7 +80,12 @@ DOCUMENTS_MENU_BUTTONS = [
             url="https://sobytie.center/documents/",
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=ABOUT_US
+        )
+    ],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ"
@@ -187,7 +193,12 @@ CONTACTS_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=ABOUT_US
+        )
+    ],
 ]
 
 # Кнопки подменю "Люди"
