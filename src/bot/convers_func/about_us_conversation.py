@@ -9,7 +9,7 @@ from bot.keyboards.about_us import (
     MINISTRY_REPORTS_BUTTONS,
     PROJECTS_MENU_BUTTONS,
     REPORTS_MENU_BUTTONS,
-    RETURN_BACK_AND_TO_START_BUTTONS,
+    RETURN_BACK_AND_TO_START_BUTTONS, INCLUSIVE_WORKSHOP_BUTTON, THEATRE_SCHOOL_BUTTON,
 )
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
@@ -20,6 +20,9 @@ class ProjectInfoMessage:
 
     text: str
     image_url: str
+    keyboard: InlineKeyboardMarkup = (
+        InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
+    )
 
 
 async def show_about_us(update: Update, _: CallbackContext):
@@ -134,6 +137,7 @@ async def show_inclusive_workshop(update: Update, _: CallbackContext):
             "Ребята не только сами учатся различным видам рукоделия, но и проводят очные и дистанционные мастер-классы."
         ),
         image_url="https://sobytie.center/wp-content/uploads/2022/07/Masterskaya-svechi.jpg",
+        keyboard=InlineKeyboardMarkup(INCLUSIVE_WORKSHOP_BUTTON)
     )
     await _send_project_info(update=update, message=message)
 
@@ -147,6 +151,7 @@ async def show_theatre_school(update: Update, _: CallbackContext):
             "помогают изготавливать костюмы и реквизит для спектаклей, а также сопровождают школьников во время показов.\n"
         ),
         image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
+        keyboard=InlineKeyboardMarkup(THEATRE_SCHOOL_BUTTON)
     )
     await _send_project_info(update=update, message=message)
 
@@ -155,10 +160,9 @@ async def _send_project_info(update: Update, message: ProjectInfoMessage):
     """Отправка сообщения с информацией о проекте."""
     query = update.callback_query
     await query.answer()
-    keyboard = InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
     message.text += '<a href="%s">&#8205;</a>' % message.image_url
     await query.edit_message_text(
         text=message.text,
         parse_mode="HTML",
-        reply_markup=keyboard,
+        reply_markup=message.keyboard,
     )
