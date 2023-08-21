@@ -26,7 +26,7 @@ async def menu_interactive(update: Update, _: CallbackContext):
 async def get_quiz(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Викторины'."""
     query = update.callback_query
-    await query.message.reply_text(text="Викторины скоро появятся.")
+    await query.message.reply_text(text="Здесь будут викторины")
     return
 
 
