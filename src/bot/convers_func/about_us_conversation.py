@@ -114,8 +114,8 @@ async def show_projects(update: Update, _: CallbackContext):
     return PROJECTS_STATE
 
 
-async def show_inclusive_theatre(update: Update, _: CallbackContext):
-    """Нажатие кнопки 'Инклюзивный театр'."""
+async def show_theatre_actors(update: Update, _: CallbackContext):
+    """Нажатие кнопки 'Актеры театра'."""
     message = ProjectInfoMessage(
         text=(
             "Актёры Инклюзивного театра-студии «Событие» — молодые люди с "
