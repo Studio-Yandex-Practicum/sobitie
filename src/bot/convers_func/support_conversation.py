@@ -5,6 +5,7 @@ from telegram.ext import CallbackContext
 from bot.keyboards.support import (
     DONATION_OPTIONS_MENU_BUTTONS,
     RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
+    SUPPORT_CREATE_COLLECTION_BUTTONS,
     SUPPORT_FOLLOW_BUTTONS,
     SUPPORT_MENU_BUTTONS,
     create_menu_order_souvenir,
@@ -29,9 +30,10 @@ async def create_a_collection(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Создать сбор'."""
     query = update.callback_query
     await query.answer()
-    message_text = """Создайте сбор или организуйте благотворительное мероприятие на платформе \
-<a href="https://sluchaem.ru/">«Пользуясь случаем»</a>."""
-    keyboard = InlineKeyboardMarkup(RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS)
+    message_text = (
+        "Создайте сбор или организуйте благотворительное мероприятие на платформе «Пользуясь случаем»."
+    )
+    keyboard = InlineKeyboardMarkup(SUPPORT_CREATE_COLLECTION_BUTTONS)
     await query.edit_message_text(
         text=message_text,
         parse_mode=ParseMode.HTML,

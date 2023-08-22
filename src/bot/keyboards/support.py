@@ -118,6 +118,17 @@ SUPPORT_FOLLOW_BUTTONS = [
     *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
 ]
 
+SUPPORT_CREATE_COLLECTION_BUTTONS = [
+   [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
+        ),
+        InlineKeyboardButton(
+            text="Перейти на сайт",
+            url="https://sluchaem.ru/",
+        )
+    ]
+]
 
 async def create_menu_order_souvenir(
     user_id: int,
