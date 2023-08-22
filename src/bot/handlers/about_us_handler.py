@@ -3,7 +3,7 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandl
 from bot.convers_func.about_us_conversation import (
     show_about_us,
     show_documents,
-    show_inclusive_theatre,
+    show_theatre_actors,
     show_inclusive_workshop,
     show_ministry_reports,
     show_projects,
@@ -14,7 +14,7 @@ from bot.convers_func.main_conversation import end
 from bot.handlers.contacts_handler import contacts_conv
 from bot.handlers.people_handler import people_conv
 from bot.keyboards.about_us import (
-    INCLUSIVE_THEATRE,
+    THEATRE_ACTORS,
     INCLUSIVE_WORKSHOP,
     LEGAL_DOCUMENTS,
     PROJECTS,
@@ -42,7 +42,7 @@ about_us_conv = ConversationHandler(
         ],
         PROJECTS_STATE: [
             CallbackQueryHandler(
-                show_inclusive_theatre, pattern="^" + INCLUSIVE_THEATRE + "$"
+                show_theatre_actors, pattern="^" + THEATRE_ACTORS + "$"
             ),
             CallbackQueryHandler(
                 show_inclusive_workshop, pattern="^" + INCLUSIVE_WORKSHOP + "$"

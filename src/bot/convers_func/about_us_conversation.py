@@ -9,7 +9,7 @@ from bot.keyboards.about_us import (
     MINISTRY_REPORTS_BUTTONS,
     PROJECTS_MENU_BUTTONS,
     REPORTS_MENU_BUTTONS,
-    RETURN_BACK_AND_TO_START_BUTTONS,
+    RETURN_BACK_AND_TO_START_BUTTONS, INCLUSIVE_WORKSHOP_BUTTON, THEATRE_SCHOOL_BUTTON,
 )
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
@@ -20,6 +20,9 @@ class ProjectInfoMessage:
 
     text: str
     image_url: str
+    keyboard: InlineKeyboardMarkup = (
+        InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
+    )
 
 
 async def show_about_us(update: Update, _: CallbackContext):
@@ -27,7 +30,15 @@ async def show_about_us(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(ABOUT_US_MENU_BUTTONS)
-    message_text = "Узнайте о нас побольше. Выберите интересующее Вас:"
+    message_text = (
+        "«Событие» — это творческое содружество.\n\n"
+        "Мы верим, что каждый человек, по своей натуре, творец и имеет право делиться творчеством с другими. "
+        "Ведь искусство — это способ взаимодействия с собой и миром.\n\n"
+        "Мы посвящаем свою работу социокультурной реабилитации и социальной интеграции людей с особыми возможностями, "
+        "содействуем раскрытию их творческого потенциала, а также повышению социального и культурного уровня. "
+        "А ещё мы развиваем инклюзивное волонтёрство.\n\n"
+        "Выберите раздел меню, чтобы узнать больше.\n"
+    )
     await query.edit_message_text(
         text=message_text,
         reply_markup=keyboard,
@@ -110,12 +121,15 @@ async def show_projects(update: Update, _: CallbackContext):
     return PROJECTS_STATE
 
 
-async def show_inclusive_theatre(update: Update, _: CallbackContext):
-    """Нажатие кнопки 'Инклюзивный театр'."""
+async def show_theatre_actors(update: Update, _: CallbackContext):
+    """Нажатие кнопки 'Актеры театра'."""
     message = ProjectInfoMessage(
-        text="""Театр для наших <a href="https://sobytie.center/project-tag/aktyory/">актёров</a> - способ \
-взаимодействия с собой и миром вокруг, возможность созидать и делиться плодами сотворчества. В процессе работы \
-решаются реабилитационные, воспитательные, образовательные и эстетические задачи.""",
+        text=(
+            "Актёры Инклюзивного театра-студии «Событие» — молодые люди с "
+            "инвалидностью и их условно здоровые сверстники. Театр для наших "
+            "актёров — способ взаимодействия с собой и миром вокруг, а также "
+            "возможность созидать и делиться плодами сотворчества."
+        ),
         image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
     )
     await _send_project_info(update=update, message=message)
@@ -124,11 +138,13 @@ async def show_inclusive_theatre(update: Update, _: CallbackContext):
 async def show_inclusive_workshop(update: Update, _: CallbackContext):
     """Нажатие кнопки 'Инклюзивная мастерская'."""
     message = ProjectInfoMessage(
-        text="""В инклюзивной мастерской актёры ИТС "Событие" создают как костюмы, реквизит и декорации для \
-спектаклей, так и необычные вещи, сувениры, аксессуары для благотворительных ярмарок.
-Ребята не только сами учатся какому-либо рукоделию, но и проводят очные и дистанционные мастер-классы.
-""",
+        text=(
+            "В мастерской актёры Инклюзивного театра-студии «Событие» создают костюмы, реквизит"
+            "и декорации для спектаклей, а также различные сувениры и аксессуары для благотворительных ярмарок.\n\n"
+            "Ребята не только сами учатся различным видам рукоделия, но и проводят очные и дистанционные мастер-классы."
+        ),
         image_url="https://sobytie.center/wp-content/uploads/2022/07/Masterskaya-svechi.jpg",
+        keyboard=InlineKeyboardMarkup(INCLUSIVE_WORKSHOP_BUTTON)
     )
     await _send_project_info(update=update, message=message)
 
@@ -136,11 +152,13 @@ async def show_inclusive_workshop(update: Update, _: CallbackContext):
 async def show_theatre_school(update: Update, _: CallbackContext):
     """Нажатие кнопки 'Театральная студия i-Школы'."""
     message = ProjectInfoMessage(
-        text="""Актёры ИТС "Событие" принимают активное участие в жизни Театральной студии i-Школы для учеников с \
-особыми образовательными потребностями: ассистируют на занятиях, проводят разминки и тренинги, участвуют в совместных \
-творческих проектах, помогают изготавливать костюмы и реквизит для школьных спектаклей, сопровождают школьников во \
-время показов.""",
+        text=(
+            "Актёры Инклюзивного театра-студии «Событие» принимают активное участие в жизни Театральной студии i-Школы:\n"
+            "ассистируют на занятиях, проводят разминки и тренинги, участвуют в совместных творческих проектах,\n"
+            "помогают изготавливать костюмы и реквизит для спектаклей, а также сопровождают школьников во время показов.\n"
+        ),
         image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
+        keyboard=InlineKeyboardMarkup(THEATRE_SCHOOL_BUTTON)
     )
     await _send_project_info(update=update, message=message)
 
@@ -149,10 +167,9 @@ async def _send_project_info(update: Update, message: ProjectInfoMessage):
     """Отправка сообщения с информацией о проекте."""
     query = update.callback_query
     await query.answer()
-    keyboard = InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
     message.text += '<a href="%s">&#8205;</a>' % message.image_url
     await query.edit_message_text(
         text=message.text,
         parse_mode="HTML",
-        reply_markup=keyboard,
+        reply_markup=message.keyboard,
     )

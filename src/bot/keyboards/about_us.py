@@ -24,7 +24,7 @@ REPORTS_MINISTRY = "REPORTS_MINISTRY"
 ANNUAL_REPORTS = "ANNUAL_REPORTS"
 
 # Константы для подменю "Проекты"
-INCLUSIVE_THEATRE = "INCLUSIVE_THEATRE"
+THEATRE_ACTORS = "THEATRE_ACTORS"
 INCLUSIVE_WORKSHOP = "INCLUSIVE_WORKSHOP"
 THEATRE_SCHOOL = "THEATRE_SCHOOL"
 MOSCOW_ONLINE = "MOSCOW_ONLINE"
@@ -34,6 +34,7 @@ CONTACTS_INFO = "CONTACTS_INFO"
 
 # Константы кнопки "НАЗАД"
 RETURN_TO_BACK = "RETURN_TO_BACK"
+
 
 # КНОПКИ МЕНЮ "О НАС"
 ABOUT_US_MENU_BUTTONS = [
@@ -102,7 +103,12 @@ REPORTS_MENU_BUTTONS = [
             url="https://sobytie.center/reports/",
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=ABOUT_US
+        )
+    ],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ НА ПОРТАЛЕ МИНЮСТА"
@@ -125,8 +131,8 @@ MINISTRY_REPORTS_BUTTONS = [
 PROJECTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':performing_arts:')} Инклюзивный театр-студия 'Событие'",
-            callback_data=INCLUSIVE_THEATRE,
+            text=f"{emoji.emojize(':performing_arts:')} Актеры театра",
+            callback_data=THEATRE_ACTORS,
         )
     ],
     [
@@ -192,7 +198,12 @@ CONTACTS_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=ABOUT_US
+        )
+    ],
 ]
 
 # Кнопки подменю "Люди"
@@ -206,7 +217,7 @@ PEOPLE_BUTTONS = [
     [
         InlineKeyboardButton(
             text=f'{emoji.emojize(":fire:")} Актёры Инклюзивного театра-студии «Событие»',
-            url="https://test.ru",
+            url="https://sobytie.center/actors/",
         )
     ],
     [
@@ -216,4 +227,39 @@ PEOPLE_BUTTONS = [
         )
     ],
     [create_return_to_start_button()],
+]
+
+
+# Кнопки подменю "Инклюзивная мастерская"
+INCLUSIVE_WORKSHOP_BUTTON = [
+    [
+        InlineKeyboardButton(
+            text='О мастерской',
+            url="https://sobytie.center/project/inklyuzivnaya-masterskaya/",
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=RETURN_TO_BACK,
+        )
+    ],
+
+]
+
+# Кнопки подменю "Инклюзивная мастерская"
+THEATRE_SCHOOL_BUTTON = [
+    [
+        InlineKeyboardButton(
+            text='О студии',
+            url="https://sobytie.center/teatrischool",
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=RETURN_BACK_BUTTON_TEXT,
+            callback_data=RETURN_TO_BACK,
+        )
+    ],
+
 ]
