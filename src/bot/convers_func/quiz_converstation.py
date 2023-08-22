@@ -51,7 +51,7 @@ async def send_start_quizzes_menu(update: Update, context: CallbackContext):
     quizzes_menu_buttons = get_quizzes_inline_button()
     msg_text = "Выберите викторину"
     if quizzes_menu_buttons == FINISH_QUIZ_MENU_BUTTON:
-        msg_text = "К сожалению пока нет ни одной викторины."
+        msg_text = "Викторины скоро появятся."
     markup = InlineKeyboardMarkup(quizzes_menu_buttons)
     await query.edit_message_text(text=msg_text, reply_markup=markup)
     clear_context(context)
