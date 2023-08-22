@@ -45,7 +45,7 @@ ABOUT_US_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':chart_increasing:')} Уставные документы",
+            text=f"{emoji.emojize(':chart_increasing:')} Уставные документы. Реквизиты",
             callback_data=LEGAL_DOCUMENTS,
         )
     ],
@@ -74,12 +74,17 @@ ABOUT_US_MENU_BUTTONS = [
 DOCUMENTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Уставные документы. Реквизиты",
+            text="Уставные документы",
             callback_data=STATUTORY_DOCUMENTS,
             url="https://sobytie.center/documents/",
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=ABOUT_US,
+        )
+    ],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ"
