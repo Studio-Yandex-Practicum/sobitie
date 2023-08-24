@@ -89,7 +89,7 @@ DONATION_OPTIONS_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text='Подписка "Рубль в день"', url="https://365.nuzhnapomosh.ru/"
+            text='Подписка "Рубль в день"', url="https://365.nuzhnapomosh.ru/f/sobytie"
         )
     ],
     [
@@ -97,7 +97,11 @@ DONATION_OPTIONS_MENU_BUTTONS = [
             text="Тинькофф", url="https://www.tinkoff.ru/payments/provider-sobytie/"
         )
     ],
-    *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
+        ),
+    ],
 ]
 
 SUPPORT_FOLLOW_BUTTONS = [
