@@ -130,6 +130,18 @@ SUPPORT_CREATE_COLLECTION_BUTTONS = [
     ]
 ]
 
+SUPPORT_ORDER_SOUVENIR = [
+   [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
+        ),
+        InlineKeyboardButton(
+            text="Перейти в магазин",
+            url="https://vk.com/market-190536221",
+        )
+    ]
+]
+
 async def create_menu_order_souvenir(
     user_id: int,
 ) -> Sequence[Sequence[InlineKeyboardButton]]:
@@ -139,6 +151,6 @@ async def create_menu_order_souvenir(
     )
     menu_order_souvenir = [
         [notification_button],
-        *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
+        *SUPPORT_ORDER_SOUVENIR,
     ]
     return menu_order_souvenir
