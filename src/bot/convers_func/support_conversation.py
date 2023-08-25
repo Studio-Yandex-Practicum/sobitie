@@ -41,23 +41,6 @@ async def create_a_collection(update: Update, _: CallbackContext):
     )
 
 
-async def show_cashback_connection_instructions(update: Update, _: CallbackContext):
-    """Обработчик кнопки 'Подключить кэшбэк'."""
-    query = update.callback_query
-    await query.answer()
-    message = """Для клиентов банка «Тинькофф»
-Оформите «Кэшбэк во благо» в приложении «Тинькофф»:
-🔹 На главном экране нажмите на счёт карты
-🔸 Пролистайте вниз до блока «Куда зачислять»
-🔹 Нажмите на «Кэшбэк», далее «В благотворительный фонд»
-🔸 Пролистайте вниз и нажмите на кнопку «Все фонды»
-🔹 Введите в поиске: Событие
-✔️ Готово
-"""
-    keyboard = InlineKeyboardMarkup(RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS)
-    await query.edit_message_text(text=message, reply_markup=keyboard)
-
-
 async def show_social_links_and_gratitude(update: Update, _: CallbackContext):
     """Меню 'Стать активным подписчиком'."""
     query = update.callback_query

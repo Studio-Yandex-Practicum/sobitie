@@ -45,10 +45,6 @@ support_conv = ConversationHandler(
                 pattern="^" + support.FOLLOW_US + "$",
             ),
             CallbackQueryHandler(
-                support_conversation.show_cashback_connection_instructions,
-                pattern="^" + support.CASHBACK + "$",
-            ),
-            CallbackQueryHandler(
                 support_conversation.create_a_collection,
                 pattern="^" + support.CREATE_COLLECTION + "$",
             ),
