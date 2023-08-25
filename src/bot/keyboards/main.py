@@ -1,11 +1,16 @@
 import emoji
+import webbrowser
+
 from telegram import InlineKeyboardButton
 
+
 ABOUT_US = "ABOUT_US"
+EMAIL = "sobytie.center@yandex.ru"
 END = "END"
 EVENTS = "EVENTS"
 GIVE_SUPPORT = "GIVE_SUPPORT"
 INTERACTIVE_GAME = "INTERACTIVE_GAME"
+QUERY_ANSWER = "Почтовый клиент открыт."
 QUIZZES = "QUIZZES"
 WHAT_WE_DO = "WHAT_WE_DO"
 MAIN_TEXT = """Привет! Я — бот автономной некоммерческой организации «Событие». 
@@ -39,3 +44,11 @@ def create_return_to_start_button(
 ) -> InlineKeyboardButton:
     """Создаёт объект кнопки для возвращения в стартовое меню."""
     return InlineKeyboardButton(text=text, callback_data=RETURN_TO_START)
+
+
+def email_callback(update, context):
+    """Создаёт объект кнопки для отправки сообщения на электронную почту."""
+    query = update.callback_query
+    url = f'mailto:{EMAIL}'
+    webbrowser.open(url)
+    query.answer(QUERY_ANSWER)

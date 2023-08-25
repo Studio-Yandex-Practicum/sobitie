@@ -7,6 +7,7 @@ from bot.keyboards.main import (
     SHORT_RETURN_BACK_BUTTON_TEXT,
     SHORT_RETURN_TO_START_BUTTON_TEXT,
     create_return_to_start_button,
+    email_callback,
 )
 
 # Константы для меню "О нас"
@@ -177,7 +178,8 @@ CONTACTS_BUTTONS = [
     [
         InlineKeyboardButton(
             text=f"{emoji.emojize(':envelope:')} Электронная почта",
-            url="mailto:sobytie.center@yandex.ru",
+            callback_data='email',
+            callback=email_callback,
         )
     ],
     [
