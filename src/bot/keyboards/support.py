@@ -26,14 +26,6 @@ FOLLOW_US_TELEGRAM = "FOLLOW_US_TELEGRAM"
 CREATE_COLLECTION = "CREATE_COLLECTION"
 CASHBACK = "CASHBACK"
 
-RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS = [
-    [
-        InlineKeyboardButton(
-            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
-        ),
-        create_return_to_start_button(text=SHORT_RETURN_TO_START_BUTTON_TEXT),
-    ]
-]
 
 SUPPORT_MENU_BUTTONS = [
     [
@@ -119,7 +111,11 @@ SUPPORT_FOLLOW_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    *RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
+        )
+    ],
 ]
 
 SUPPORT_CREATE_COLLECTION_BUTTONS = [
