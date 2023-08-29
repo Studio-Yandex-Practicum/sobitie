@@ -6,9 +6,10 @@ from requests import Response
 from telegram import InlineKeyboardButton
 
 from bot.async_requests import async_get_request
-from bot.keyboards.about_us import RETURN_TO_BACK
-from bot.keyboards.main import RETURN_BACK_BUTTON_TEXT, SHORT_RETURN_TO_START_BUTTON_TEXT, \
-    create_return_to_start_button, SHORT_RETURN_BACK_BUTTON_TEXT
+from bot.keyboards.main import (
+    RETURN_BACK_BUTTON_TEXT, SHORT_RETURN_TO_START_BUTTON_TEXT,
+    create_return_to_start_button, SHORT_RETURN_BACK_BUTTON_TEXT, RETURN_TO_START
+)
 from core.settings import CHECK_FOR_SUBSCRIPTION_API_URL
 
 UPCOMING_EVENTS = "UPCOMING_EVENTS"
@@ -49,7 +50,7 @@ async def create_event_menu_buttons(
         [
             InlineKeyboardButton(
                 text=SHORT_RETURN_BACK_BUTTON_TEXT,
-                callback_data=RETURN_TO_BACK,
+                callback_data=RETURN_TO_START,
             )
         ],
     ]

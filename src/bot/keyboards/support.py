@@ -26,6 +26,13 @@ FOLLOW_US_TELEGRAM = "FOLLOW_US_TELEGRAM"
 CREATE_COLLECTION = "CREATE_COLLECTION"
 CASHBACK = "CASHBACK"
 
+RETURN_TO_SUPPORT_BUTTON = [
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
+        )
+    ],
+]
 
 SUPPORT_MENU_BUTTONS = [
     [
@@ -111,11 +118,7 @@ SUPPORT_FOLLOW_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    [
-        InlineKeyboardButton(
-            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
-        )
-    ],
+    *RETURN_TO_SUPPORT_BUTTON,
 ]
 
 SUPPORT_CREATE_COLLECTION_BUTTONS = [
@@ -141,6 +144,7 @@ SUPPORT_ORDER_SOUVENIR = [
         )
     ]
 ]
+
 
 async def create_menu_order_souvenir(
     user_id: int,
