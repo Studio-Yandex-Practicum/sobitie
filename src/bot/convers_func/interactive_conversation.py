@@ -61,13 +61,6 @@ async def get_stickers(update: Update, _: CallbackContext):
             description = response[i].get("description")
             url_sticker = response[i].get("url_sticker")
             image = response[i].get("image")
-            """
-            caption = (
-                f"{name} \n\n{description}\n\n{url_sticker}\n"
-                f"{emoji.emojize(':backhand_index_pointing_up:')}"
-                f"-Забирай-{emoji.emojize(':backhand_index_pointing_up:')}"
-            )
-            """
             text = (
                 f"{name} \n\n{description}\n\n"
             )
@@ -87,7 +80,6 @@ async def get_stickers(update: Update, _: CallbackContext):
             if image:
                 photo = urllib.request.urlopen(image).read()
                 await query.message.reply_photo(photo=photo)
-            # await query.message.reply_text(text=caption)
             await query.message.reply_text(reply_markup=sticker_keyboard, text=text)
         await query.message.reply_text(
             text=(
