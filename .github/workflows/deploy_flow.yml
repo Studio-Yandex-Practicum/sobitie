@@ -20,10 +20,10 @@ jobs:
           key: ${{ secrets.VKAREV_KEY }}
           script: |
             cd sobitie
-            echo DOCKER_PASSWORD="${{ secrets.DOCKER_PASSWORD }}" >> .env
-            echo DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}" >> .env
-            echo TELEGRAM_TOKEN="${{ secrets.TELEGRAM_TOKEN }}" >> .env
-            echo SSH_KEY="${{ secrets.SSH_KEY }}" >> .env
+            echo DOCKER_PASSWORD="${{ secrets.DOCKER_PASSWORD }}" >> DOCKER_PASSWORD
+            echo DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}" >> DOCKER_USERNAME
+            echo TELEGRAM_TOKEN="${{ secrets.TELEGRAM_TOKEN }}" >> TELEGRAM_TOKEN
+            echo ${{ secrets.SSH_KEY }} >> SSH_KEY
             echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
             echo VK_SERVICE_KEY="${{ secrets.VK_SERVICE_KEY }}" >> .env
             echo TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }} >> .env
