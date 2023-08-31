@@ -24,6 +24,8 @@ jobs:
             echo DOCKER_USERNAME="${{ secrets.DOCKER_USERNAME }}" >> DOCKER_USERNAME
             echo TELEGRAM_TOKEN="${{ secrets.TELEGRAM_TOKEN }}" >> TELEGRAM_TOKEN
             echo "${{ secrets.SSH_KEY }}" >> SSH_KEY
+            echo USER="${{ secrets.USER }}" >> .env
+            echo HOST="${{ secrets.HOST }}" >> .env
             echo SSH_KEY="${{ secrets.SSH_KEY }}" >> .env
             echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
             echo VK_SERVICE_KEY="${{ secrets.VK_SERVICE_KEY }}" >> .env
