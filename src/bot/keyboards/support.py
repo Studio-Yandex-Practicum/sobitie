@@ -71,7 +71,7 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=FOLLOW_US,
         )
     ],
-    [create_return_to_start_button()],
+    [create_return_to_start_button(text=SHORT_RETURN_BACK_BUTTON_TEXT)],
 ]
 
 DONATION_OPTIONS_MENU_BUTTONS = [
