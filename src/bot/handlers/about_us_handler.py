@@ -6,6 +6,7 @@ from bot.convers_func.about_us_conversation import (
     show_theatre_actors,
     show_inclusive_workshop,
     show_ministry_reports,
+    show_moscow_partala_online,
     show_projects,
     show_reports,
     show_theatre_school,
@@ -17,6 +18,7 @@ from bot.keyboards.about_us import (
     THEATRE_ACTORS,
     INCLUSIVE_WORKSHOP,
     LEGAL_DOCUMENTS,
+    MOSCOW_ONLINE,
     PROJECTS,
     REPORTS,
     REPORTS_MINISTRY,
@@ -50,7 +52,12 @@ about_us_conv = ConversationHandler(
             CallbackQueryHandler(
                 show_theatre_school, pattern="^" + THEATRE_SCHOOL + "$"
             ),
-            CallbackQueryHandler(show_projects, pattern="^" + RETURN_TO_BACK + "$"),
+            CallbackQueryHandler(
+                show_moscow_partala_online, pattern="^" + MOSCOW_ONLINE + "$"
+            ),
+            CallbackQueryHandler(
+                show_projects, pattern="^" + RETURN_TO_BACK + "$"
+            ),
         ],
     },
     fallbacks=[CommandHandler(END, end)],

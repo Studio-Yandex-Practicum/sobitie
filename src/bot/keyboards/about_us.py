@@ -35,6 +35,14 @@ CONTACTS_INFO = "CONTACTS_INFO"
 # Константы кнопки "НАЗАД"
 RETURN_TO_BACK = "RETURN_TO_BACK"
 
+RETURN_BACK_BUTTON = [
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=RETURN_TO_BACK,
+        ),
+    ],
+]
 
 # КНОПКИ МЕНЮ "О НАС"
 ABOUT_US_MENU_BUTTONS = [
@@ -68,7 +76,7 @@ ABOUT_US_MENU_BUTTONS = [
             callback_data=PEOPLE,
         )
     ],
-    [create_return_to_start_button(text=RETURN_BACK_BUTTON_TEXT)],
+    [create_return_to_start_button(text=SHORT_RETURN_BACK_BUTTON_TEXT)],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ДОКУМЕНТЫ"
@@ -105,7 +113,7 @@ REPORTS_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=RETURN_BACK_BUTTON_TEXT,
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
             callback_data=ABOUT_US
         )
     ],
@@ -151,24 +159,13 @@ PROJECTS_MENU_BUTTONS = [
         InlineKeyboardButton(
             text=f"{emoji.emojize(':cityscape:')} Москва - Партала. Онлайн.",
             callback_data=MOSCOW_ONLINE,
-            url="https://sobytie.center/project/moskva-partala-onlajn/",
         )
     ],
-    [
-        InlineKeyboardButton(
-            text=RETURN_BACK_BUTTON_TEXT,
-            callback_data=ABOUT_US,
-        )
-    ],
-]
-
-RETURN_BACK_AND_TO_START_BUTTONS = [
     [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT,
-            callback_data=RETURN_TO_BACK,
-        ),
-        create_return_to_start_button(text=SHORT_RETURN_TO_START_BUTTON_TEXT),
+            callback_data=ABOUT_US,
+        )
     ],
 ]
 
@@ -200,7 +197,7 @@ CONTACTS_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=RETURN_BACK_BUTTON_TEXT,
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
             callback_data=ABOUT_US
         )
     ],
@@ -211,19 +208,19 @@ PEOPLE_BUTTONS = [
     [
         InlineKeyboardButton(
             text=f'{emoji.emojize(":collision:")}Кураторы проектов',
-            url="https://test.ru",
+            url="https://sobytie.center/contacts/",
         )
     ],
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":fire:")} Актёры Инклюзивного театра-студии «Событие»',
+            text=f'{emoji.emojize(":fire:")} Актёры ИТС "Событие"',
             url="https://sobytie.center/actors/",
         )
     ],
     [
         InlineKeyboardButton(
             text=f'{emoji.emojize(":sparkles:")} Волонтёры',
-            url="https://test.ru",
+            url="https://sobytie.center/volunteers/",
         )
     ],
     [
@@ -245,7 +242,7 @@ INCLUSIVE_WORKSHOP_BUTTON = [
     ],
     [
         InlineKeyboardButton(
-            text=RETURN_BACK_BUTTON_TEXT,
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
             callback_data=RETURN_TO_BACK,
         )
     ],
@@ -262,7 +259,24 @@ THEATRE_SCHOOL_BUTTON = [
     ],
     [
         InlineKeyboardButton(
-            text=RETURN_BACK_BUTTON_TEXT,
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=RETURN_TO_BACK,
+        )
+    ],
+
+]
+
+# Кнопки подменю "Москва-Партала.Онлайн"
+MOSCOW_ONLINE_BUTTONS = [
+    [
+        InlineKeyboardButton(
+            text='Москва - Партала. Онлайн.',
+            url="https://sobytie.center/project/moskva-partala-onlajn/",
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
             callback_data=RETURN_TO_BACK,
         )
     ],
