@@ -2,7 +2,7 @@ import urllib.request
 
 import emoji
 import requests
-from telegram import InlineKeyboardMarkup, Update
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
 from bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
@@ -61,18 +61,31 @@ async def get_stickers(update: Update, _: CallbackContext):
             description = response[i].get("description")
             url_sticker = response[i].get("url_sticker")
             image = response[i].get("image")
+            text = (
+                f"{name} \n\n{description}\n\n"
+            )
             caption = (
-                f"{name} \n\n{description}\n\n{url_sticker}\n"
                 f"{emoji.emojize(':backhand_index_pointing_up:')}"
                 f"-Забирай-{emoji.emojize(':backhand_index_pointing_up:')}"
+            )
+            sticker_keyboard = InlineKeyboardMarkup(
+                [[
+                    InlineKeyboardButton(
+                        text=caption,
+                        url=url_sticker,
+                    )
+                ]]
             )
             query = update.callback_query
             if image:
                 photo = urllib.request.urlopen(image).read()
                 await query.message.reply_photo(photo=photo)
-            await query.message.reply_text(text=caption)
+            await query.message.reply_text(reply_markup=sticker_keyboard, text=text)
         await query.message.reply_text(
-            text=f"{emoji.emojize(':backhand_index_pointing_up:')}",
+            text=(
+                f"Выбирайте и добавляйте себе понравившиеся варианты стикерпаков - их создают ученики нашего центра. А мы будем создавать для вас новые!"
+                f"{emoji.emojize(':backhand_index_pointing_up:')}"
+            ),
             reply_markup=keyboard
         )
         return
