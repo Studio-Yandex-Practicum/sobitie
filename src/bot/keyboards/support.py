@@ -73,7 +73,7 @@ SUPPORT_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросу помощи",
+            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросам помощи",
             callback_data=COMMUNICATE_FOR_HELP,
         )
     ],
