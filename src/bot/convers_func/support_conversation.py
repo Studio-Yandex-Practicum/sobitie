@@ -8,6 +8,8 @@ from bot.keyboards.support import (
     SUPPORT_CREATE_COLLECTION_BUTTONS,
     SUPPORT_FOLLOW_BUTTONS,
     SUPPORT_MENU_BUTTONS,
+    TINKOFF_CASHBACK_MENU_BUTTONS,
+    TINKOFF_DONATION_MENU_BUTTONS,
     create_menu_order_souvenir,
 )
 from core import states
@@ -118,3 +120,27 @@ async def show_donations_options(update: Update, _: CallbackContext):
         text=message_text, reply_markup=keyboard, parse_mode=ParseMode.HTML
     )
     return states.DONATION_OPTIONS_STATE
+
+
+async def show_tinkoff_donation(update: Update, _: CallbackContext):
+    """Нажатие на кнопку 'Клиентам Тинькофф'."""
+    query = update.callback_query
+    await query.answer()
+    keyboard = InlineKeyboardMarkup(TINKOFF_DONATION_MENU_BUTTONS)
+    message_text = "Выберите удобный вариант пожертвования"
+    await query.edit_message_text(
+        text=message_text,
+        reply_markup=keyboard
+    )
+
+
+async def show_tinkoff_cashback(update: Update, _: CallbackContext):
+    """Нажатие на кнопку 'Кэшбек во благо'."""
+    query = update.callback_query
+    await query.answer()
+    keyboard = InlineKeyboardMarkup(TINKOFF_CASHBACK_MENU_BUTTONS)
+    message_text = "Скоро будет"
+    await query.edit_message_text(
+        text=message_text,
+        reply_markup=keyboard
+    )

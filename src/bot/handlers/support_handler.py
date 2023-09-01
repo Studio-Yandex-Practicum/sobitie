@@ -57,6 +57,20 @@ support_conv = ConversationHandler(
                 pattern="^" + support.COMMUNICATE_FOR_HELP + "$",
             ),
         ],
+        states.DONATION_OPTIONS_STATE: [
+            CallbackQueryHandler(
+                support_conversation.show_tinkoff_donation,
+                pattern="^" + support.TINKOFF_DONATION + "$",
+            ),
+            CallbackQueryHandler(
+                support_conversation.show_tinkoff_cashback,
+                pattern="^" + support.TINKOFF_CASHBACK + "$",
+            ),
+            CallbackQueryHandler(
+                support_conversation.show_donations_options,
+                pattern="^" + support.SHOW_DONATION_OPTIONS + "$",
+            ),
+        ]
     },
     fallbacks=[CommandHandler(END, end)],
 )
