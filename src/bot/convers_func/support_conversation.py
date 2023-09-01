@@ -4,7 +4,7 @@ from telegram.ext import CallbackContext
 
 from bot.keyboards.support import (
     DONATION_OPTIONS_MENU_BUTTONS,
-    RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
+    RETURN_TO_SUPPORT_BUTTON,
     SUPPORT_CREATE_COLLECTION_BUTTONS,
     SUPPORT_FOLLOW_BUTTONS,
     SUPPORT_MENU_BUTTONS,
@@ -56,7 +56,7 @@ async def show_cashback_connection_instructions(update: Update, _: CallbackConte
 🔹 Введите в поиске: Событие
 ✔️ Готово
 """
-    keyboard = InlineKeyboardMarkup(RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS)
+    keyboard = InlineKeyboardMarkup(RETURN_TO_SUPPORT_BUTTON)
     await query.edit_message_text(text=message, reply_markup=keyboard)
 
 
@@ -80,7 +80,7 @@ async def show_link_to_support_chat(update: Update, _: CallbackContext):
     # TODO: Здесь нужно улучшить текст сообщения и вставить реальную ссылку
     message_text = "Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>"
     keyboard_markup = InlineKeyboardMarkup(
-        RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS
+        RETURN_TO_SUPPORT_BUTTON
     )
     await query.edit_message_text(text=message_text, reply_markup=keyboard_markup)
 
