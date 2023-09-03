@@ -19,9 +19,11 @@ async def show_give_support_menu(update: Update, _: CallbackContext):
     """Меню 'Помочь'."""
     query = update.callback_query
     await query.answer()
-    message_text = """АНО «Событие» — некоммерческая организация. Мы стараемся оказать помощь тем, кому она \
-необходима. Но чтобы продолжать свою работу и планировать долгосрочные проекты, нам тоже нужна помощь. \
-Если вы хотите поддержать нас, то выберите один или несколько способов, представленных ниже."""
+    message_text = (
+        "АНО «Событие» — некоммерческая организация. Мы стараемся оказать помощь тем, кому она необходима. \n"
+        "Но чтобы продолжать свою работу и планировать долгосрочные проекты, нам тоже нужна помощь. \n"
+        "Если вы хотите поддержать нас, то выберите один или несколько способов, представленных ниже."
+    )
     keyboard = InlineKeyboardMarkup(SUPPORT_MENU_BUTTONS)
     await query.edit_message_text(text=message_text, reply_markup=keyboard)
     return states.SUPPORT_STATE
@@ -46,8 +48,10 @@ async def show_social_links_and_gratitude(update: Update, _: CallbackContext):
     """Меню 'Стать активным подписчиком'."""
     query = update.callback_query
     await query.answer()
-    message_text = """Спасибо большое за вашу поддержку! Вместе мы можем изменить мир к лучшему. Будем держать вас в \
-курсе наших проектов и достижений в соцсетях."""
+    message_text = (
+        "Спасибо большое за вашу поддержку! Вместе мы можем изменить мир к лучшему. \n"
+        "Будем держать вас в курсе наших проектов и достижений в соцсетях."
+    )
     keyboard = InlineKeyboardMarkup(SUPPORT_FOLLOW_BUTTONS)
     await query.edit_message_text(
         text=message_text,
@@ -59,7 +63,10 @@ async def show_social_links_and_gratitude(update: Update, _: CallbackContext):
 async def show_link_to_support_chat(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Связь по вопросам помощи'."""
     query = update.callback_query
-    message_text = "Ваша ссылка на чат с обсуждением вариантов помощи: <https://t.me/gingersilence>"
+    message_text = (
+        "Ваша ссылка на чат с обсуждением вариантов помощи: \n"
+        "<a href=https://t.me/gingersilence>Оксана Приходько</a>"
+    )
     keyboard_markup = InlineKeyboardMarkup(
         RETURN_TO_SUPPORT_BUTTON
     )
@@ -88,8 +95,10 @@ async def show_donations_options(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(DONATION_OPTIONS_MENU_BUTTONS)
-    message_text = """Чтобы помочь нам реализовывать проекты и инициативы, вы можете внести свой вклад в нашу работу. \
-Спасибо за поддержку!"""
+    message_text = (
+        "Чтобы помочь нам реализовывать проекты и инициативы, вы можете внести свой вклад в нашу работу. \n"
+        "Спасибо за поддержку!"
+    )
     await query.edit_message_text(
         text=message_text, reply_markup=keyboard, parse_mode=ParseMode.HTML
     )
