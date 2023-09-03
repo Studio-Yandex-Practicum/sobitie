@@ -4,10 +4,12 @@ from telegram.ext import CallbackContext
 
 from bot.keyboards.support import (
     DONATION_OPTIONS_MENU_BUTTONS,
-    RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS,
+    RETURN_TO_SUPPORT_BUTTON,
     SUPPORT_CREATE_COLLECTION_BUTTONS,
     SUPPORT_FOLLOW_BUTTONS,
     SUPPORT_MENU_BUTTONS,
+    TINKOFF_CASHBACK_MENU_BUTTONS,
+    TINKOFF_DONATION_MENU_BUTTONS,
     create_menu_order_souvenir,
 )
 from core import states
@@ -61,7 +63,7 @@ async def show_link_to_support_chat(update: Update, _: CallbackContext):
     # TODO: Здесь нужно улучшить текст сообщения и вставить реальную ссылку
     message_text = "Ваша ссылка на чат с обсуждением вариантов помощи: <http://link>"
     keyboard_markup = InlineKeyboardMarkup(
-        RETURN_TO_SUPPORT_AND_RETURN_TO_START_BUTTONS
+        RETURN_TO_SUPPORT_BUTTON
     )
     await query.edit_message_text(text=message_text, reply_markup=keyboard_markup)
 
@@ -71,7 +73,7 @@ async def show_souvenir_purchase_menu(update: Update, _: CallbackContext):
     query = update.callback_query
     message_text = (
         "Посетите наш благотворительный магазин во «ВКонтакте» и приобретите сувениры, сделанные в нашей инклюзивной мастерской ИТС «Событие», "
-        "что поможет нам реализовывать наши проекты и инициативы. \n\n" 
+        "что поможет нам реализовывать наши проекты и инициативы. \n\n"
         "Также вы можете включить уведомления о наших мероприятиях, "
         "чтобы всегда быть в курсе, когда и где пройдут мастер-классы и благотворительная ярмарка. Ваша поддержка очень важна для нас, спасибо!"
     )
@@ -101,3 +103,27 @@ async def show_donations_options(update: Update, _: CallbackContext):
         text=message_text, reply_markup=keyboard, parse_mode=ParseMode.HTML
     )
     return states.DONATION_OPTIONS_STATE
+
+
+async def show_tinkoff_donation(update: Update, _: CallbackContext):
+    """Нажатие на кнопку 'Клиентам Тинькофф'."""
+    query = update.callback_query
+    await query.answer()
+    keyboard = InlineKeyboardMarkup(TINKOFF_DONATION_MENU_BUTTONS)
+    message_text = "Выберите удобный вариант пожертвования"
+    await query.edit_message_text(
+        text=message_text,
+        reply_markup=keyboard
+    )
+
+
+async def show_tinkoff_cashback(update: Update, _: CallbackContext):
+    """Нажатие на кнопку 'Кэшбек во благо'."""
+    query = update.callback_query
+    await query.answer()
+    keyboard = InlineKeyboardMarkup(TINKOFF_CASHBACK_MENU_BUTTONS)
+    message_text = "Скоро будет"
+    await query.edit_message_text(
+        text=message_text,
+        reply_markup=keyboard
+    )

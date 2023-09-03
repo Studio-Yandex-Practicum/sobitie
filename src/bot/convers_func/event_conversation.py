@@ -34,9 +34,9 @@ async def show_event_menu(update: Update, _: CallbackContext):
     await query.answer()
     event_menu_buttons = await create_event_menu_buttons(user_id=query.from_user.id)
     keyboard = InlineKeyboardMarkup(event_menu_buttons)
-    message_text = """Мы организуем показы спектаклей, проводим открытые репетиции, мастер-классы, участвуем в \
-благотворительных ярмарках, фестивалях...
-Хотите узнать больше о предстоящих событиях?"""
+    message_text = (
+        "Мы организуем показы спектаклей, проводим открытые репетиции, мастер-классы, участвуем в благотворительных ярмарках и фестивалях."
+    )
     await query.edit_message_text(
         text=message_text,
         reply_markup=keyboard,
