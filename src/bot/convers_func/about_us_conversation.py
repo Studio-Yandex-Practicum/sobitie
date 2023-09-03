@@ -178,7 +178,6 @@ async def _send_project_info(update: Update, message: ProjectInfoMessage):
 async def show_email_info(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Электронная почта"'."""
     query = update.callback_query
-    await query.answer()
     keyboard = InlineKeyboardMarkup(EMAIL_INFO_BUTTON)
     message_text = (
         "Вы можете написать нам на нашу электронную почту: \n"
