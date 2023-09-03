@@ -9,7 +9,10 @@ from bot.keyboards.about_us import (
     MINISTRY_REPORTS_BUTTONS,
     PROJECTS_MENU_BUTTONS,
     REPORTS_MENU_BUTTONS,
-    RETURN_BACK_AND_TO_START_BUTTONS, INCLUSIVE_WORKSHOP_BUTTON, THEATRE_SCHOOL_BUTTON,
+    RETURN_BACK_AND_TO_START_BUTTONS, 
+    INCLUSIVE_WORKSHOP_BUTTON, 
+    THEATRE_SCHOOL_BUTTON,
+    EMAIL_INFO_BUTTON,
 )
 from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
@@ -169,4 +172,18 @@ async def _send_project_info(update: Update, message: ProjectInfoMessage):
         text=message.text,
         parse_mode="HTML",
         reply_markup=message.keyboard,
+    )
+
+
+async def show_email_info(update: Update, _: CallbackContext):
+    """Нажатие на кнопку 'Электронная почта"'."""
+    query = update.callback_query
+    keyboard = InlineKeyboardMarkup(EMAIL_INFO_BUTTON)
+    message_text = (
+        "Вы можете написать нам на нашу электронную почту: \n"
+        "sobytie.center@yandex.ru"
+    )
+    await query.edit_message_text(
+        text=message_text,
+        reply_markup=keyboard
     )
