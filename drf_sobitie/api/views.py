@@ -44,7 +44,7 @@ class EventViewSet(ModelViewSet):
 class QuoteViewSet(ModelViewSet):
     """Вьюсет для цитат."""
 
-    queryset = Quote.objects.order_by("-add_time")[:1]
+    queryset = Quote.objects.order_by("?")[:1]
     serializer_class = QuoteSerializer
 
 
