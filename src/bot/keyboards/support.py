@@ -61,12 +61,6 @@ SUPPORT_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':money_with_wings:')} Подключить кешбэк",
-            callback_data=CASHBACK,
-        )
-    ],
-    [
-        InlineKeyboardButton(
             text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком",
             callback_data=FOLLOW_US,
         )
