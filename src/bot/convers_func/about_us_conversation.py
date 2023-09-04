@@ -7,10 +7,11 @@ from bot.keyboards.about_us import (
     ABOUT_US_MENU_BUTTONS,
     DOCUMENTS_MENU_BUTTONS,
     MINISTRY_REPORTS_BUTTONS,
+    MOSCOW_ONLINE_BUTTONS,
     PROJECTS_MENU_BUTTONS,
     REPORTS_MENU_BUTTONS,
-    RETURN_BACK_AND_TO_START_BUTTONS, 
-    INCLUSIVE_WORKSHOP_BUTTON, 
+    RETURN_BACK_BUTTON,
+    INCLUSIVE_WORKSHOP_BUTTON,
     THEATRE_SCHOOL_BUTTON,
     EMAIL_INFO_BUTTON,
 )
@@ -24,7 +25,7 @@ class ProjectInfoMessage:
     text: str
     image_url: str
     keyboard: InlineKeyboardMarkup = (
-        InlineKeyboardMarkup(RETURN_BACK_AND_TO_START_BUTTONS)
+        InlineKeyboardMarkup(RETURN_BACK_BUTTON)
     )
 
 
@@ -161,6 +162,24 @@ async def show_theatre_school(update: Update, _: CallbackContext):
         keyboard=InlineKeyboardMarkup(THEATRE_SCHOOL_BUTTON)
     )
     await _send_project_info(update=update, message=message)
+
+
+async def show_moscow_partala_online(update: Update, _: CallbackContext):
+    """Нажатие кнопки 'Москва-Партала.Онлайн'."""
+    query = update.callback_query
+    await query.answer()
+    keyboard = InlineKeyboardMarkup(MOSCOW_ONLINE_BUTTONS)
+    message_text = (
+        "Мы сотрудничаем с Партальским домом-интернатом для престарелых "
+        "и инвалидов и регулярно организуем совместные дистанционные "
+        "концерты, мастер-классы, онлайн-прогулки и другие мероприятия. "
+        "Помимо этого, мы совместно участвуем в благотворительных акциях "
+        "и развиваем инклюзивное волонтёрство."
+    )
+    await query.edit_message_text(
+        text=message_text,
+        reply_markup=keyboard,
+    )
 
 
 async def _send_project_info(update: Update, message: ProjectInfoMessage):
