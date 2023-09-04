@@ -3,6 +3,7 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandl
 from bot.convers_func.about_us_conversation import (
     show_about_us,
     show_documents,
+    show_email_info,
     show_theatre_actors,
     show_inclusive_workshop,
     show_ministry_reports,
@@ -15,7 +16,7 @@ from bot.convers_func.main_conversation import end
 from bot.handlers.contacts_handler import contacts_conv
 from bot.handlers.people_handler import people_conv
 from bot.keyboards.about_us import (
-    THEATRE_ACTORS,
+    EMAIL_INFO,
     INCLUSIVE_WORKSHOP,
     LEGAL_DOCUMENTS,
     MOSCOW_ONLINE,
@@ -23,6 +24,7 @@ from bot.keyboards.about_us import (
     REPORTS,
     REPORTS_MINISTRY,
     RETURN_TO_BACK,
+    THEATRE_ACTORS,
     THEATRE_SCHOOL,
 )
 from bot.keyboards.main import ABOUT_US, END
@@ -33,6 +35,7 @@ about_us_conv = ConversationHandler(
     entry_points=[CallbackQueryHandler(show_about_us, pattern="^" + ABOUT_US + "$")],
     states={
         ABOUT_US_STATE: [
+            CallbackQueryHandler(show_email_info, pattern="^" + EMAIL_INFO + "$"),
             CallbackQueryHandler(show_projects, pattern="^" + PROJECTS + "$"),
             CallbackQueryHandler(show_documents, pattern="^" + LEGAL_DOCUMENTS + "$"),
             CallbackQueryHandler(show_reports, pattern="^" + REPORTS + "$"),

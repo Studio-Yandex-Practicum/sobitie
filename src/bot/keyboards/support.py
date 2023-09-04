@@ -26,6 +26,12 @@ FOLLOW_US_TELEGRAM = "FOLLOW_US_TELEGRAM"
 CREATE_COLLECTION = "CREATE_COLLECTION"
 CASHBACK = "CASHBACK"
 
+# Константы для меню "Сделать пожертвование"
+TINKOFF_DONATION = "TINKOFF_DONATION"
+
+# Константы для подменю "Клиентам Тинькофф"
+TINKOFF_CASHBACK = "TINKOFF_CASHBACK"
+
 RETURN_TO_SUPPORT_BUTTON = [
     [
         InlineKeyboardButton(
@@ -35,12 +41,6 @@ RETURN_TO_SUPPORT_BUTTON = [
 ]
 
 SUPPORT_MENU_BUTTONS = [
-    [
-        InlineKeyboardButton(
-            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросу помощи",
-            callback_data=COMMUNICATE_FOR_HELP,
-        )
-    ],
     [
         InlineKeyboardButton(
             text=f"{emoji.emojize(':credit_card:')} Сделать пожертвование",
@@ -61,17 +61,17 @@ SUPPORT_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':money_with_wings:')} Подключить кешбэк",
-            callback_data=CASHBACK,
-        )
-    ],
-    [
-        InlineKeyboardButton(
             text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком",
             callback_data=FOLLOW_US,
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросам помощи",
+            callback_data=COMMUNICATE_FOR_HELP,
+        )
+    ],
+    [create_return_to_start_button(text=SHORT_RETURN_BACK_BUTTON_TEXT)],
 ]
 
 DONATION_OPTIONS_MENU_BUTTONS = [
@@ -93,12 +93,45 @@ DONATION_OPTIONS_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text="Тинькофф", url="https://www.tinkoff.ru/payments/provider-sobytie/"
+            text="Клиентам Тинькофф",
+            callback_data=TINKOFF_DONATION,
         )
     ],
     [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
+        ),
+    ],
+]
+
+# КНОПКИ ПОДМЕНЮ "КЛИЕНТАМ ТИНЬКОФФ"
+TINKOFF_DONATION_MENU_BUTTONS = [
+    [
+        InlineKeyboardButton(
+            text="Разовое пожертвование",
+            url="https://www.tinkoff.ru/payments/provider-sobytie/",
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text="Кэшбек во благо",
+            callback_data=TINKOFF_CASHBACK,
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=SHOW_DONATION_OPTIONS,
+        ),
+    ],
+]
+
+# КНОПКИ ПОДМЕНЮ "КЭШБЕК ВО БЛАГО"
+TINKOFF_CASHBACK_MENU_BUTTONS = [
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=TINKOFF_DONATION,
         ),
     ],
 ]

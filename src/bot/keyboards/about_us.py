@@ -31,6 +31,7 @@ MOSCOW_ONLINE = "MOSCOW_ONLINE"
 
 # Константы для подменю "Контакты"
 CONTACTS_INFO = "CONTACTS_INFO"
+EMAIL_INFO = "EMAIL_INFO"
 
 # Константы кнопки "НАЗАД"
 RETURN_TO_BACK = "RETURN_TO_BACK"
@@ -174,7 +175,7 @@ CONTACTS_BUTTONS = [
     [
         InlineKeyboardButton(
             text=f"{emoji.emojize(':envelope:')} Электронная почта",
-            url="mailto:sobytie.center@yandex.ru",
+            callback_data=EMAIL_INFO,
         )
     ],
     [
@@ -278,6 +279,18 @@ MOSCOW_ONLINE_BUTTONS = [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT,
             callback_data=RETURN_TO_BACK,
+        )
+    ],
+
+]
+
+
+# Кнопки подменю "Электронная почта""
+EMAIL_INFO_BUTTON = [
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=CONTACTS,
         )
     ],
 
