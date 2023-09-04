@@ -43,12 +43,6 @@ RETURN_TO_SUPPORT_BUTTON = [
 SUPPORT_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросу помощи",
-            callback_data=COMMUNICATE_FOR_HELP,
-        )
-    ],
-    [
-        InlineKeyboardButton(
             text=f"{emoji.emojize(':credit_card:')} Сделать пожертвование",
             callback_data=SHOW_DONATION_OPTIONS,
         )
@@ -77,7 +71,13 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=FOLLOW_US,
         )
     ],
-    [create_return_to_start_button()],
+    [
+        InlineKeyboardButton(
+            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросам помощи",
+            callback_data=COMMUNICATE_FOR_HELP,
+        )
+    ],
+    [create_return_to_start_button(text=SHORT_RETURN_BACK_BUTTON_TEXT)],
 ]
 
 DONATION_OPTIONS_MENU_BUTTONS = [
