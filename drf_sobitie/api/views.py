@@ -44,6 +44,7 @@ class EventViewSet(ModelViewSet):
 class QuoteViewSet(ModelViewSet):
     """Вьюсет для цитат."""
 
+    # Берем случайный объект модели Quote
     queryset = Quote.objects.order_by("?")[:1]
     serializer_class = QuoteSerializer
 

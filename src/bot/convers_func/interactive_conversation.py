@@ -15,7 +15,7 @@ async def menu_interactive(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(INTERACTIVE_BUTTONS)
-    await query.message.reply_text(
+    await query.edit_message_text(
         text="Интерактив",
         reply_markup=keyboard,
     )
@@ -109,5 +109,5 @@ async def get_quote(update: Update, _: CallbackContext):
         )
         return
     
-    await query.message.reply_text(text=quote, reply_markup=keyboard)
+    await query.edit_message_text(text=quote, reply_markup=keyboard)
     return
