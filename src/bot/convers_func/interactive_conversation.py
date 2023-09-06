@@ -21,7 +21,7 @@ async def menu_interactive(update: Update, _: CallbackContext):
         await query.message.reply_text(
         text="Интерактив",
         reply_markup=keyboard,
-    )
+        )
     else:
         await query.edit_message_text(
             text="Интерактив",
