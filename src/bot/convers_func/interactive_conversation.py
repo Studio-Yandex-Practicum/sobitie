@@ -17,7 +17,7 @@ async def menu_interactive(update: Update, _: CallbackContext):
     keyboard = InlineKeyboardMarkup(INTERACTIVE_BUTTONS)
 
     if query.message.text is None:
-        query.delete_message
+        await query.delete_message()
         await query.message.reply_text(
         text="Интерактив",
         reply_markup=keyboard,
@@ -111,6 +111,7 @@ async def get_quote(update: Update, _: CallbackContext):
     if "image" in response[0] and response[0].get("image") is not None:
         image = response[0].get("image")
         photo = urllib.request.urlopen(image).read()
+        await query.delete_message()
         await query.message.reply_photo(
             caption=quote,
             photo=photo,
