@@ -15,10 +15,19 @@ async def menu_interactive(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(INTERACTIVE_BUTTONS)
-    await query.edit_message_text(
+
+    if query.message.text is None:
+        query.delete_message
+        await query.message.reply_text(
         text="Интерактив",
         reply_markup=keyboard,
     )
+    else:
+        await query.edit_message_text(
+            text="Интерактив",
+            reply_markup=keyboard,
+        )
+
     return INTERACTIVE_STATE
 
 
