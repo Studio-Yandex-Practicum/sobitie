@@ -15,10 +15,19 @@ async def menu_interactive(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(INTERACTIVE_BUTTONS)
-    await query.edit_message_text(
+
+    if query.message.text is None:
+        await query.delete_message()
+        await query.message.reply_text(
         text="Интерактив",
         reply_markup=keyboard,
-    )
+        )
+    else:
+        await query.edit_message_text(
+            text="Интерактив",
+            reply_markup=keyboard,
+        )
+
     return INTERACTIVE_STATE
 
 
@@ -97,7 +106,7 @@ async def get_stickers(update: Update, _: CallbackContext):
 
 
 async def get_quote(update: Update, _: CallbackContext):
-    """Нажатие на кнопку 'Случайная цитата'."""
+    """Нажатие на кнопку 'Цитата недели'."""
     response = requests.get(QUOTE_URL).json()
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
     query = update.callback_query
@@ -112,16 +121,16 @@ async def get_quote(update: Update, _: CallbackContext):
         return
 
     quote = response[0].get("text")
-    author = response[0].get("author")
-    caption = f"{quote} \n\n{emoji.emojize(':writing_hand:')} {author}"
     if "image" in response[0] and response[0].get("image") is not None:
         image = response[0].get("image")
         photo = urllib.request.urlopen(image).read()
+        await query.delete_message()
         await query.message.reply_photo(
+            caption=quote,
             photo=photo,
-            caption=caption,
             reply_markup=keyboard
         )
         return
-    await query.edit_message_text(text=caption, reply_markup=keyboard)
+    
+    await query.edit_message_text(text=quote, reply_markup=keyboard)
     return
