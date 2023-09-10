@@ -1,6 +1,7 @@
 name: CI/CD sobitie
 run-name: ${{ github.actor }} CI/CD process...
 on:
+  workflow_dispatch:
   push:
     branches: [ "master" ]
   pull_request:
@@ -60,9 +61,8 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo docker-compose down
-            sudo docker-compose rm bot
-            sudo docker-compose rm web
+            sudo docker-compose stop
+            sudo docker system prune -af
             touch .env
             cat /dev/null > .env
             echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
