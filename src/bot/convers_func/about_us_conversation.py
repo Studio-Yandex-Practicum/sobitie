@@ -122,20 +122,6 @@ async def show_projects(update: Update, _: CallbackContext):
     return PROJECTS_STATE
 
 
-async def show_theatre_actors(update: Update, _: CallbackContext):
-    """Нажатие кнопки 'Актеры театра'."""
-    message = ProjectInfoMessage(
-        text=(
-            "Актёры Инклюзивного театра-студии «Событие» — молодые люди с "
-            "инвалидностью и их условно здоровые сверстники. Театр для наших "
-            "актёров — способ взаимодействия с собой и миром вокруг, а также "
-            "возможность созидать и делиться плодами сотворчества."
-        ),
-        image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
-    )
-    await _send_project_info(update=update, message=message)
-
-
 async def show_inclusive_workshop(update: Update, _: CallbackContext):
     """Нажатие кнопки 'Инклюзивная мастерская'."""
     message = ProjectInfoMessage(
