@@ -46,18 +46,25 @@ async def show_event_menu(update: Update, _: CallbackContext):
 
 async def show_upcoming_events(update: Update, _: CallbackContext):
     """Отправляет сообщения с ближайшими событиями."""
-    closing_message = """Вы можете подписаться на уведомления об анонсах, чтобы первыми узнавать о наших \
-будущих мероприятиях. Также вы можете вернуться в главное меню и ознакомиться с другими разделами. Спасибо за интерес \
-к нашей организации."""
     query = update.callback_query
     await query.answer()
     event_response = await async_get_request(url=EVENTS_URL)
     events = event_response.json()
     if len(events) == 0:
-        await _process_no_events(query=query, closing_message=closing_message)
+        await _process_no_events(
+            query=query,
+            closing_message=("Оставайтесь на связи, чтобы первыми узнавать о наших будущих мероприятиях. "
+                             "Также вы можете вернуться в главное меню и ознакомиться с другими разделами. "
+                             "Спасибо за интерес к нашей организации."),
+        )
         return
     await _send_event_messages(query=query, events=events, message_template=EVENT_MESSAGE_TEMPLATE)
-    await _send_closing_message(query=query, closing_message=closing_message)
+    await _send_closing_message(
+        query=query,
+        closing_message=("Вы можете подписаться на уведомления об анонсах, чтобы первыми узнавать о наших"
+                         "будущих мероприятиях. Также вы можете вернуться в главное меню и ознакомиться с другими разделами. "
+                         "Спасибо за интерес к нашей организации."),
+    )
 
 
 async def show_gratitude_and_subscribe_to_notifications(update: Update, _: CallbackContext):
@@ -147,7 +154,7 @@ async def _process_no_events(query: CallbackQuery, closing_message: str) -> None
     """Обрабатывает случай, когда список ближайших событий пуст."""
     finish_event_buttons = await create_finish_event_buttons(user_id=query.from_user.id)
     keyboard = InlineKeyboardMarkup(finish_event_buttons)
-    message = "\n\n".join(["К сожалению, на данный момент у нас нет доступных событий.", closing_message])
+    message = "\n\n".join(["На данный момент это все доступные события.", closing_message])
     await query.edit_message_text(text=message, reply_markup=keyboard)
 
 
