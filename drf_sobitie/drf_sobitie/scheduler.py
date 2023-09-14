@@ -22,13 +22,12 @@ tools = VkTools(vk_session)
 def remove_not_actual_events(events, vk_posts):
     """Удаление записей в бд при их удалении в сообществе ВК."""
     for event in events:
-        event_vk_post_id = event.vk_post_id
-        if event_vk_post_id not in [post["id"] for post in vk_posts["items"]]:
+        if event.vk_post_id not in [post["id"] for post in vk_posts["items"]]:
             event.delete()
 
 
 @register_job(scheduler, "interval", seconds=10)
-def task():
+def check_vk_group_news_job():
     """Обновление записей в бд при их изменении в ВК (а также при их удалении),
     работает через планировщик. В параметре seconds указывается через сколько
     секунд произойдет проверка обновлений на стене сообщества.
@@ -44,14 +43,14 @@ def task():
             }
         if not events.filter(vk_post_id=post["id"]).exists():
             requests.post("http://localhost:8000/api/vk/", data=request_data)
-        else:
-            event = events.get(vk_post_id=post["id"])
-            event_date = event.event_time
-            current_date = datetime.now()
-            post_text = post["text"].split("#")[0].rstrip()
-            if not (event_date < current_date) and (post_text != event.description):
-                VKView().put(request_data, post["id"])
             continue
+        event = events.get(vk_post_id=post["id"])
+        event_date = event.event_time
+        current_date = datetime.now()
+        post_text = post["text"].split("#")[0].rstrip()
+        if not (event_date < current_date) and (post_text != event.description):
+            VKView().put(request_data, post["id"])
+        continue
 
 try:
     scheduler.start()
