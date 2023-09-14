@@ -1,35 +1,22 @@
-import urllib
-from http import HTTPStatus
 
-import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Poll, Update
 from telegram.ext import CallbackContext
 
+from bot.convers_func.api_conversation import *
 from bot.keyboards.main import QUIZZES, create_return_to_start_button
 from bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
-from core.settings import QUIZZES_URL
-
-
-def get_quizzes():
-    """Получить список викторин."""
-    response = requests.get(QUIZZES_URL)
-    if response.status_code != HTTPStatus.OK.value:
-        return None
-    if len(response.json()) < 1:
-        return None
-    return response.json()
 
 
 def get_quizzes_inline_button():
     """Сформировать меню на основании списка викторин."""
-    quizzes = get_quizzes()
+    quizzes = APIClient.get_quizzes()
     if quizzes is None:
         return FINISH_QUIZ_MENU_BUTTON
     quizzes_menu = [
         [InlineKeyboardButton(
             text=quiz["name"],
             callback_data=START_QUESTIONS + f"#{quiz['id']}")]
-        for quiz in get_quizzes()
+        for quiz in APIClient.get_quizzes()
     ]
     quizzes_menu.append([create_return_to_start_button()])
     return quizzes_menu
@@ -65,33 +52,6 @@ def get_last_question_id(context: CallbackContext):
     return context.user_data["last_question_id"]
 
 
-def get_next_question(update: Update, context: CallbackContext):
-    """Получить следующий вопрос викторины."""
-    current_quiz_id = get_current_quiz_id(update=update, context=context)
-    questions_url = f"{QUIZZES_URL}{current_quiz_id}/quiz_questions/"
-    last_question_id = get_last_question_id(context=context)
-    params = {"last_question_id": last_question_id}
-    response = requests.get(questions_url, params=params)
-    if response.status_code != HTTPStatus.OK.value:
-        return None, None
-    questions = response.json()
-    if len(questions) < 1:
-        return None, None
-    image = None
-    question = questions[0]
-    question_exist = question["question_text"]
-    result_exist = question["result_exist"]
-    if not question_exist or not result_exist:
-        return None, None
-    if question["image"]:
-        image = question.get("image")
-        image = urllib.request.urlopen(image).read()
-    context.user_data["last_question_id"] = question["id"]
-    del question["id"]
-    del question["image"]
-    return question, image
-
-
 def correct_answer_count(update: Update, context: CallbackContext):
     """Обновление счетчика корректных ответов."""
     poll_data = update.callback_query.message.poll
@@ -121,29 +81,6 @@ def scoring(context: CallbackContext):
     return correct_answer_count, questions_count
 
 
-def get_message_for_result(update: Update, context: CallbackContext):
-    """Получить текст сообщения из DRF по результату прохождения викторины."""
-    correct_answer_count, questions_count = scoring(context)
-    current_quiz_id = get_current_quiz_id(update, context)
-    message_url = f"{QUIZZES_URL}{current_quiz_id}/quiz_result/"
-    params = {
-        "correct_answer_count": correct_answer_count
-    }
-    response = requests.get(message_url, params=params)
-    if response.status_code != HTTPStatus.OK.value:
-        return None
-    data = response.json()
-    if len(data) < 1:
-        return None
-    data = data[0]
-    image = None
-    if data["image"]:
-        image = data.get("image")
-        image = urllib.request.urlopen(image).read()
-    del data["image"]
-    return data, image
-
-
 def clear_context(context: CallbackContext):
     if "questions_counter" in context.user_data:
         del context.user_data["questions_counter"]
@@ -167,7 +104,7 @@ async def send_quiz_result(update: Update, context: CallbackContext):
         return QUIZZES
 
     # отобразить результат,
-    message_result, image = get_message_for_result(update, context)
+    message_result, image = APIClient.get_message_for_result(update, context)
     correct_answer_count, questions_count = scoring(context)
     per_correct_answers = 0
     if correct_answer_count != 0:
@@ -200,7 +137,7 @@ async def send_quiz_question(update: Update, context: CallbackContext):
     if update.callback_query.message.poll:
         # если прошлый пост был вопросом викторины, проверяем ответ
         correct_answer_count(update, context)
-    question_data, image = get_next_question(
+    question_data, image = APIClient.get_next_question(
         update=update, context=context
     )
     if question_data is None:

@@ -3,7 +3,7 @@ from typing import Sequence
 import emoji
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.event import create_notification_button_based_on_subscription_status
+from bot.convers_func.api_conversation import APIClient
 from bot.keyboards.main import (
     GIVE_SUPPORT,
     SHORT_RETURN_BACK_BUTTON_TEXT,
@@ -183,7 +183,7 @@ async def create_menu_order_souvenir(
     user_id: int,
 ) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры раздела приобретения сувениров."""
-    notification_button = await create_notification_button_based_on_subscription_status(
+    notification_button = await APIClient.create_notification_button_based_on_subscription_status(
         user_id=user_id
     )
     menu_order_souvenir = [

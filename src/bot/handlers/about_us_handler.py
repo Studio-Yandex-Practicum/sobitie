@@ -4,12 +4,12 @@ from bot.convers_func.about_us_conversation import (
     show_about_us,
     show_documents,
     show_email_info,
-    show_theatre_actors,
     show_inclusive_workshop,
     show_ministry_reports,
     show_moscow_partala_online,
     show_projects,
     show_reports,
+    show_theatre_actors,
     show_theatre_school,
 )
 from bot.convers_func.main_conversation import end
