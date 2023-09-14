@@ -13,6 +13,7 @@ from telegram.ext import CallbackContext
 
 from bot.async_requests import async_delete_request, async_get_request, async_send_json_post_request
 from bot.keyboards.event import EVENT_MENU, NOTIFICATION_BUTTONS, create_event_menu_buttons, create_finish_event_buttons
+from bot.keyboards.support import OTHER_HELP_MENU_BUTTONS
 from core.settings import EVENTS_URL, NOTIFICATIONS_API_URL
 
 EVENT_MESSAGE_TEMPLATE = emoji.emojize(
@@ -70,6 +71,22 @@ async def show_gratitude_and_subscribe_to_notifications(update: Update, _: Callb
     message_text = await _check_api_response_status(message_text=message_text, response=response, user_id=user_id)
     keyboard = InlineKeyboardMarkup(NOTIFICATION_BUTTONS)
     await query.edit_message_text(text=(message_text + CLOSING_NOTIFICATION_TEXT), reply_markup=keyboard)
+    return EVENT_MENU
+
+
+async def other_help_subscribe_to_notifications(update: Update, _: CallbackContext):
+    """
+    Включает уведомления и благодарит пользователя 
+    после нажатия кнопки включить уведомление в разделе иная помощь
+    """
+    query = update.callback_query
+    await query.answer()
+    message_text = """Спасибо за отклик! Вы будете получать уведомления о наших потребностях."""
+    user_id = query.from_user.id
+    response = await async_send_json_post_request(url=NOTIFICATIONS_API_URL, data={"user_id": user_id})
+    message_text = await _check_api_response_status(message_text=message_text, response=response, user_id=user_id)
+    keyboard = InlineKeyboardMarkup(OTHER_HELP_MENU_BUTTONS)
+    await query.edit_message_text(text=message_text, reply_markup=keyboard)
     return EVENT_MENU
 
 
