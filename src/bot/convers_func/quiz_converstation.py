@@ -1,18 +1,18 @@
 import urllib
 from http import HTTPStatus
 
-import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Poll, Update
 from telegram.ext import CallbackContext
 
+from bot.convers_func.api_conversation import APIClient
 from bot.keyboards.main import QUIZZES, create_return_to_start_button
 from bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
-from core.settings import QUIZZES_URL
 
+api_client = APIClient()
 
 def get_quizzes():
     """Получить список викторин."""
-    response = requests.get(QUIZZES_URL)
+    response = api_client.get_quizes_request()
     if response.status_code != HTTPStatus.OK.value:
         return None
     if len(response.json()) < 1:
@@ -68,10 +68,9 @@ def get_last_question_id(context: CallbackContext):
 def get_next_question(update: Update, context: CallbackContext):
     """Получить следующий вопрос викторины."""
     current_quiz_id = get_current_quiz_id(update=update, context=context)
-    questions_url = f"{QUIZZES_URL}{current_quiz_id}/quiz_questions/"
     last_question_id = get_last_question_id(context=context)
     params = {"last_question_id": last_question_id}
-    response = requests.get(questions_url, params=params)
+    response = api_client.get_question(current_quiz_id, params)
     if response.status_code != HTTPStatus.OK.value:
         return None, None
     questions = response.json()
@@ -125,11 +124,10 @@ def get_message_for_result(update: Update, context: CallbackContext):
     """Получить текст сообщения из DRF по результату прохождения викторины."""
     correct_answer_count, questions_count = scoring(context)
     current_quiz_id = get_current_quiz_id(update, context)
-    message_url = f"{QUIZZES_URL}{current_quiz_id}/quiz_result/"
     params = {
         "correct_answer_count": correct_answer_count
     }
-    response = requests.get(message_url, params=params)
+    response = api_client.get_message(current_quiz_id, params)
     if response.status_code != HTTPStatus.OK.value:
         return None
     data = response.json()

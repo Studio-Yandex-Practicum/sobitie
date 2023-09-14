@@ -1,14 +1,14 @@
 import urllib.request
 
 import emoji
-import requests
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
+from bot.convers_func.api_conversation import APIClient
 from bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
-from core.settings import QUOTE_URL, STICKERPACK_URL
 from core.states import INTERACTIVE_STATE
 
+api_client = APIClient()
 
 async def menu_interactive(update: Update, _: CallbackContext):
     """Меню 'Интерактив'."""
@@ -40,7 +40,8 @@ async def get_quiz(update: Update, _: CallbackContext):
 
 async def get_stickers(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Стикерпаки'."""
-    response = requests.get(STICKERPACK_URL).json()
+    response = await api_client.get_stickers()
+    response = response.json()
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
     query = update.callback_query
 
@@ -107,7 +108,8 @@ async def get_stickers(update: Update, _: CallbackContext):
 
 async def get_quote(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Цитата недели'."""
-    response = requests.get(QUOTE_URL).json()
+    response = await api_client.get_quote()
+    response = response.json()
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
     query = update.callback_query
     if len(response) < 1:

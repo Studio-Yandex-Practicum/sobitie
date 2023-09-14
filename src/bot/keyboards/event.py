@@ -5,12 +5,16 @@ import emoji
 from requests import Response
 from telegram import InlineKeyboardButton
 
-from bot.async_requests import async_get_request
+from bot.convers_func.api_conversation import APIClient
 from bot.keyboards.main import (
-    RETURN_BACK_BUTTON_TEXT, SHORT_RETURN_TO_START_BUTTON_TEXT,
-    create_return_to_start_button, SHORT_RETURN_BACK_BUTTON_TEXT, RETURN_TO_START
+    RETURN_BACK_BUTTON_TEXT,
+    RETURN_TO_START,
+    SHORT_RETURN_BACK_BUTTON_TEXT,
+    SHORT_RETURN_TO_START_BUTTON_TEXT,
+    create_return_to_start_button,
 )
-from core.settings import CHECK_FOR_SUBSCRIPTION_API_URL
+
+api_client = APIClient()
 
 UPCOMING_EVENTS = "UPCOMING_EVENTS"
 NOTIFICATION_SUBSCRIBE_CALLBACK = "NOTIFICATION_SUBSCRIBE_CALLBACK"
@@ -80,9 +84,7 @@ async def create_notification_button_based_on_subscription_status(
     button = InlineKeyboardButton(
         text=SUBSCRIBE_BUTTON_TEXT, callback_data=NOTIFICATION_SUBSCRIBE_CALLBACK
     )
-    response = await async_get_request(
-        url=f"{CHECK_FOR_SUBSCRIPTION_API_URL}{user_id}/"
-    )
+    response = await api_client.get_create_notification(user_id)
     button = await _process_and_update_button_based_on_api_response(
         button=button, response=response
     )
