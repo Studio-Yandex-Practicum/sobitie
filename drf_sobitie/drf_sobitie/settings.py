@@ -18,7 +18,7 @@ SECRET_KEY = os.getenv("DJ_SECRET_KEY",
                        default="djangosecretkey_WG312t0k130fk13f")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", default=True)
+DEBUG = os.getenv("DEBUG", default=False)
 
 ALLOWED_HOSTS = ["*"]
 
