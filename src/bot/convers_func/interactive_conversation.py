@@ -8,7 +8,6 @@ from bot.convers_func.api_conversation import APIClient
 from bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
 from core.states import INTERACTIVE_STATE
 
-api_client = APIClient()
 
 async def menu_interactive(update: Update, _: CallbackContext):
     """Меню 'Интерактив'."""
@@ -40,6 +39,7 @@ async def get_quiz(update: Update, _: CallbackContext):
 
 async def get_stickers(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Стикерпаки'."""
+    api_client = APIClient()
     response = await api_client.get_stickers()
     response = response.json()
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
@@ -108,6 +108,7 @@ async def get_stickers(update: Update, _: CallbackContext):
 
 async def get_quote(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Цитата недели'."""
+    api_client = APIClient()
     response = await api_client.get_quote()
     response = response.json()
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])

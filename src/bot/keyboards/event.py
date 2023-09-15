@@ -14,8 +14,6 @@ from bot.keyboards.main import (
     create_return_to_start_button,
 )
 
-api_client = APIClient()
-
 UPCOMING_EVENTS = "UPCOMING_EVENTS"
 NOTIFICATION_SUBSCRIBE_CALLBACK = "NOTIFICATION_SUBSCRIBE_CALLBACK"
 NOTIFICATION_UNSUBSCRIBE_CALLBACK = "NOTIFICATION_UNSUBSCRIBE_CALLBACK"
@@ -81,6 +79,7 @@ async def create_notification_button_based_on_subscription_status(
     user_id: int,
 ) -> InlineKeyboardButton:
     """В зависимости от наличия подписки создаёт кнопку: подписаться/отписаться."""
+    api_client = APIClient()
     button = InlineKeyboardButton(
         text=SUBSCRIBE_BUTTON_TEXT, callback_data=NOTIFICATION_SUBSCRIBE_CALLBACK
     )
