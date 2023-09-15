@@ -37,10 +37,7 @@ def check_vk_group_news_job():
     remove_not_actual_events(events, vk_posts)
 
     for post in vk_posts["items"]:
-        request_data = {
-                "text": post["text"],
-                "id": post["id"]
-            }
+        request_data = {"text": post["text"], "id": post["id"]}
         if not events.filter(vk_post_id=post["id"]).exists():
             requests.post("http://localhost:8000/api/vk/", data=request_data)
             continue
@@ -51,6 +48,7 @@ def check_vk_group_news_job():
         if not (event_date < current_date) and (post_text != event.description):
             VKView().put(request_data, post["id"])
         continue
+
 
 try:
     scheduler.start()
