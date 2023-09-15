@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+VK_GROUP_ID = 217419974
+
 load_dotenv()
 
 # Quick-start development settings - unsuitable for production
@@ -16,7 +18,7 @@ SECRET_KEY = os.getenv("DJ_SECRET_KEY",
                        default="djangosecretkey_WG312t0k130fk13f")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG", default=False)
+DEBUG = os.getenv("DEBUG", default=True)
 
 ALLOWED_HOSTS = ["*"]
 
