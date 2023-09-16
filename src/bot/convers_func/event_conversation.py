@@ -11,7 +11,7 @@ from telegram.constants import ParseMode
 from telegram.error import BadRequest, TelegramError
 from telegram.ext import CallbackContext
 
-from bot.convers_func.api_conversation import APIClient
+from bot.convers_func.api_conversation import get_client
 from bot.keyboards.event import EVENT_MENU, NOTIFICATION_BUTTONS, create_event_menu_buttons, create_finish_event_buttons
 
 EVENT_MESSAGE_TEMPLATE = emoji.emojize(
@@ -45,7 +45,7 @@ async def show_event_menu(update: Update, _: CallbackContext):
 
 async def show_upcoming_events(update: Update, _: CallbackContext):
     """Отправляет сообщения с ближайшими событиями."""
-    api_client = APIClient()
+    api_client = get_client()
     closing_message = """Вы можете подписаться на уведомления об анонсах, чтобы первыми узнавать о наших \
 будущих мероприятиях. Также вы можете вернуться в главное меню и ознакомиться с другими разделами. Спасибо за интерес \
 к нашей организации."""
@@ -62,7 +62,7 @@ async def show_upcoming_events(update: Update, _: CallbackContext):
 
 async def show_gratitude_and_subscribe_to_notifications(update: Update, _: CallbackContext):
     """Отправляет сообщение благодарности за подписку и включает уведомления пользователю на события."""
-    api_client = APIClient()
+    api_client = get_client()
     query = update.callback_query
     await query.answer()
     message_text = """Спасибо за интерес к нашим событиям! Вы будете получать уведомления о новых мероприятиях."""
@@ -76,7 +76,7 @@ async def show_gratitude_and_subscribe_to_notifications(update: Update, _: Callb
 
 async def unsubscribe_and_notify_user(update: Update, _: CallbackContext):
     """Отключение уведомлений пользователю на события и отправка сообщения с оповещением об этом."""
-    api_client = APIClient()
+    api_client = get_client()
     query = update.callback_query
     await query.answer()
     message_text = """Вы успешно отписались от уведомлений о наших событиях. Мы будем скучать по вашему участию, \
@@ -93,7 +93,7 @@ async def unsubscribe_and_notify_user(update: Update, _: CallbackContext):
 
 async def notify_subscribers_about_new_event(event_data: Dict, bot: Bot) -> None:
     """Отправляет уведомления о новом событии всем подписчикам."""
-    api_client = APIClient()
+    api_client = get_client()
     response = await api_client.get_notify_event()
     subscribers = response.json()
     for user_data in subscribers:
@@ -112,7 +112,7 @@ async def _send_message_or_handle_error(bot, message_text, user_id):
 
 async def _handle_bot_block_error(error: TelegramError, user_id: int) -> None:
     """Проверяет, что ошибка связана с блокировкой бота пользователем, обрабатывая этот случай."""
-    api_client = APIClient()
+    api_client = get_client()
     if "Forbidden: bot was blocked by the user" in str(error):
         logger.info(f"Бот был заблокирован пользователем, пользователь {user_id} будет удалён из подписчиков.")
         response = await api_client.block_error(user_id)

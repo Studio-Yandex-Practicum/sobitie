@@ -1,12 +1,11 @@
-
 import httpx
 
-from core.settings import HOST
+from core import settings
 
 
 class APIClient:
     def __init__(self, host: str = None):
-        self._host = HOST
+        self._host = host
         self._httpx_client = httpx.AsyncClient(base_url=self._host)
 
     async def get_events(self):
@@ -51,3 +50,7 @@ class APIClient:
     async def get_create_notification(self, user_id):
         async with self._httpx_client as session:
             return await session.get(url=f"/api/check_for_subscription/{user_id}/")
+
+
+def get_client():
+    return APIClient(settings.HOST)

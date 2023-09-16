@@ -4,7 +4,7 @@ import emoji
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.convers_func.api_conversation import APIClient
+from bot.convers_func.api_conversation import get_client
 from bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
 from core.states import INTERACTIVE_STATE
 
@@ -39,7 +39,7 @@ async def get_quiz(update: Update, _: CallbackContext):
 
 async def get_stickers(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Стикерпаки'."""
-    api_client = APIClient()
+    api_client = get_client()
     response = await api_client.get_stickers()
     response = response.json()
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
@@ -108,7 +108,7 @@ async def get_stickers(update: Update, _: CallbackContext):
 
 async def get_quote(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Цитата недели'."""
-    api_client = APIClient()
+    api_client = get_client()
     response = await api_client.get_quote()
     response = response.json()
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])

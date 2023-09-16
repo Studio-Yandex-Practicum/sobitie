@@ -5,7 +5,7 @@ import emoji
 from requests import Response
 from telegram import InlineKeyboardButton
 
-from bot.convers_func.api_conversation import APIClient
+from bot.convers_func.api_conversation import get_client
 from bot.keyboards.main import (
     RETURN_BACK_BUTTON_TEXT,
     RETURN_TO_START,
@@ -79,7 +79,7 @@ async def create_notification_button_based_on_subscription_status(
     user_id: int,
 ) -> InlineKeyboardButton:
     """В зависимости от наличия подписки создаёт кнопку: подписаться/отписаться."""
-    api_client = APIClient()
+    api_client = get_client()
     button = InlineKeyboardButton(
         text=SUBSCRIBE_BUTTON_TEXT, callback_data=NOTIFICATION_SUBSCRIBE_CALLBACK
     )

@@ -4,14 +4,14 @@ from http import HTTPStatus
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Poll, Update
 from telegram.ext import CallbackContext
 
-from bot.convers_func.api_conversation import APIClient
+from bot.convers_func.api_conversation import get_client
 from bot.keyboards.main import QUIZZES, create_return_to_start_button
 from bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
 
 
 def get_quizzes():
     """Получить список викторин."""
-    api_client = APIClient()
+    api_client = get_client()
     response = api_client.get_quizes_request()
     if response.status_code != HTTPStatus.OK.value:
         return None
@@ -67,7 +67,7 @@ def get_last_question_id(context: CallbackContext):
 
 def get_next_question(update: Update, context: CallbackContext):
     """Получить следующий вопрос викторины."""
-    api_client = APIClient()
+    api_client = get_client()
     current_quiz_id = get_current_quiz_id(update=update, context=context)
     last_question_id = get_last_question_id(context=context)
     params = {"last_question_id": last_question_id}
@@ -123,7 +123,7 @@ def scoring(context: CallbackContext):
 
 def get_message_for_result(update: Update, context: CallbackContext):
     """Получить текст сообщения из DRF по результату прохождения викторины."""
-    api_client = APIClient()
+    api_client = get_client()
     correct_answer_count, questions_count = scoring(context)
     current_quiz_id = get_current_quiz_id(update, context)
     params = {
