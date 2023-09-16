@@ -2,7 +2,7 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandl
 
 from bot.convers_func import support_conversation
 from bot.convers_func.main_conversation import end
-from bot.handlers.event_handler import event_conv, subscribe_to_notifications_handler, unsubscribe_handler
+from bot.handlers.event_handler import event_conv, subscribe_to_notifications_handler, unsubscribe_handler, other_help_notifications_handler
 from bot.keyboards import support
 from bot.keyboards.main import END, GIVE_SUPPORT
 from core import states
@@ -25,6 +25,23 @@ order_souvenir = ConversationHandler(
     fallbacks=[CommandHandler(END, end)],
 )
 
+other_help = ConversationHandler(
+    allow_reentry=True,
+    entry_points=[
+        CallbackQueryHandler(
+            support_conversation.show_other_help_menu,
+            pattern="^" + support.OTHER_HELP + "$",
+        )
+    ],
+    states={
+        states.OTHER_HELP_STATE: [
+            other_help_notifications_handler,
+            unsubscribe_handler,
+        ],
+    },
+    fallbacks=[CommandHandler(END, end)],
+)
+
 support_conv = ConversationHandler(
     allow_reentry=True,
     entry_points=[
@@ -36,6 +53,7 @@ support_conv = ConversationHandler(
     states={
         states.SUPPORT_STATE: [
             order_souvenir,
+            other_help,
             CallbackQueryHandler(
                 support_conversation.show_donations_options,
                 pattern="^" + support.SHOW_DONATION_OPTIONS + "$",

@@ -1,3 +1,4 @@
+import emoji
 from telegram import InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
 from telegram.ext import CallbackContext
@@ -11,6 +12,7 @@ from bot.keyboards.support import (
     TINKOFF_CASHBACK_MENU_BUTTONS,
     TINKOFF_DONATION_MENU_BUTTONS,
     create_menu_order_souvenir,
+    create_menu_other_help
 )
 from core import states
 
@@ -103,6 +105,27 @@ async def show_donations_options(update: Update, _: CallbackContext):
         text=message_text, reply_markup=keyboard, parse_mode=ParseMode.HTML
     )
     return states.DONATION_OPTIONS_STATE
+
+
+async def show_other_help_menu(update: Update, _: CallbackContext):
+    """Нажатие на кнопку 'Иная помощь'"""
+    query = update.callback_query
+    await query.answer()
+    message_text = (
+        "Нам может потребоваться разная помощь: \n\n"
+        "Иногда мы ищем реквизит для спектаклей \n"
+        "Приглашаем волонтеров \n"
+        "Нуждаемся в транспорте \n"
+        "Расходные материалы для мастерской \n\n"
+        "Включите уведомления, чтобы получать информацию о нашем центре, мероприятиях и возможных потребностях. \n"
+    )
+    menu_other_help = await create_menu_other_help(user_id=query.from_user.id)
+    keyboard_markup = InlineKeyboardMarkup(menu_other_help)
+
+    await query.edit_message_text(text=message_text,
+                                  reply_markup=keyboard_markup,
+                                  parse_mode=ParseMode.HTML)
+    return states.OTHER_HELP_STATE
 
 
 async def show_tinkoff_donation(update: Update, _: CallbackContext):
