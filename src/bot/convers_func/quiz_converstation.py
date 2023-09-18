@@ -9,10 +9,10 @@ from bot.keyboards.main import QUIZZES, create_return_to_start_button
 from bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
 
 
-def get_quizzes():
+async def get_quizzes():
     """Получить список викторин."""
     api_client = get_client()
-    response = api_client.get_quizes_request()
+    response = await api_client.get_quizes_request()
     if response.status_code != HTTPStatus.OK.value:
         return None
     if len(response.json()) < 1:
@@ -20,9 +20,9 @@ def get_quizzes():
     return response.json()
 
 
-def get_quizzes_inline_button():
+async def get_quizzes_inline_button():
     """Сформировать меню на основании списка викторин."""
-    quizzes = get_quizzes()
+    quizzes = await get_quizzes()
     if quizzes is None:
         return FINISH_QUIZ_MENU_BUTTON
     quizzes_menu = [
@@ -48,7 +48,7 @@ async def send_start_quizzes_menu(update: Update, context: CallbackContext):
     """Отправить меню выбора викторины."""
     query = update.callback_query
     await query.answer()
-    quizzes_menu_buttons = get_quizzes_inline_button()
+    quizzes_menu_buttons = await get_quizzes_inline_button()
     msg_text = "Выберите викторину"
     if quizzes_menu_buttons == FINISH_QUIZ_MENU_BUTTON:
         msg_text = "Викторины скоро появятся."
@@ -65,13 +65,13 @@ def get_last_question_id(context: CallbackContext):
     return context.user_data["last_question_id"]
 
 
-def get_next_question(update: Update, context: CallbackContext):
+async def get_next_question(update: Update, context: CallbackContext):
     """Получить следующий вопрос викторины."""
     api_client = get_client()
     current_quiz_id = get_current_quiz_id(update=update, context=context)
     last_question_id = get_last_question_id(context=context)
     params = {"last_question_id": last_question_id}
-    response = api_client.get_question(current_quiz_id, params)
+    response = await api_client.get_question(current_quiz_id, params)
     if response.status_code != HTTPStatus.OK.value:
         return None, None
     questions = response.json()
@@ -121,7 +121,7 @@ def scoring(context: CallbackContext):
     return correct_answer_count, questions_count
 
 
-def get_message_for_result(update: Update, context: CallbackContext):
+async def get_message_for_result(update: Update, context: CallbackContext):
     """Получить текст сообщения из DRF по результату прохождения викторины."""
     api_client = get_client()
     correct_answer_count, questions_count = scoring(context)
@@ -129,7 +129,7 @@ def get_message_for_result(update: Update, context: CallbackContext):
     params = {
         "correct_answer_count": correct_answer_count
     }
-    response = api_client.get_message(current_quiz_id, params)
+    response = await api_client.get_message(current_quiz_id, params)
     if response.status_code != HTTPStatus.OK.value:
         return None
     data = response.json()
@@ -167,7 +167,7 @@ async def send_quiz_result(update: Update, context: CallbackContext):
         return QUIZZES
 
     # отобразить результат,
-    message_result, image = get_message_for_result(update, context)
+    message_result, image = await get_message_for_result(update, context)
     correct_answer_count, questions_count = scoring(context)
     per_correct_answers = 0
     if correct_answer_count != 0:
@@ -200,7 +200,7 @@ async def send_quiz_question(update: Update, context: CallbackContext):
     if update.callback_query.message.poll:
         # если прошлый пост был вопросом викторины, проверяем ответ
         correct_answer_count(update, context)
-    question_data, image = get_next_question(
+    question_data, image = await get_next_question(
         update=update, context=context
     )
     if question_data is None:

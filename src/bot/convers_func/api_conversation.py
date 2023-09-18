@@ -20,16 +20,19 @@ class APIClient:
         async with self._httpx_client as session:
             return await session.get("/api/stickerpack/")
 
-    def get_quizes_request(self):
-        return httpx.get(f"{self._host}/api/quizzes/")
+    async def get_quizes_request(self):
+        async with self._httpx_client as session:
+            return await session.get(f"{self._host}/api/quizzes/")
 
-    def get_question(self, current_quiz_id, params):
-        questions_url = f"{self._host}/api/quizzes/{current_quiz_id}/quiz_questions/"
-        return httpx.get(questions_url, params=params)
+    async def get_question(self, current_quiz_id, params):
+        async with self._httpx_client as session:
+            questions_url = f"{self._host}/api/quizzes/{current_quiz_id}/quiz_questions/"
+            return await session.get(questions_url, params=params)
 
-    def get_message(self, current_quiz_id, params):
-        message_url = f"{self._host}/api/quizzes/{current_quiz_id}/quiz_result/"
-        return httpx.get(message_url, params=params)
+    async def get_message(self, current_quiz_id, params):
+        async with self._httpx_client as session:
+            message_url = f"{self._host}/api/quizzes/{current_quiz_id}/quiz_result/"
+            return await session.get(message_url, params=params)
 
     async def send_notification(self, user_id):
         async with self._httpx_client as session:
