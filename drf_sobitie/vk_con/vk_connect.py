@@ -2,11 +2,11 @@ import requests
 import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll
 
-from drf_sobitie.drf_sobitie.settings import VK_USER_KEY, VK_GROUP_ID
+from drf_sobitie.drf_sobitie.settings import VK_GROUP_ID, VK_SERVICE_KEY
 
 
 def longpoll_vk():
-    vk_session = vk_api.VkApi(token=VK_USER_KEY)
+    vk_session = vk_api.VkApi(token=VK_SERVICE_KEY)
     longpoll = VkBotLongPoll(vk_session, group_id=VK_GROUP_ID)
     for event in longpoll.listen():
         data = event.obj
