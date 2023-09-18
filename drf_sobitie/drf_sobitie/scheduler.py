@@ -10,7 +10,7 @@ from api.views import VKView
 
 from event.models import Event
 
-from drf_sobitie.drf_sobitie.settings import VK_SERVICE_KEY, VK_GROUP_ID
+from drf_sobitie.settings import VK_SERVICE_KEY, VK_GROUP_ID
 
 scheduler = BackgroundScheduler()
 
@@ -32,7 +32,7 @@ def check_vk_group_news_job():
     секунд произойдет проверка обновлений на стене сообщества.
     """
     events = Event.objects.order_by("-event_time")
-    vk_posts = tools.get_all("wall.get", 1, {"owner_id": VK_GROUP_ID})
+    vk_posts = tools.get_all("wall.get", 1, {"owner_id": -VK_GROUP_ID})
     remove_not_actual_events(events, vk_posts)
 
     for post in vk_posts["items"]:
