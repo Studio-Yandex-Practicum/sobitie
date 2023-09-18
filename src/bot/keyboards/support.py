@@ -25,6 +25,7 @@ FOLLOW_US_VKONTAKTE = "FOLLOW_US_VKONTAKTE"
 FOLLOW_US_TELEGRAM = "FOLLOW_US_TELEGRAM"
 CREATE_COLLECTION = "CREATE_COLLECTION"
 CASHBACK = "CASHBACK"
+OTHER_HELP = 'OTHER_HELP'
 
 # Константы для меню "Сделать пожертвование"
 TINKOFF_DONATION = "TINKOFF_DONATION"
@@ -71,9 +72,18 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=COMMUNICATE_FOR_HELP,
         )
     ],
+# Кнопка "иная помощь" для раздела Как Помочь
+    [
+        InlineKeyboardButton(
+            text=f"{emoji.emojize(':folded_hands:')} Иная помощь",
+            callback_data=OTHER_HELP,
+        )
+    ],
+
     [create_return_to_start_button(text=SHORT_RETURN_BACK_BUTTON_TEXT)],
 ]
 
+# Кнопки раздела "Сделать пожертвование"
 DONATION_OPTIONS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
@@ -97,6 +107,16 @@ DONATION_OPTIONS_MENU_BUTTONS = [
             callback_data=TINKOFF_DONATION,
         )
     ],
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
+        ),
+    ],
+]
+
+# Кнопки раздела "Иная помощь"
+OTHER_HELP_MENU_BUTTONS = [
+# Кнопка Назад - ведет на предыдущий раздел Как помочь
     [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
@@ -191,3 +211,17 @@ async def create_menu_order_souvenir(
         *SUPPORT_ORDER_SOUVENIR,
     ]
     return menu_order_souvenir
+
+
+async def create_menu_other_help(
+    user_id: int,
+) -> Sequence[Sequence[InlineKeyboardButton]]:
+    """Создаёт кнопки для клавиатуры раздела иной помощи."""
+    notification_button = await create_notification_button_based_on_subscription_status(
+        user_id=user_id
+    )
+    menu_other_help = [
+        [notification_button],
+        *OTHER_HELP_MENU_BUTTONS,
+    ]
+    return menu_other_help
