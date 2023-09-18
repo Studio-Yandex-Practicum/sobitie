@@ -14,7 +14,7 @@ from bot.keyboards.support import (
     create_menu_order_souvenir,
     create_menu_other_help
 )
-from core import states
+from drf_sobitie import settings as states
 
 
 async def show_give_support_menu(update: Update, _: CallbackContext):

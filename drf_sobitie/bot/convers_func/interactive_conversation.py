@@ -6,8 +6,8 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
 from bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
-from core.settings import QUOTE_URL, STICKERPACK_URL
-from core.states import INTERACTIVE_STATE
+from drf_sobitie.settings import QUOTE_URL, STICKERPACK_URL
+from drf_sobitie.settings import INTERACTIVE_STATE
 
 
 async def menu_interactive(update: Update, _: CallbackContext):

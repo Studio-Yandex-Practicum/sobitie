@@ -4,7 +4,7 @@ from fastapi import FastAPI, Request
 from telegram import Bot
 
 from bot.convers_func.event_conversation import notify_subscribers_about_new_event
-from core.settings import TELEGRAM_TOKEN
+from drf_sobitie.settings import TELEGRAM_TOKEN
 
 fastapi_app = FastAPI()
 

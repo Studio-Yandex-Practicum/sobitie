@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+import logging  # noqa
 
 from dotenv import load_dotenv
 
@@ -7,6 +8,35 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
+
+# Enamble bot
+RUN_BOT: bool = os.getenv("RUN_BOT", True)
+
+# Logging settings
+LOG_LEVEL = "INFO"
+FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+# Bot settings
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+EVENTS_URL = os.getenv("EVENTS_URL")
+QUOTE_URL = os.getenv("QUOTE_URL")
+STICKERPACK_URL = os.getenv("STICKERPACK_URL")
+QUIZZES_URL = os.getenv("QUIZZES_URL")
+NOTIFICATIONS_API_URL = os.getenv("NOTIFICATIONS_API_URL")
+CHECK_FOR_SUBSCRIPTION_API_URL = os.getenv("CHECK_FOR_SUBSCRIPTION_API_URL")
+
+# State constants
+START_STATE = "START_STATE"
+SUPPORT_STATE = "SUPPORT_STATE"
+ABOUT_US_STATE = "ABOUT_US_STATE"
+DONATION_OPTIONS_STATE = "DONATION_OPTIONS_STATE"
+SUPPORT_FOLLOW_STATE = "SUPPORT_FOLLOW_STATE"
+ORDER_SOUVENIR_STATE = "ORDER_SOUVENIR_STATE"
+INTERACTIVE_STATE = "INTERACTIVE_STATE"
+SUPPORT_ORDER_STATE = "SUPPORT_ORDER_STATE"
+PROJECTS_STATE = "PROJECTS_STATE"
+QUIZZES_STATE = "QUIZZES_STATE"
+OTHER_HELP_STATE = "OTHER_HELP_STATE"
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
@@ -49,6 +79,7 @@ INSTALLED_APPS = [
     "event.apps.EventConfig",
     "quiz.apps.QuizConfig",
     "sticker_pack.apps.StickersConfig",
+    "bot.apps.BotConfig"
 ]
 
 MIDDLEWARE = [
@@ -141,3 +172,4 @@ CSRF_TRUSTED_ORIGINS = [
     "http://84.201.189.83*",
     "http://*.84.201.189.83"
 ]
+
