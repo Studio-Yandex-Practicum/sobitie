@@ -1,20 +1,19 @@
-import os
 from datetime import datetime
 
 import requests
 import vk_api
 from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import register_job
-from dotenv import load_dotenv
 from vk_api.tools import VkTools
 
 from api.views import VKView
+
 from event.models import Event
 
-load_dotenv()
+from drf_sobitie.settings import VK_SERVICE_KEY, VK_GROUP_ID
+
 scheduler = BackgroundScheduler()
 
-VK_SERVICE_KEY = os.getenv("VK_SERVICE_KEY")
 vk_session = vk_api.VkApi(token=VK_SERVICE_KEY)
 tools = VkTools(vk_session)
 
@@ -33,7 +32,7 @@ def check_vk_group_news_job():
     секунд произойдет проверка обновлений на стене сообщества.
     """
     events = Event.objects.order_by("-event_time")
-    vk_posts = tools.get_all("wall.get", 1, {"owner_id": -217419974})
+    vk_posts = tools.get_all("wall.get", 1, {"owner_id": -VK_GROUP_ID})
     remove_not_actual_events(events, vk_posts)
 
     for post in vk_posts["items"]:
