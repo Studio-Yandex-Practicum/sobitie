@@ -1,6 +1,15 @@
 version: '3.8'
 
 services:
+  db:
+    image: postgres:15.2-alpine
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./.env
+    volumes:
+      - db_value:/var/lib/postgresql/data/
+
   web:
     image: mnmyasis/sobitie:latest
     container_name: drf_sobitie
@@ -9,8 +18,11 @@ services:
     volumes:
       - static_value:/app/drf_sobitie/static/
       - data:/app/drf_sobitie/db
+    depends_on:
+      - db
     env_file:
       - ./.env
+
   bot:
     image: mnmyasis/sobitie:latest
     container_name: bot_sobitie
@@ -34,6 +46,7 @@ services:
     depends_on:
       - web
 volumes:
+  db_value:
   static_value:
   media_value:
   data:
