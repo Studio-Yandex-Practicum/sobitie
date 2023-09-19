@@ -8,6 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
 
+VK_SERVICE_KEY = os.getenv("VK_SERVICE_KEY")
+VK_GROUP_ID = int(os.getenv("VK_GROUP_ID"))
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 

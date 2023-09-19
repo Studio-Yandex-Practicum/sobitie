@@ -47,8 +47,8 @@ async def create_event_menu_buttons(
         user_id=user_id
     )
     event_menu_buttons = [
-        [UPCOMING_EVENTS_BUTTON],
         [notification_button],
+        [UPCOMING_EVENTS_BUTTON],
         [
             InlineKeyboardButton(
                 text=SHORT_RETURN_BACK_BUTTON_TEXT,
@@ -66,13 +66,12 @@ async def create_finish_event_buttons(
     notification_button = await create_notification_button_based_on_subscription_status(
         user_id=user_id
     )
-    finish_event_buttons = [
-        [
-            notification_button,
-            create_return_to_start_button(SHORT_RETURN_TO_START_BUTTON_TEXT),
-        ]
-    ]
-    return finish_event_buttons
+    buttons = []
+    if notification_button.text != UNSUBSCRIBE_BUTTON_TEXT:
+        buttons.append(notification_button)
+    buttons.append(create_return_to_start_button(SHORT_RETURN_TO_START_BUTTON_TEXT))
+
+    return [buttons]
 
 
 async def create_notification_button_based_on_subscription_status(

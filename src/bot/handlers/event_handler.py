@@ -5,6 +5,7 @@ from bot.convers_func.event_conversation import (
     show_gratitude_and_subscribe_to_notifications,
     show_upcoming_events,
     unsubscribe_and_notify_user,
+    other_help_subscribe_to_notifications
 )
 from bot.convers_func.main_conversation import end
 from bot.keyboards.event import (
@@ -19,8 +20,14 @@ subscribe_to_notifications_handler = CallbackQueryHandler(
     show_gratitude_and_subscribe_to_notifications,
     pattern="^" + NOTIFICATION_SUBSCRIBE_CALLBACK + "$",
 )
+
 unsubscribe_handler = CallbackQueryHandler(
     unsubscribe_and_notify_user, pattern="^" + NOTIFICATION_UNSUBSCRIBE_CALLBACK + "$"
+)
+
+other_help_notifications_handler = CallbackQueryHandler(
+    other_help_subscribe_to_notifications,
+    pattern="^" + NOTIFICATION_SUBSCRIBE_CALLBACK + "$",
 )
 
 event_conv = ConversationHandler(

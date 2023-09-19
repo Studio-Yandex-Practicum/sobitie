@@ -24,7 +24,6 @@ REPORTS_MINISTRY = "REPORTS_MINISTRY"
 ANNUAL_REPORTS = "ANNUAL_REPORTS"
 
 # Константы для подменю "Проекты"
-THEATRE_ACTORS = "THEATRE_ACTORS"
 INCLUSIVE_WORKSHOP = "INCLUSIVE_WORKSHOP"
 THEATRE_SCHOOL = "THEATRE_SCHOOL"
 MOSCOW_ONLINE = "MOSCOW_ONLINE"
@@ -138,12 +137,6 @@ MINISTRY_REPORTS_BUTTONS = [
 
 # КНОПКИ ПОДМЕНЮ "ПРОЕКТЫ"
 PROJECTS_MENU_BUTTONS = [
-    [
-        InlineKeyboardButton(
-            text=f"{emoji.emojize(':performing_arts:')} Актеры театра",
-            callback_data=THEATRE_ACTORS,
-        )
-    ],
     [
         InlineKeyboardButton(
             text=f"{emoji.emojize(':artist:')} Инклюзивная мастерская",

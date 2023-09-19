@@ -4,7 +4,6 @@ from bot.convers_func.about_us_conversation import (
     show_about_us,
     show_documents,
     show_email_info,
-    show_theatre_actors,
     show_inclusive_workshop,
     show_ministry_reports,
     show_moscow_partala_online,
@@ -24,7 +23,6 @@ from bot.keyboards.about_us import (
     REPORTS,
     REPORTS_MINISTRY,
     RETURN_TO_BACK,
-    THEATRE_ACTORS,
     THEATRE_SCHOOL,
 )
 from bot.keyboards.main import ABOUT_US, END
@@ -46,9 +44,6 @@ about_us_conv = ConversationHandler(
             people_conv,
         ],
         PROJECTS_STATE: [
-            CallbackQueryHandler(
-                show_theatre_actors, pattern="^" + THEATRE_ACTORS + "$"
-            ),
             CallbackQueryHandler(
                 show_inclusive_workshop, pattern="^" + INCLUSIVE_WORKSHOP + "$"
             ),
