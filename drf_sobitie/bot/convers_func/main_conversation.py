@@ -1,7 +1,7 @@
 from telegram import InlineKeyboardMarkup, Update
 
 from bot.keyboards.main import MAIN_TEXT, START_MENU_BUTTONS
-from drf_sobitie.settings import START_STATE
+from drf_sobitie.constants import START_STATE
 
 
 async def send_start_menu(update: Update, _):

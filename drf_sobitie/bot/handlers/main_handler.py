@@ -7,7 +7,7 @@ from bot.handlers.interactive_handler import interactive_conv
 from bot.handlers.support_handler import support_conv
 from bot.handlers.what_we_do_handler import what_we_do
 from bot.keyboards.main import RETURN_TO_START
-from drf_sobitie.settings import START_STATE
+from drf_sobitie.constants import START_STATE
 
 main_conversation_handler = ConversationHandler(
     allow_reentry=True,
