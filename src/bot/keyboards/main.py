@@ -29,7 +29,7 @@ START_MENU_BUTTONS = [
     [InlineKeyboardButton(text="Чем вы занимаетесь?", callback_data=WHAT_WE_DO)],
     [InlineKeyboardButton(text="О нас", callback_data=ABOUT_US)],
     [InlineKeyboardButton(text="События", callback_data=EVENTS)],
-    [InlineKeyboardButton(text="Помочь", callback_data=GIVE_SUPPORT)],
+    [InlineKeyboardButton(text="Как Помочь", callback_data=GIVE_SUPPORT)],
     [InlineKeyboardButton(text="Интерактив", callback_data=INTERACTIVE_GAME)],
 ]
 

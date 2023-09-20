@@ -13,6 +13,8 @@ from telegram.ext import CallbackContext
 
 from bot.convers_func.api_conversation import get_client
 from bot.keyboards.event import EVENT_MENU, NOTIFICATION_BUTTONS, create_event_menu_buttons, create_finish_event_buttons
+from bot.keyboards.support import OTHER_HELP_MENU_BUTTONS
+from core.settings import EVENTS_URL, NOTIFICATIONS_API_URL
 
 EVENT_MESSAGE_TEMPLATE = emoji.emojize(
         """:calendar: {event_time_formatted}
@@ -54,10 +56,20 @@ async def show_upcoming_events(update: Update, _: CallbackContext):
     event_response = await api_client.get_events()
     events = event_response.json()
     if len(events) == 0:
-        await _process_no_events(query=query, closing_message=closing_message)
+        await _process_no_events(
+            query=query,
+            closing_message=("Оставайтесь на связи, чтобы первыми узнавать о наших будущих мероприятиях. "
+                             "Также вы можете вернуться в главное меню и ознакомиться с другими разделами. "
+                             "Спасибо за интерес к нашей организации."),
+        )
         return
     await _send_event_messages(query=query, events=events, message_template=EVENT_MESSAGE_TEMPLATE)
-    await _send_closing_message(query=query, closing_message=closing_message)
+    await _send_closing_message(
+        query=query,
+        closing_message=("Вы можете подписаться на уведомления об анонсах, чтобы первыми узнавать о наших"
+                         "будущих мероприятиях. Также вы можете вернуться в главное меню и ознакомиться с другими разделами. "
+                         "Спасибо за интерес к нашей организации."),
+    )
 
 
 async def show_gratitude_and_subscribe_to_notifications(update: Update, _: CallbackContext):
@@ -71,6 +83,22 @@ async def show_gratitude_and_subscribe_to_notifications(update: Update, _: Callb
     message_text = await _check_api_response_status(message_text=message_text, response=response, user_id=user_id)
     keyboard = InlineKeyboardMarkup(NOTIFICATION_BUTTONS)
     await query.edit_message_text(text=(message_text + CLOSING_NOTIFICATION_TEXT), reply_markup=keyboard)
+    return EVENT_MENU
+
+
+async def other_help_subscribe_to_notifications(update: Update, _: CallbackContext):
+    """
+    Включает уведомления и благодарит пользователя 
+    после нажатия кнопки включить уведомление в разделе иная помощь
+    """
+    query = update.callback_query
+    await query.answer()
+    message_text = """Спасибо за отклик! Вы будете получать уведомления о наших потребностях."""
+    user_id = query.from_user.id
+    response = await async_send_json_post_request(url=NOTIFICATIONS_API_URL, data={"user_id": user_id})
+    message_text = await _check_api_response_status(message_text=message_text, response=response, user_id=user_id)
+    keyboard = InlineKeyboardMarkup(OTHER_HELP_MENU_BUTTONS)
+    await query.edit_message_text(text=message_text, reply_markup=keyboard)
     return EVENT_MENU
 
 
@@ -151,7 +179,7 @@ async def _process_no_events(query: CallbackQuery, closing_message: str) -> None
     """Обрабатывает случай, когда список ближайших событий пуст."""
     finish_event_buttons = await create_finish_event_buttons(user_id=query.from_user.id)
     keyboard = InlineKeyboardMarkup(finish_event_buttons)
-    message = "\n\n".join(["К сожалению, на данный момент у нас нет доступных событий.", closing_message])
+    message = "\n\n".join(["На данный момент это все доступные события.", closing_message])
     await query.edit_message_text(text=message, reply_markup=keyboard)
 
 
