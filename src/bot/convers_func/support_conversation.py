@@ -18,7 +18,7 @@ from core import states
 
 
 async def show_give_support_menu(update: Update, _: CallbackContext):
-    """Меню 'Помочь'."""
+    """Меню 'Как помочь'."""
     query = update.callback_query
     await query.answer()
     message_text = (

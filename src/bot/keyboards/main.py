@@ -17,7 +17,7 @@ MAIN_TEXT = """Привет! Я — бот автономной некоммер
 """
 RETURN_TO_START = "RETURN_TO_START"
 RETURN_TO_START_BUTTON_TEXT = (
-    f"{emoji.emojize(':BACK_arrow:')} Вернуться в главное меню"
+    f"{emoji.emojize(':BACK_arrow:')} Назад"
 )
 SHORT_RETURN_TO_START_BUTTON_TEXT = f"{emoji.emojize(':house:')} В главное меню"
 RETURN_BACK_BUTTON_TEXT = (
@@ -29,7 +29,7 @@ START_MENU_BUTTONS = [
     [InlineKeyboardButton(text="Чем вы занимаетесь?", callback_data=WHAT_WE_DO)],
     [InlineKeyboardButton(text="О нас", callback_data=ABOUT_US)],
     [InlineKeyboardButton(text="События", callback_data=EVENTS)],
-    [InlineKeyboardButton(text="Как Помочь", callback_data=GIVE_SUPPORT)],
+    [InlineKeyboardButton(text="Как помочь", callback_data=GIVE_SUPPORT)],
     [InlineKeyboardButton(text="Интерактив", callback_data=INTERACTIVE_GAME)],
 ]
 
