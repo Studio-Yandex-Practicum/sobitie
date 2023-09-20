@@ -14,7 +14,7 @@ from telegram.ext import CallbackContext
 from bot.async_requests import async_delete_request, async_get_request, async_send_json_post_request
 from bot.keyboards.event import EVENT_MENU, NOTIFICATION_BUTTONS, create_event_menu_buttons, create_finish_event_buttons
 from bot.keyboards.support import OTHER_HELP_MENU_BUTTONS
-from core.settings import EVENTS_URL, NOTIFICATIONS_API_URL
+from drf_sobitie.settings import EVENTS_URL, NOTIFICATIONS_API_URL
 
 EVENT_MESSAGE_TEMPLATE = emoji.emojize(
         """:calendar: {event_time_formatted}

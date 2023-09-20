@@ -7,7 +7,7 @@ from telegram.ext import CallbackContext
 
 from bot.keyboards.main import QUIZZES, create_return_to_start_button
 from bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
-from core.settings import QUIZZES_URL
+from drf_sobitie.settings import QUIZZES_URL
 
 
 def get_quizzes():

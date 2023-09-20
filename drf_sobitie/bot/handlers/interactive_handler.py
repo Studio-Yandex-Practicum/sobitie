@@ -5,7 +5,7 @@ from bot.convers_func.main_conversation import end
 from bot.handlers.quiz_handler import questions_handler, quizzes_handler
 from bot.keyboards.interactive import GET_STICKERS, RANDOM_QUOTE
 from bot.keyboards.main import END, INTERACTIVE_GAME
-from core.states import INTERACTIVE_STATE
+from drf_sobitie.constants import INTERACTIVE_STATE
 
 interactive_conv = ConversationHandler(
     allow_reentry=True,
