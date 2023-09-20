@@ -30,7 +30,11 @@ INTERACTIVE_BUTTONS = [
     [create_return_to_start_button()],
 ]
 
-RETURN_TO_INTERACTIVE_MENU_BUTTON = InlineKeyboardButton(
-    text=SHORT_RETURN_BACK_BUTTON_TEXT,
-    callback_data=INTERACTIVE_GAME,
-)
+RETURN_TO_INTERACTIVE_MENU_BUTTON = [
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=INTERACTIVE_GAME
+        )
+    ]
+]
