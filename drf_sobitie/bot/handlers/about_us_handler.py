@@ -26,7 +26,7 @@ from bot.keyboards.about_us import (
     THEATRE_SCHOOL,
 )
 from bot.keyboards.main import ABOUT_US, END
-from drf_sobitie.constants import ABOUT_US_STATE, PROJECTS_STATE
+from bot.constants import ABOUT_US_STATE, PROJECTS_STATE
 
 about_us_conv = ConversationHandler(
     allow_reentry=True,

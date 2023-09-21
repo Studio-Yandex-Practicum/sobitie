@@ -15,7 +15,7 @@ from bot.keyboards.about_us import (
     THEATRE_SCHOOL_BUTTON,
     EMAIL_INFO_BUTTON,
 )
-from drf_sobitie.constants import ABOUT_US_STATE, PROJECTS_STATE
+from bot.constants import ABOUT_US_STATE, PROJECTS_STATE
 
 
 @dataclass
