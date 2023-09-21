@@ -44,6 +44,8 @@ async def get_stickers(update: Update, _: CallbackContext):
     response = response.json()
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
     query = update.callback_query
+    await query.answer()
+    keyboard = InlineKeyboardMarkup(RETURN_TO_INTERACTIVE_MENU_BUTTON)
 
     def absence_stikers(text, my_moji):
         return (
@@ -53,7 +55,7 @@ async def get_stickers(update: Update, _: CallbackContext):
         )
 
     if len(response) < 1:
-        await query.message.reply_text(
+        await query.edit_message_text(
             text=absence_stikers(
                 "Стикеры пока не завезли, ждем на днях",
                 ':ship:'
@@ -91,7 +93,7 @@ async def get_stickers(update: Update, _: CallbackContext):
                 photo = urllib.request.urlopen(image).read()
                 await query.message.reply_photo(photo=photo)
             await query.message.reply_text(reply_markup=sticker_keyboard, text=text)
-        await query.message.reply_text(
+        await query.edit_message_text(
             text=(
                 f"Выбирайте и добавляйте себе понравившиеся варианты стикерпаков - их создают ученики нашего центра. А мы будем создавать для вас новые!"
                 f"{emoji.emojize(':backhand_index_pointing_up:')}"
@@ -99,7 +101,7 @@ async def get_stickers(update: Update, _: CallbackContext):
             reply_markup=keyboard
         )
         return
-    await query.message.reply_text(
+    await query.edit_message_text(
         text=absence_stikers("Редактируем, скоро релиз!!", ":fire:"),
         reply_markup=keyboard
     )
@@ -114,7 +116,7 @@ async def get_quote(update: Update, _: CallbackContext):
     keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
     query = update.callback_query
     if len(response) < 1:
-        await query.message.reply_text(
+        await query.edit_message_text(
             text=(
                 f"{emoji.emojize(':detective:')}"
                 f"В поисках подходящей цитаты"
