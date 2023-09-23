@@ -1,6 +1,6 @@
 import httpx
 
-from core import settings
+from drf_sobitie import settings
 
 
 class APIClient:
