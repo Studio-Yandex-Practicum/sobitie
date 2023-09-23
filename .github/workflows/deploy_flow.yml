@@ -70,7 +70,6 @@ jobs:
           script: |
             sudo docker-compose stop
             sudo docker system prune -af
-            mv sobitie/docker-compose.yml deployment-user/docker-compose.yaml
             touch .env
             cat /dev/null > .env
             echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
