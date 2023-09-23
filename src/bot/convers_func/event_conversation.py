@@ -11,7 +11,7 @@ from telegram.constants import ParseMode
 from telegram.error import BadRequest, TelegramError
 from telegram.ext import CallbackContext
 
-from bot.async_requests import async_delete_request, async_get_request, async_send_json_post_request
+from bot.convers_func.api_conversation import get_client
 from bot.keyboards.event import EVENT_MENU, NOTIFICATION_BUTTONS, create_event_menu_buttons, create_finish_event_buttons
 from bot.keyboards.support import OTHER_HELP_MENU_BUTTONS
 from core.settings import EVENTS_URL, NOTIFICATIONS_API_URL
@@ -47,9 +47,13 @@ async def show_event_menu(update: Update, _: CallbackContext):
 
 async def show_upcoming_events(update: Update, _: CallbackContext):
     """Отправляет сообщения с ближайшими событиями."""
+    api_client = get_client()
+    closing_message = """Вы можете подписаться на уведомления об анонсах, чтобы первыми узнавать о наших \
+будущих мероприятиях. Также вы можете вернуться в главное меню и ознакомиться с другими разделами. Спасибо за интерес \
+к нашей организации."""
     query = update.callback_query
     await query.answer()
-    event_response = await async_get_request(url=EVENTS_URL)
+    event_response = await api_client.get_events()
     events = event_response.json()
     if len(events) == 0:
         await _process_no_events(
@@ -70,11 +74,12 @@ async def show_upcoming_events(update: Update, _: CallbackContext):
 
 async def show_gratitude_and_subscribe_to_notifications(update: Update, _: CallbackContext):
     """Отправляет сообщение благодарности за подписку и включает уведомления пользователю на события."""
+    api_client = get_client()
     query = update.callback_query
     await query.answer()
     message_text = """Спасибо за интерес к нашим событиям! Вы будете получать уведомления о новых мероприятиях."""
     user_id = query.from_user.id
-    response = await async_send_json_post_request(url=NOTIFICATIONS_API_URL, data={"user_id": user_id})
+    response = await api_client.send_notification(user_id)
     message_text = await _check_api_response_status(message_text=message_text, response=response, user_id=user_id)
     keyboard = InlineKeyboardMarkup(NOTIFICATION_BUTTONS)
     await query.edit_message_text(text=(message_text + CLOSING_NOTIFICATION_TEXT), reply_markup=keyboard)
@@ -99,12 +104,13 @@ async def other_help_subscribe_to_notifications(update: Update, _: CallbackConte
 
 async def unsubscribe_and_notify_user(update: Update, _: CallbackContext):
     """Отключение уведомлений пользователю на события и отправка сообщения с оповещением об этом."""
+    api_client = get_client()
     query = update.callback_query
     await query.answer()
     message_text = """Вы успешно отписались от уведомлений о наших событиях. Мы будем скучать по вашему участию, \
 но вы всегда можете подписаться на уведомления в любое время снова."""
     user_id = query.from_user.id
-    response = await async_delete_request(url=f"{NOTIFICATIONS_API_URL}{user_id}/")
+    response = await api_client.unsubscribe_and_notify(user_id)
     message_text = await _check_api_response_status(
         message_text=message_text, response=response, user_id=user_id, expected_status=HTTPStatus.NO_CONTENT
     )
@@ -115,7 +121,8 @@ async def unsubscribe_and_notify_user(update: Update, _: CallbackContext):
 
 async def notify_subscribers_about_new_event(event_data: Dict, bot: Bot) -> None:
     """Отправляет уведомления о новом событии всем подписчикам."""
-    response = await async_get_request(url=NOTIFICATIONS_API_URL)
+    api_client = get_client()
+    response = await api_client.get_notify_event()
     subscribers = response.json()
     for user_data in subscribers:
         message = await _fill_in_message_template_with_event(
@@ -133,9 +140,10 @@ async def _send_message_or_handle_error(bot, message_text, user_id):
 
 async def _handle_bot_block_error(error: TelegramError, user_id: int) -> None:
     """Проверяет, что ошибка связана с блокировкой бота пользователем, обрабатывая этот случай."""
+    api_client = get_client()
     if "Forbidden: bot was blocked by the user" in str(error):
         logger.info(f"Бот был заблокирован пользователем, пользователь {user_id} будет удалён из подписчиков.")
-        response = await async_delete_request(url=f"{NOTIFICATIONS_API_URL}{user_id}/")
+        response = await api_client.block_error(user_id)
         if response.status_code != HTTPStatus.NO_CONTENT:
             await _log_subscription_status_failure(response=response, user_id=user_id)
     else:
