@@ -54,6 +54,13 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
     steps:
+      - name: Copy docker-compose and nginx files
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "sobitie/docker-compose.yml, sobitie/nginx/*.conf"
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
@@ -63,6 +70,7 @@ jobs:
           script: |
             sudo docker-compose stop
             sudo docker system prune -af
+            mv sobitie/docker-compose.yml deployment-user/docker-compose.yaml
             touch .env
             cat /dev/null > .env
             echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
