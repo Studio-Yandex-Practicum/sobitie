@@ -20,7 +20,7 @@ NOTIFICATION_UNSUBSCRIBE_CALLBACK = "NOTIFICATION_UNSUBSCRIBE_CALLBACK"
 EVENT_MENU = "EVENT_MENU"
 
 UPCOMING_EVENTS_BUTTON = InlineKeyboardButton(
-    text=f"{emoji.emojize(':calendar:')} Ближайшие события",
+    text="Ближайшие события",
     callback_data=UPCOMING_EVENTS,
 )
 RETURN_TO_EVENT_MENU_BUTTON = InlineKeyboardButton(

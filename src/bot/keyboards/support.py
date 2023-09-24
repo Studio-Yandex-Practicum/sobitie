@@ -1,6 +1,5 @@
 from typing import Sequence
 
-import emoji
 from telegram import InlineKeyboardButton
 
 from bot.keyboards.event import create_notification_button_based_on_subscription_status
@@ -44,38 +43,38 @@ RETURN_TO_SUPPORT_BUTTON = [
 SUPPORT_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':credit_card:')} Сделать пожертвование",
+            text="Сделать пожертвование",
             callback_data=SHOW_DONATION_OPTIONS,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':package:')} Приобрести сувениры",
+            text="Приобрести сувениры",
             callback_data=ORDER_SOUVENIRS,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор",
+            text="Создать сбор",
             callback_data=CREATE_COLLECTION,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком",
+            text="Стать активным подписчиком",
             callback_data=FOLLOW_US,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросам помощи",
+            text="Связь по вопросам помощи",
             callback_data=COMMUNICATE_FOR_HELP,
         )
     ],
 # Кнопка "иная помощь" для раздела Как Помочь
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':folded_hands:')} Иная помощь",
+            text="Иная помощь",
             callback_data=OTHER_HELP,
         )
     ],
@@ -159,14 +158,14 @@ TINKOFF_CASHBACK_MENU_BUTTONS = [
 SUPPORT_FOLLOW_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":blue_heart:")} Вконтакте:\n',
+            text="Вконтакте:\n",
             callback_data=FOLLOW_US_VKONTAKTE,
             url="https://vk.com/sobytie.center",
         )
     ],
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":star:")} Telegram:\n',
+            text="Telegram:\n",
             callback_data=FOLLOW_US_TELEGRAM,
             url="https://t.me/sobytiecenter",
         )
