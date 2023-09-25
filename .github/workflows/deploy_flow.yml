@@ -60,7 +60,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          port: ${{ secrets.PORT }}\
+          port: ${{ secrets.PORT }}
           source: "docker-compose.yml, nginx/*.conf"
           target: "deployment-user"
       - name: executing remote ssh commands to deploy
