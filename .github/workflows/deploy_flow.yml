@@ -58,9 +58,9 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          port: ${{ secrets.PORT }}
+          port: 22
           source: "docker-compose.yml, nginx/*.conf"
           target: "home/deployment-user/"
       - name: executing remote ssh commands to deploy
