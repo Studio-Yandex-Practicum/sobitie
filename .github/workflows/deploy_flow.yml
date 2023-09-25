@@ -62,7 +62,7 @@ jobs:
           port: ${{ secrets.PORT }}
           key: ${{ secrets.SSH_KEY }}
           source: "tests/a.txt,tests/b.txt"
-          target: your_server_target_folder_path
+          target: home
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
