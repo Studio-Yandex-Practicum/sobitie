@@ -58,9 +58,9 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
+          username: ${{ secrets.USER }}
           port: ${{ secrets.PORT }}
-          key: ${{ secrets.KEY }}
+          key: ${{ secrets.SSH_KEY }}
           source: "tests/a.txt,tests/b.txt"
           target: your_server_target_folder_path
       - name: executing remote ssh commands to deploy
