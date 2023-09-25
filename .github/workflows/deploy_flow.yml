@@ -54,15 +54,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
     steps:
-      - name: Copy docker-compose and nginx files
+      - name: copy file via ssh key
         uses: appleboy/scp-action@v0.1.4
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          key: ${{ secrets.SSH_KEY }}
-          port: 22
-          source: "docker-compose.yml, nginx/*.conf"
-          target: "home/deployment-user"
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        port: ${{ secrets.PORT }}
+        key: ${{ secrets.KEY }}
+        source: "tests/a.txt,tests/b.txt"
+        target: your_server_target_folder_path
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
