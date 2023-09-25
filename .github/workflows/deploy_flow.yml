@@ -62,7 +62,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.PORT }}
           source: "docker-compose.yml, nginx/*.conf"
-          target: "deployment-user"
+          target: "home/deployment-user/"
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
