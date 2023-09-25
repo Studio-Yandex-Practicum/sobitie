@@ -58,11 +58,11 @@ jobs:
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        port: ${{ secrets.PORT }}\
-        source: "docker-compose.yml, nginx/*.conf"
-        target: ${{ env.DEPLOY_PATH }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}\
+          source: "docker-compose.yml, nginx/*.conf"
+          target: ${{ env.DEPLOY_PATH }}
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
