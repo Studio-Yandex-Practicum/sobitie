@@ -63,7 +63,6 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           source: "docker-compose.yaml, nginx/*.conf"
-          target: "cccc"
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
