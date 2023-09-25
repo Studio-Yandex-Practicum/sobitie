@@ -57,12 +57,12 @@ jobs:
       - name: copy file via ssh key
         uses: appleboy/scp-action@v0.1.4
         with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        port: ${{ secrets.PORT }}
-        key: ${{ secrets.KEY }}
-        source: "tests/a.txt,tests/b.txt"
-        target: your_server_target_folder_path
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
+          source: "tests/a.txt,tests/b.txt"
+          target: your_server_target_folder_path
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
