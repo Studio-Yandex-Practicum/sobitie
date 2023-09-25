@@ -62,7 +62,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "sobitie/docker-compose.yml, nginx/*.conf"
+          source: "docker-compose.yml, nginx/*.conf"
           target: "deployment-user/aaaa"
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
