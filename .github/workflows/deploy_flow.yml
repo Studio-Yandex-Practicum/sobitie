@@ -60,9 +60,9 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          port: 22
+          port: 5555
           source: "docker-compose.yml, nginx/*.conf"
-          target: "home/deployment-user/"
+          target: "home/"
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
