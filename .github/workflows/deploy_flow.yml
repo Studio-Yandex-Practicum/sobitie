@@ -54,6 +54,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: build_and_push_to_docker_hub
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: copy file via ssh key
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "docker-compose.yaml"
+          target: "/home/deployment-user/"
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
