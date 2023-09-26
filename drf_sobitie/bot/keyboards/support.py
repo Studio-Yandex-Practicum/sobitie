@@ -7,7 +7,6 @@ from bot.keyboards.event import create_notification_button_based_on_subscription
 from bot.keyboards.main import (
     GIVE_SUPPORT,
     SHORT_RETURN_BACK_BUTTON_TEXT,
-    SHORT_RETURN_TO_START_BUTTON_TEXT,
     create_return_to_start_button,
 )
 
