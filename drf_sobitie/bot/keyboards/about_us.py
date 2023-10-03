@@ -1,4 +1,3 @@
-import emoji
 from telegram import InlineKeyboardButton
 
 from bot.keyboards.main import (
@@ -46,31 +45,31 @@ RETURN_BACK_BUTTON = [
 ABOUT_US_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':open_mailbox_with_raised_flag:')} Контакты",
+            text="Контакты",
             callback_data=CONTACTS,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':chart_increasing:')} Уставные документы. Реквизиты",
+            text="Уставные документы. Реквизиты",
             callback_data=LEGAL_DOCUMENTS,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':card_file_box:')} Отчеты о деятельности",
+            text="Отчеты о деятельности",
             callback_data=REPORTS,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':hatching_chick:')} Проекты",
+            text="Проекты",
             callback_data=PROJECTS,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':woman_and_man_holding_hands:')} Люди",
+            text="Люди",
             callback_data=PEOPLE,
         )
     ],
@@ -137,19 +136,19 @@ MINISTRY_REPORTS_BUTTONS = [
 PROJECTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':artist:')} Инклюзивная мастерская",
+            text="Инклюзивная мастерская",
             callback_data=INCLUSIVE_WORKSHOP,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':school:')} Театральная студия i-Школы",
+            text="Театральная студия i-Школы",
             callback_data=THEATRE_SCHOOL,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':cityscape:')} Москва - Партала. Онлайн.",
+            text="Москва - Партала. Онлайн.",
             callback_data=MOSCOW_ONLINE,
         )
     ],
@@ -165,25 +164,25 @@ PROJECTS_MENU_BUTTONS = [
 CONTACTS_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f"{emoji.emojize(':envelope:')} Электронная почта",
+            text="Электронная почта",
             callback_data=EMAIL_INFO,
         )
     ],
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":page_facing_up:")} Форма обратной связи:',
+            text="Форма обратной связи:",
             url="https://forms.yandex.ru/cloud/63ee7e3bc417f30921e2fe6e/",
         )
     ],
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":blue_heart:")} Вконтакте:\n',
+            text="Вконтакте:",
             url="https://vk.com/sobytie.center",
         )
     ],
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":star:")} Telegram:\n',
+            text="Telegram:",
             url="https://t.me/sobytiecenter",
         )
     ],
@@ -199,19 +198,19 @@ CONTACTS_BUTTONS = [
 PEOPLE_BUTTONS = [
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":collision:")}Кураторы проектов',
+            text="Кураторы проектов",
             url="https://sobytie.center/contacts/",
         )
     ],
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":fire:")} Актёры ИТС "Событие"',
+            text='Актёры ИТС "Событие"',
             url="https://sobytie.center/actors/",
         )
     ],
     [
         InlineKeyboardButton(
-            text=f'{emoji.emojize(":sparkles:")} Волонтёры',
+            text="Волонтёры",
             url="https://sobytie.center/volunteers/",
         )
     ],
