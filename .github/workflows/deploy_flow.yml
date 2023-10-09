@@ -88,6 +88,14 @@ jobs:
             echo SEND_EVENT_NOTIFICATION_URL=${{ secrets.SEND_EVENT_NOTIFICATION_URL }} >> .env
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sobitie:latest
             sudo docker-compose up -d
+            sudo docker-compose exec web python drf_sobitie/manage.py makemigrations event
+            sudo docker-compose exec web python drf_sobitie/manage.py makemigrations quiz
+            sudo docker-compose exec web python drf_sobitie/manage.py makemigrations sticker_pack
             sudo docker-compose exec web python drf_sobitie/manage.py migrate
             sudo docker-compose exec web python drf_sobitie/manage.py collectstatic --no-input
+            sudo docker-compose exec bot python drf_sobitie/manage.py makemigrations event
+            sudo docker-compose exec bot python drf_sobitie/manage.py makemigrations quiz
+            sudo docker-compose exec bot python drf_sobitie/manage.py makemigrations sticker_pack
+            sudo docker-compose exec bot python drf_sobitie/manage.py migrate
+            sudo docker-compose exec bot python drf_sobitie/manage.py collectstatic --no-input
             echo "OK"
