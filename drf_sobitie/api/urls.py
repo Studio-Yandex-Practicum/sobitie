@@ -14,6 +14,8 @@ from api.views import (
     VKView,
 )
 
+from notifications.views import send_event_notification
+
 router = DefaultRouter()
 
 router.register("events", EventViewSet, basename="events")
@@ -31,4 +33,5 @@ urlpatterns = [
     path('vk/', VKView.as_view()),
     path("check_for_subscription/<int:user_id>/", CheckForSubscription.as_view()),
     path("vk/", VKView.as_view()),
+    path("send-event-notification/", send_event_notification, name="send_event_notification"),
 ]

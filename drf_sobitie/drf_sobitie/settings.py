@@ -59,7 +59,8 @@ INSTALLED_APPS = [
     "event.apps.EventConfig",
     "quiz.apps.QuizConfig",
     "sticker_pack.apps.StickersConfig",
-    "bot.apps.BotConfig"
+    "bot.apps.BotConfig",
+    "notifications.apps.NotificationsConfig"
 ]
 
 MIDDLEWARE = [
