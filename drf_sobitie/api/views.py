@@ -1,7 +1,9 @@
 import re
 from datetime import datetime
 
+import requests
 from django.http import JsonResponse
+from django.urls import reverse
 from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.response import Response
@@ -159,3 +161,28 @@ class VKView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def remove_not_actual_events(self, vk_posts):
+        events = Event.objects.all()
+        events_to_delete = [event for event in events if
+                            event.vk_post_id not in [post["id"] for post in vk_posts["items"]]]
+        for event in events_to_delete:
+            event.delete()
+
+    def update_events(self, vk_posts):
+        events = Event.objects.order_by("-event_time")
+        self.remove_not_actual_events(vk_posts)
+        for post in vk_posts["items"]:
+            request_data = {"text": post["text"], "id": post["id"]}
+            if not events.filter(vk_post_id=post["id"]).exists():
+                url = reverse("events-list")
+                requests.post(url, data=request_data)
+                continue
+            event = events.get(vk_post_id=post["id"])
+            event_date = event.event_time
+            current_date = datetime.now()
+            post_text = post["text"].split("#")[0].rstrip()
+            if not (event_date < current_date) and (post_text != event.description):
+                url = reverse("events-detail", kwargs={"pk": post["id"]})
+                self.put(request_data, pk=post["id"])
+            continue
