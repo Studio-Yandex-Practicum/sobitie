@@ -5,7 +5,7 @@ import emoji
 from requests import Response
 from telegram import InlineKeyboardButton
 
-from bot.convers_func.api_conversation import get_client
+from bot.api_client import get_client
 from bot.keyboards.main import (
     RETURN_BACK_BUTTON_TEXT,
     RETURN_TO_START,
