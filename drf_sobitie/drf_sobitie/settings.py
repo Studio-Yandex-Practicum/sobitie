@@ -14,7 +14,7 @@ LOG_LEVEL = "INFO"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 NOTIFICATIONS_API_URL = os.getenv("NOTIFICATIONS_API_URL")
 CHECK_FOR_SUBSCRIPTION_API_URL = os.getenv("CHECK_FOR_SUBSCRIPTION_API_URL")
-HOST = os.getenv("HOST", "http://localhost:8000")
+API_ADDRESS = os.getenv("API_ADDRESS", "http://localhost:8000")
 VK_SERVICE_KEY = os.getenv("VK_SERVICE_KEY")
 VK_GROUP_ID = int(os.getenv("VK_GROUP_ID"))
 
