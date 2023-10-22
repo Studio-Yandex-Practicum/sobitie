@@ -15,7 +15,10 @@ def send_event_notification(request: HttpRequest) -> JsonResponse:
     if request.method == 'POST':
         try:
             event_data = json.loads(request.body.decode("utf-8"))
-            asyncio.create_task(notify_subscribers_about_new_event(event_data=event_data, bot=bot))
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            loop.create_task(notify_subscribers_about_new_event(event_data=event_data, bot=bot))
+            loop.run_forever()
             return JsonResponse({"message": "Отправка уведомлений началась."})
         except Exception as e:
             return JsonResponse({"error": str(e)})
