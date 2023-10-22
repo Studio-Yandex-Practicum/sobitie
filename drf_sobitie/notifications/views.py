@@ -1,6 +1,5 @@
 import json
 import asyncio
-from asgiref.sync import async_to_sync
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from telegram import Bot
@@ -11,13 +10,12 @@ from drf_sobitie.settings import TELEGRAM_TOKEN
 bot = Bot(token=TELEGRAM_TOKEN)
 
 @csrf_exempt
-@async_to_sync
-async def send_event_notification(request: HttpRequest) -> JsonResponse:
+def send_event_notification(request: HttpRequest) -> JsonResponse:
     """Принимает запрос на отправку уведомлений и обрабатывает его."""
     if request.method == 'POST':
         try:
             event_data = json.loads(request.body.decode("utf-8"))
-            await notify_subscribers_about_new_event(event_data=event_data, bot=bot)
+            asyncio.create_task(notify_subscribers_about_new_event(event_data=event_data, bot=bot))
             return JsonResponse({"message": "Отправка уведомлений началась."})
         except Exception as e:
             return JsonResponse({"error": str(e)})
