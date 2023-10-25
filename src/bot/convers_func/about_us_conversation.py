@@ -15,7 +15,7 @@ from bot.keyboards.about_us import (
     RETURN_BACK_BUTTON,
     THEATRE_SCHOOL_BUTTON,
 )
-from bot.constants import ABOUT_US_STATE, PROJECTS_STATE
+from core.states import ABOUT_US_STATE, PROJECTS_STATE
 
 
 @dataclass

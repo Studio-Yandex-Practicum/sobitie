@@ -1,3 +1,4 @@
+import emoji
 from telegram import InlineKeyboardButton
 
 from bot.keyboards.main import create_return_to_start_button, INTERACTIVE_GAME, SHORT_RETURN_BACK_BUTTON_TEXT
@@ -10,19 +11,19 @@ RANDOM_QUOTE = "RANDOM_QUOTE"
 INTERACTIVE_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Викторины",
+            text=f"{emoji.emojize(':game_die:')}Викторины",
             callback_data=START_QUIZZES,
         ),
     ],
     [
         InlineKeyboardButton(
-            text="Стикерпаки",
+            text=f"{emoji.emojize('	:star-struck:')}Стикерпаки",
             callback_data=GET_STICKERS,
         ),
     ],
     [
         InlineKeyboardButton(
-            text="Цитата недели",
+            text=f"{emoji.emojize(':books:')}Цитата недели",
             callback_data=RANDOM_QUOTE,
         ),
     ],

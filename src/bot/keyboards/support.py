@@ -1,11 +1,13 @@
 from typing import Sequence
 
+import emoji
 from telegram import InlineKeyboardButton
 
 from bot.keyboards.event import create_notification_button_based_on_subscription_status
 from bot.keyboards.main import (
     GIVE_SUPPORT,
     SHORT_RETURN_BACK_BUTTON_TEXT,
+    SHORT_RETURN_TO_START_BUTTON_TEXT,
     create_return_to_start_button,
 )
 
@@ -42,38 +44,38 @@ RETURN_TO_SUPPORT_BUTTON = [
 SUPPORT_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Сделать пожертвование",
+            text=f"{emoji.emojize(':credit_card:')} Сделать пожертвование",
             callback_data=SHOW_DONATION_OPTIONS,
         )
     ],
     [
         InlineKeyboardButton(
-            text="Приобрести сувениры",
+            text=f"{emoji.emojize(':package:')} Приобрести сувениры",
             callback_data=ORDER_SOUVENIRS,
         )
     ],
     [
         InlineKeyboardButton(
-            text="Создать сбор",
+            text=f"{emoji.emojize(':handshake::money_bag:')} Создать сбор",
             callback_data=CREATE_COLLECTION,
         )
     ],
     [
         InlineKeyboardButton(
-            text="Стать активным подписчиком",
+            text=f"{emoji.emojize(':mobile_phone_with_arrow:')} Стать активным подписчиком",
             callback_data=FOLLOW_US,
         )
     ],
     [
         InlineKeyboardButton(
-            text="Связь по вопросам помощи",
+            text=f"{emoji.emojize(':speech_balloon:')} Связь по вопросам помощи",
             callback_data=COMMUNICATE_FOR_HELP,
         )
     ],
 # Кнопка "иная помощь" для раздела Как Помочь
     [
         InlineKeyboardButton(
-            text="Иная помощь",
+            text=f"{emoji.emojize(':folded_hands:')} Иная помощь",
             callback_data=OTHER_HELP,
         )
     ],
@@ -157,14 +159,14 @@ TINKOFF_CASHBACK_MENU_BUTTONS = [
 SUPPORT_FOLLOW_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Вконтакте:\n",
+            text=f'{emoji.emojize(":blue_heart:")} Вконтакте:\n',
             callback_data=FOLLOW_US_VKONTAKTE,
             url="https://vk.com/sobytie.center",
         )
     ],
     [
         InlineKeyboardButton(
-            text="Telegram:\n",
+            text=f'{emoji.emojize(":star:")} Telegram:\n',
             callback_data=FOLLOW_US_TELEGRAM,
             url="https://t.me/sobytiecenter",
         )

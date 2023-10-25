@@ -14,7 +14,7 @@ from telegram.ext import CallbackContext
 from bot.convers_func.api_conversation import get_client
 from bot.keyboards.event import EVENT_MENU, NOTIFICATION_BUTTONS, create_event_menu_buttons, create_finish_event_buttons
 from bot.keyboards.support import OTHER_HELP_MENU_BUTTONS
-from drf_sobitie.settings import NOTIFICATIONS_API_URL
+from core.settings import EVENTS_URL, NOTIFICATIONS_API_URL
 
 EVENT_MESSAGE_TEMPLATE = emoji.emojize(
         """:calendar: {event_time_formatted}

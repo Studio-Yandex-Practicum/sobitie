@@ -1,5 +1,5 @@
 version: '3.8'
-
+"sssssssssssssssssssssssssssssssssssssssssssssssss"
 services:
   web:
     image: mnmyasis/sobitie:latest
@@ -15,7 +15,7 @@ services:
     image: mnmyasis/sobitie:latest
     container_name: bot_sobitie
     restart: always
-    command: sh -c "cd drf_sobitie/; python manage.py runbot"
+    command: sh -c "cd src/; python main.py & uvicorn fastapi_app:fastapi_app --host 0 --port 8000"
     volumes:
       - media_value:/app/src/media/
     depends_on:
