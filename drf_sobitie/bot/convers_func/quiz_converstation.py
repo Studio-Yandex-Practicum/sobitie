@@ -4,7 +4,9 @@ from http import HTTPStatus
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Poll, Update
 from telegram.ext import CallbackContext
 
-from bot.convers_func.api_conversation import get_client
+
+from bot.api_client import get_client
+
 from bot.keyboards.main import QUIZZES, create_return_to_start_button
 from bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
 
