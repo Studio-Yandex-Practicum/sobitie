@@ -4,9 +4,9 @@ import emoji
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.convers_func.api_conversation import get_client
+from bot.api_client import get_client
 from bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
-from core.states import INTERACTIVE_STATE
+from bot.constants import INTERACTIVE_STATE
 
 
 async def menu_interactive(update: Update, _: CallbackContext):
