@@ -1,4 +1,7 @@
+from datetime import datetime
+
 from drf_extra_fields.fields import Base64ImageField
+from rest_framework.serializers import ValidationError
 from rest_framework.relations import StringRelatedField
 from rest_framework.serializers import IntegerField, ModelSerializer, SerializerMethodField
 from rest_framework.validators import UniqueValidator
@@ -48,6 +51,15 @@ class EventPostSerializer(ModelSerializer):
             "event_time",
             "location",
         )
+
+    def validate(self, data):
+        event_date = data.get("event_time")
+        current_date = datetime.now()
+
+        if event_date < current_date:
+            raise ValidationError("Время начала мероприятия меньше текущего")
+
+        return data
 
 
 class QuoteSerializer(ModelSerializer):

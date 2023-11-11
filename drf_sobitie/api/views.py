@@ -115,20 +115,27 @@ class CheckForSubscription(APIView):
 
 
 class VKView(APIView):
-    def common(self, text):
-        events = [event.description for event in Event.objects.all()]
-        if "афиша события" in text.lower() and text not in events:
+    @staticmethod
+    def __remove_not_actual_events(events, vk_posts):
+        events.exclude(
+            vk_post_id__in=[post["id"] for post in vk_posts["items"]]
+        ).delete()
+
+    @staticmethod
+    def __get_event_data(text):
+        descriptions_of_events = [event.description for event in Event.objects.all()]
+        if "афиша события" in text.lower() and text not in descriptions_of_events:
             event_time = re.search(r"\d\d\.\d\d\.\d{4} \d{2}:\d{2}", text).group(0)
             event_time = datetime.strptime(event_time, "%d.%m.%Y %H:%M")
             description = text.split("#")[0]
             location = re.search(r"Место события: г.[а-яА-Я-, ]+", text).group(0)
+
             return event_time, description, location
         return None
 
     def post(self, request):
-        data = dict(request.data)
-        vk_post_id = int(data["id"][0])
-        data = self.common(text=data["text"][0])
+        vk_post_id = request.data["id"]
+        data = self.__get_event_data(text=request.data["text"])
         if data is None:
             return Response(status=status.HTTP_200_OK)
         event_time, description, location = data
@@ -144,18 +151,29 @@ class VKView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def put(self, request, pk):
-        event_time, description, location = self.common(text=request["text"])
-        vk_post_id = request["id"]
-        event = Event.objects.get(vk_post_id=pk)
-        data = {
-            "event_time": event_time,
-            "location": location,
-            "description": description,
-            "vk_post_id": vk_post_id,
-        }
-        serializer = EventPostSerializer(event, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def put(self, request):
+        events = Event.objects.order_by("-event_time")
+        vk_posts = request.data
+        self.__remove_not_actual_events(events, vk_posts)
+        for post in vk_posts["items"]:
+            event_time, description, location = self.__get_event_data(text=post["text"])
+            data = {
+                "event_time": event_time,
+                "location": location,
+                "description": description,
+                "vk_post_id": post["id"],
+            }
+            serializer = EventPostSerializer(data=data)
+            if not events.filter(vk_post_id=post["id"]).exists():
+                if serializer.is_valid():
+                    serializer.save()
+                continue
+
+            event = events.get(vk_post_id=post["id"])
+            if serializer.is_valid():
+                event.event_time = event_time
+                event.description = description
+                event.location = location
+                event.save()
+
+        return Response(status=status.HTTP_200_OK)
