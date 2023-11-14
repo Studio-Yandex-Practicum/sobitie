@@ -1,11 +1,11 @@
 from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
 
-from bot.convers_func.interactive_conversation import get_quote, get_stickers, menu_interactive
-from bot.convers_func.main_conversation import end
-from bot.handlers.quiz_handler import questions_handler, quizzes_handler
-from bot.keyboards.interactive import GET_STICKERS, RANDOM_QUOTE
-from bot.keyboards.main import END, INTERACTIVE_GAME
-from bot.constants import INTERACTIVE_STATE
+from drf_sobitie.bot.constants import INTERACTIVE_STATE
+from drf_sobitie.bot.convers_func.interactive_conversation import get_quote, get_stickers, menu_interactive
+from drf_sobitie.bot.convers_func.main_conversation import end
+from drf_sobitie.bot.handlers.quiz_handler import questions_handler, quizzes_handler
+from drf_sobitie.bot.keyboards.interactive import GET_STICKERS, RANDOM_QUOTE
+from drf_sobitie.bot.keyboards.main import END, INTERACTIVE_GAME
 
 interactive_conv = ConversationHandler(
     allow_reentry=True,

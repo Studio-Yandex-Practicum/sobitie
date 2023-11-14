@@ -5,21 +5,25 @@ from json import dumps
 from typing import Dict, List
 
 import emoji
+from django.conf import settings
 from requests import Response
 from telegram import Bot, CallbackQuery, InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
 from telegram.error import BadRequest, TelegramError
 from telegram.ext import CallbackContext
 
-
-from bot.api_client import get_client
-
-from bot.keyboards.event import EVENT_MENU, NOTIFICATION_BUTTONS, create_event_menu_buttons, create_finish_event_buttons
-from bot.keyboards.support import OTHER_HELP_MENU_BUTTONS
-from drf_sobitie.settings import NOTIFICATIONS_API_URL
+from drf_sobitie.bot.api_client import get_client
+from drf_sobitie.bot.async_requests import async_send_json_post_request
+from drf_sobitie.bot.keyboards.event import (
+    EVENT_MENU,
+    NOTIFICATION_BUTTONS,
+    create_event_menu_buttons,
+    create_finish_event_buttons
+)
+from drf_sobitie.bot.keyboards.support import OTHER_HELP_MENU_BUTTONS
 
 EVENT_MESSAGE_TEMPLATE = emoji.emojize(
-        """:calendar: {event_time_formatted}
+    """:calendar: {event_time_formatted}
 
 :round_pushpin: {location}
 
@@ -50,8 +54,8 @@ async def show_event_menu(update: Update, _: CallbackContext):
 async def show_upcoming_events(update: Update, _: CallbackContext):
     """Отправляет сообщения с ближайшими событиями."""
     api_client = get_client()
-    closing_message = """Вы можете подписаться на уведомления об анонсах, чтобы первыми узнавать о наших \
-будущих мероприятиях. Также вы можете вернуться в главное меню и ознакомиться с другими разделами. Спасибо за интерес \
+    closing_message = """Вы можете подписаться на уведомления об анонсах, чтобы первыми узнавать о наших
+будущих мероприятиях. Также вы можете вернуться в главное меню и ознакомиться с другими разделами. Спасибо за интерес
 к нашей организации."""
     query = update.callback_query
     await query.answer()
@@ -97,7 +101,7 @@ async def other_help_subscribe_to_notifications(update: Update, _: CallbackConte
     await query.answer()
     message_text = """Спасибо за отклик! Вы будете получать уведомления о наших потребностях."""
     user_id = query.from_user.id
-    response = await async_send_json_post_request(url=NOTIFICATIONS_API_URL, data={"user_id": user_id})
+    response = await async_send_json_post_request(url=settings.NOTIFICATIONS_API_URL, data={"user_id": user_id})
     message_text = await _check_api_response_status(message_text=message_text, response=response, user_id=user_id)
     keyboard = InlineKeyboardMarkup(OTHER_HELP_MENU_BUTTONS)
     await query.edit_message_text(text=message_text, reply_markup=keyboard)
@@ -109,7 +113,7 @@ async def unsubscribe_and_notify_user(update: Update, _: CallbackContext):
     api_client = get_client()
     query = update.callback_query
     await query.answer()
-    message_text = """Вы успешно отписались от уведомлений о наших событиях. Мы будем скучать по вашему участию, \
+    message_text = """Вы успешно отписались от уведомлений о наших событиях. Мы будем скучать по вашему участию,
 но вы всегда можете подписаться на уведомления в любое время снова."""
     user_id = query.from_user.id
     response = await api_client.unsubscribe_and_notify(user_id)
@@ -153,7 +157,7 @@ async def _handle_bot_block_error(error: TelegramError, user_id: int) -> None:
 
 
 async def _check_api_response_status(
-    message_text: str, response: Response, user_id: int, expected_status=HTTPStatus.CREATED
+        message_text: str, response: Response, user_id: int, expected_status=HTTPStatus.CREATED
 ) -> str:
     """Проверяет статус ответа API, если он неудачный, то возвращает другое сообщение для пользователя."""
     status_code = response.status_code

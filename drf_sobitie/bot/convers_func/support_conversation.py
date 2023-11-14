@@ -1,9 +1,9 @@
-import emoji
 from telegram import InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
 from telegram.ext import CallbackContext
 
-from bot.keyboards.support import (
+from drf_sobitie.bot import constants as states
+from drf_sobitie.bot.keyboards.support import (
     DONATION_OPTIONS_MENU_BUTTONS,
     RETURN_TO_SUPPORT_BUTTON,
     SUPPORT_CREATE_COLLECTION_BUTTONS,
@@ -14,7 +14,6 @@ from bot.keyboards.support import (
     create_menu_order_souvenir,
     create_menu_other_help
 )
-from bot import constants as states
 
 
 async def show_give_support_menu(update: Update, _: CallbackContext):

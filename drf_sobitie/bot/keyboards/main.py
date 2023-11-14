@@ -35,7 +35,7 @@ START_MENU_BUTTONS = [
 
 
 def create_return_to_start_button(
-    text: str = RETURN_TO_START_BUTTON_TEXT,
+        text: str = RETURN_TO_START_BUTTON_TEXT,
 ) -> InlineKeyboardButton:
     """Создаёт объект кнопки для возвращения в стартовое меню."""
     return InlineKeyboardButton(text=text, callback_data=RETURN_TO_START)

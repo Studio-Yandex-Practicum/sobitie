@@ -4,11 +4,9 @@ import emoji
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-
-from bot.api_client import get_client
-
-from bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
-from bot.constants import INTERACTIVE_STATE
+from drf_sobitie.bot.api_client import get_client
+from drf_sobitie.bot.constants import INTERACTIVE_STATE
+from drf_sobitie.bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
 
 
 async def menu_interactive(update: Update, _: CallbackContext):

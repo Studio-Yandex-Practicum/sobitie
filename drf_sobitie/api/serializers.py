@@ -3,9 +3,9 @@ from rest_framework.relations import StringRelatedField
 from rest_framework.serializers import IntegerField, ModelSerializer, SerializerMethodField
 from rest_framework.validators import UniqueValidator
 
-from event.models import Event, Quote, Subscriber
-from quiz.models import Answer, Question, Quiz, QuizResult
-from sticker_pack.models import Stickerpack
+from drf_sobitie.event.models import Event, Quote, Subscriber
+from drf_sobitie.quiz.models import Answer, Question, Quiz, QuizResult
+from drf_sobitie.sticker_pack.models import Stickerpack
 
 
 class StickerpackSerializer(ModelSerializer):

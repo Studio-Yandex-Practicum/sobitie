@@ -1,20 +1,20 @@
 from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
 
-from bot.convers_func.event_conversation import (
+from drf_sobitie.bot.convers_func.event_conversation import (
     show_event_menu,
     show_gratitude_and_subscribe_to_notifications,
     show_upcoming_events,
     unsubscribe_and_notify_user,
     other_help_subscribe_to_notifications
 )
-from bot.convers_func.main_conversation import end
-from bot.keyboards.event import (
+from drf_sobitie.bot.convers_func.main_conversation import end
+from drf_sobitie.bot.keyboards.event import (
     EVENT_MENU,
     NOTIFICATION_SUBSCRIBE_CALLBACK,
     NOTIFICATION_UNSUBSCRIBE_CALLBACK,
     UPCOMING_EVENTS,
 )
-from bot.keyboards.main import END, EVENTS
+from drf_sobitie.bot.keyboards.main import END, EVENTS
 
 subscribe_to_notifications_handler = CallbackQueryHandler(
     show_gratitude_and_subscribe_to_notifications,

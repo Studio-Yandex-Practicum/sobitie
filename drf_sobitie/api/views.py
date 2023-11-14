@@ -8,8 +8,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from api.mixins import BaseListCreateDeleteViewSet
-from api.serializers import (
+from drf_sobitie.api.mixins import BaseListCreateDeleteViewSet
+from drf_sobitie.api.serializers import (
     EventPostSerializer,
     EventSerializer,
     QuestionSerializer,
@@ -19,9 +19,9 @@ from api.serializers import (
     StickerpackSerializer,
     SubscriberSerializer,
 )
-from event.models import Event, Quote, Subscriber
-from quiz.models import Question, Quiz, QuizResult
-from sticker_pack.models import Stickerpack
+from drf_sobitie.event.models import Event, Quote, Subscriber
+from drf_sobitie.quiz.models import Question, Quiz, QuizResult
+from drf_sobitie.sticker_pack.models import Stickerpack
 
 
 class StickerpackViewSet(ModelViewSet):
@@ -82,7 +82,7 @@ class QuestionQuizViewSet(ModelViewSet):
         last_question_id = self.request.query_params.get("last_question_id")
         if last_question_id:
             return Question.objects.filter(
-                quiz_id=quiz_id, id=int(last_question_id)+1
+                quiz_id=quiz_id, id=int(last_question_id) + 1
             )
         return [
             Question.objects.filter(

@@ -1,11 +1,16 @@
 from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
 
-from bot.convers_func import support_conversation
-from bot.convers_func.main_conversation import end
-from bot.handlers.event_handler import event_conv, subscribe_to_notifications_handler, unsubscribe_handler, other_help_notifications_handler
-from bot.keyboards import support
-from bot.keyboards.main import END, GIVE_SUPPORT
-from bot import constants as states
+from drf_sobitie.bot import constants as states
+from drf_sobitie.bot.convers_func import support_conversation
+from drf_sobitie.bot.convers_func.main_conversation import end
+from drf_sobitie.bot.handlers.event_handler import (
+    event_conv,
+    subscribe_to_notifications_handler,
+    unsubscribe_handler,
+    other_help_notifications_handler
+)
+from drf_sobitie.bot.keyboards import support
+from drf_sobitie.bot.keyboards.main import END, GIVE_SUPPORT
 
 order_souvenir = ConversationHandler(
     allow_reentry=True,

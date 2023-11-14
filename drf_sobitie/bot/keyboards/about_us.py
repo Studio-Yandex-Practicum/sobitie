@@ -1,6 +1,6 @@
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import (
+from drf_sobitie.bot.keyboards.main import (
     ABOUT_US,
     SHORT_RETURN_BACK_BUTTON_TEXT,
     create_return_to_start_button,
@@ -222,7 +222,6 @@ PEOPLE_BUTTONS = [
     ],
 ]
 
-
 # Кнопки подменю "Инклюзивная мастерская"
 INCLUSIVE_WORKSHOP_BUTTON = [
     [
@@ -273,7 +272,6 @@ MOSCOW_ONLINE_BUTTONS = [
     ],
 
 ]
-
 
 # Кнопки подменю "Электронная почта""
 EMAIL_INFO_BUTTON = [

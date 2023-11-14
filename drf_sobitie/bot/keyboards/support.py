@@ -2,8 +2,8 @@ from typing import Sequence
 
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.event import create_notification_button_based_on_subscription_status
-from bot.keyboards.main import (
+from drf_sobitie.bot.keyboards.event import create_notification_button_based_on_subscription_status
+from drf_sobitie.bot.keyboards.main import (
     GIVE_SUPPORT,
     SHORT_RETURN_BACK_BUTTON_TEXT,
     create_return_to_start_button,
@@ -70,7 +70,7 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=COMMUNICATE_FOR_HELP,
         )
     ],
-# Кнопка "иная помощь" для раздела Как Помочь
+    # Кнопка "иная помощь" для раздела Как Помочь
     [
         InlineKeyboardButton(
             text="Иная помощь",
@@ -114,7 +114,7 @@ DONATION_OPTIONS_MENU_BUTTONS = [
 
 # Кнопки раздела "Иная помощь"
 OTHER_HELP_MENU_BUTTONS = [
-# Кнопка Назад - ведет на предыдущий раздел Как помочь
+    # Кнопка Назад - ведет на предыдущий раздел Как помочь
     [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
@@ -173,7 +173,7 @@ SUPPORT_FOLLOW_BUTTONS = [
 ]
 
 SUPPORT_CREATE_COLLECTION_BUTTONS = [
-   [
+    [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
         ),
@@ -185,7 +185,7 @@ SUPPORT_CREATE_COLLECTION_BUTTONS = [
 ]
 
 SUPPORT_ORDER_SOUVENIR = [
-   [
+    [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
         ),
@@ -198,7 +198,7 @@ SUPPORT_ORDER_SOUVENIR = [
 
 
 async def create_menu_order_souvenir(
-    user_id: int,
+        user_id: int,
 ) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры раздела приобретения сувениров."""
     notification_button = await create_notification_button_based_on_subscription_status(
@@ -212,7 +212,7 @@ async def create_menu_order_souvenir(
 
 
 async def create_menu_other_help(
-    user_id: int,
+        user_id: int,
 ) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры раздела иной помощи."""
     notification_button = await create_notification_button_based_on_subscription_status(

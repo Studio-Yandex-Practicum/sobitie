@@ -1,6 +1,6 @@
 from telegram import InlineKeyboardMarkup, Update
 
-from bot.keyboards.about_us import PEOPLE_BUTTONS
+from drf_sobitie.bot.keyboards.about_us import PEOPLE_BUTTONS
 
 
 async def show_people(update: Update, _):

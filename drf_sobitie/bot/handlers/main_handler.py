@@ -1,13 +1,13 @@
 from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
 
-from bot.convers_func.main_conversation import end, send_start_menu
-from bot.handlers.about_us_handler import about_us_conv
-from bot.handlers.event_handler import event_conv
-from bot.handlers.interactive_handler import interactive_conv
-from bot.handlers.support_handler import support_conv
-from bot.handlers.what_we_do_handler import what_we_do
-from bot.keyboards.main import RETURN_TO_START
-from bot.constants import START_STATE
+from drf_sobitie.bot.constants import START_STATE
+from drf_sobitie.bot.convers_func.main_conversation import end, send_start_menu
+from drf_sobitie.bot.handlers.about_us_handler import about_us_conv
+from drf_sobitie.bot.handlers.event_handler import event_conv
+from drf_sobitie.bot.handlers.interactive_handler import interactive_conv
+from drf_sobitie.bot.handlers.support_handler import support_conv
+from drf_sobitie.bot.handlers.what_we_do_handler import what_we_do
+from drf_sobitie.bot.keyboards.main import RETURN_TO_START
 
 main_conversation_handler = ConversationHandler(
     allow_reentry=True,

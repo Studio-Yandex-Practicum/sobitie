@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.keyboards.about_us import (
+from drf_sobitie.bot.constants import ABOUT_US_STATE, PROJECTS_STATE
+from drf_sobitie.bot.keyboards.about_us import (
     ABOUT_US_MENU_BUTTONS,
     DOCUMENTS_MENU_BUTTONS,
     EMAIL_INFO_BUTTON,
@@ -15,7 +16,6 @@ from bot.keyboards.about_us import (
     RETURN_BACK_BUTTON,
     THEATRE_SCHOOL_BUTTON,
 )
-from bot.constants import ABOUT_US_STATE, PROJECTS_STATE
 
 
 @dataclass

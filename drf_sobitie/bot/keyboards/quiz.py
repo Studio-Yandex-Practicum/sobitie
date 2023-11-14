@@ -1,6 +1,6 @@
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import (
+from drf_sobitie.bot.keyboards.main import (
     INTERACTIVE_GAME,
     SHORT_RETURN_BACK_BUTTON_TEXT
 )

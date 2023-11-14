@@ -1,7 +1,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api.views import (
+from drf_sobitie.api.views import (
     CheckForSubscription,
     EventViewSet,
     NotificationsViewSet,
@@ -24,7 +24,6 @@ router.register("quizzes", QuizViewSet, basename="quizzes")
 router.register("questions", QuestionViewSet, basename="questions")
 router.register(r"quizzes/(?P<quiz_id>\d+)/quiz_result", QuizResultViewSet, basename="results")
 router.register(r"quizzes/(?P<quiz_id>\d+)/quiz_questions", QuestionQuizViewSet, basename="results")
-
 
 urlpatterns = [
     path("", include(router.urls)),

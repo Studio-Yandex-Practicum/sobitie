@@ -5,10 +5,8 @@ import emoji
 from requests import Response
 from telegram import InlineKeyboardButton
 
-
-from bot.api_client import get_client
-
-from bot.keyboards.main import (
+from drf_sobitie.bot.api_client import get_client
+from drf_sobitie.bot.keyboards.main import (
     RETURN_BACK_BUTTON_TEXT,
     RETURN_TO_START,
     SHORT_RETURN_BACK_BUTTON_TEXT,
@@ -42,7 +40,7 @@ logger = logging.getLogger(__name__)
 
 
 async def create_event_menu_buttons(
-    user_id: int,
+        user_id: int,
 ) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры меню Событий."""
     notification_button = await create_notification_button_based_on_subscription_status(
@@ -62,7 +60,7 @@ async def create_event_menu_buttons(
 
 
 async def create_finish_event_buttons(
-    user_id: int,
+        user_id: int,
 ) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры актуальных событий."""
     notification_button = await create_notification_button_based_on_subscription_status(
@@ -77,7 +75,7 @@ async def create_finish_event_buttons(
 
 
 async def create_notification_button_based_on_subscription_status(
-    user_id: int,
+        user_id: int,
 ) -> InlineKeyboardButton:
     """В зависимости от наличия подписки создаёт кнопку: подписаться/отписаться."""
     api_client = get_client()
@@ -92,7 +90,7 @@ async def create_notification_button_based_on_subscription_status(
 
 
 async def _process_and_update_button_based_on_api_response(
-    button: InlineKeyboardButton, response: Response
+        button: InlineKeyboardButton, response: Response
 ) -> InlineKeyboardButton:
     """Обрабатывает ответ API и изменяет кнопку."""
     content_type_ = response.headers.get("content-type")
@@ -108,7 +106,7 @@ async def _process_and_update_button_based_on_api_response(
 
 
 async def _update_notification_button_if_subscribed(
-    button: InlineKeyboardButton, response: Response
+        button: InlineKeyboardButton, response: Response
 ) -> InlineKeyboardButton:
     """Если пользователь подписан, то возвращает изменённый текст кнопки и callback."""
     data = response.json()

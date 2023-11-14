@@ -4,11 +4,9 @@ from http import HTTPStatus
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Poll, Update
 from telegram.ext import CallbackContext
 
-
-from bot.api_client import get_client
-
-from bot.keyboards.main import QUIZZES, create_return_to_start_button
-from bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
+from drf_sobitie.bot.api_client import get_client
+from drf_sobitie.bot.keyboards.main import QUIZZES, create_return_to_start_button
+from drf_sobitie.bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
 
 
 def get_quizzes():

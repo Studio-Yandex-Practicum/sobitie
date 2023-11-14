@@ -3,7 +3,7 @@ from django.template.defaultfilters import truncatechars
 from django.utils.safestring import mark_safe
 from django_apscheduler import jobstores
 
-from event.models import Event, Quote
+from drf_sobitie.event.models import Event, Quote
 
 LENGTH_OF_QUOTE_DISPLAY = 200
 EMPTY_VALUE = "-пусто-"

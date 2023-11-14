@@ -1,6 +1,6 @@
 import httpx
 
-from drf_sobitie import settings
+from django.conf import settings
 
 
 class APIClient:
