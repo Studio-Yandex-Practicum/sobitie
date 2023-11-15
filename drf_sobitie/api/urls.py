@@ -13,7 +13,6 @@ from api.views import (
     StickerpackViewSet,
     VKView,
 )
-
 from notifications.views import send_event_notification
 
 router = DefaultRouter()
