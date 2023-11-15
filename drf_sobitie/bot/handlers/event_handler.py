@@ -5,7 +5,7 @@ from drf_sobitie.bot.convers_func.event_conversation import (
     show_gratitude_and_subscribe_to_notifications,
     show_upcoming_events,
     unsubscribe_and_notify_user,
-    other_help_subscribe_to_notifications
+    other_help_subscribe_to_notifications,
 )
 from drf_sobitie.bot.convers_func.main_conversation import end
 from drf_sobitie.bot.keyboards.event import (

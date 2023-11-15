@@ -53,9 +53,7 @@ about_us_conv = ConversationHandler(
             CallbackQueryHandler(
                 show_moscow_partala_online, pattern="^" + MOSCOW_ONLINE + "$"
             ),
-            CallbackQueryHandler(
-                show_projects, pattern="^" + RETURN_TO_BACK + "$"
-            ),
+            CallbackQueryHandler(show_projects, pattern="^" + RETURN_TO_BACK + "$"),
         ],
     },
     fallbacks=[CommandHandler(END, end)],

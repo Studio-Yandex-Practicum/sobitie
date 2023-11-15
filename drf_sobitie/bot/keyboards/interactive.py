@@ -3,7 +3,7 @@ from telegram import InlineKeyboardButton
 from drf_sobitie.bot.keyboards.main import (
     create_return_to_start_button,
     INTERACTIVE_GAME,
-    SHORT_RETURN_BACK_BUTTON_TEXT
+    SHORT_RETURN_BACK_BUTTON_TEXT,
 )
 from drf_sobitie.bot.keyboards.quiz import START_QUIZZES
 
@@ -35,8 +35,7 @@ INTERACTIVE_BUTTONS = [
 RETURN_TO_INTERACTIVE_MENU_BUTTON = [
     [
         InlineKeyboardButton(
-            text=SHORT_RETURN_BACK_BUTTON_TEXT,
-            callback_data=INTERACTIVE_GAME
+            text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=INTERACTIVE_GAME
         )
     ]
 ]

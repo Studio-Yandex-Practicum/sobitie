@@ -15,9 +15,13 @@ def _create_bot_app() -> Application:
 
 
 class Command(BaseCommand):
-    help = 'Start telegram bot.'
+    help = "Start telegram bot."
 
     def handle(self, *args, **kwargs):
-        logging.basicConfig(format=settings.FORMAT, level=logging.INFO, handlers=[logging.StreamHandler()])
+        logging.basicConfig(
+            format=settings.FORMAT,
+            level=logging.INFO,
+            handlers=[logging.StreamHandler()],
+        )
         bot_app = _create_bot_app()
         bot_app.run_polling()

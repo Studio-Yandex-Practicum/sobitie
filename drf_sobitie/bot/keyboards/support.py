@@ -2,7 +2,9 @@ from typing import Sequence
 
 from telegram import InlineKeyboardButton
 
-from drf_sobitie.bot.keyboards.event import create_notification_button_based_on_subscription_status
+from drf_sobitie.bot.keyboards.event import (
+    create_notification_button_based_on_subscription_status,
+)
 from drf_sobitie.bot.keyboards.main import (
     GIVE_SUPPORT,
     SHORT_RETURN_BACK_BUTTON_TEXT,
@@ -23,7 +25,7 @@ FOLLOW_US_VKONTAKTE = "FOLLOW_US_VKONTAKTE"
 FOLLOW_US_TELEGRAM = "FOLLOW_US_TELEGRAM"
 CREATE_COLLECTION = "CREATE_COLLECTION"
 CASHBACK = "CASHBACK"
-OTHER_HELP = 'OTHER_HELP'
+OTHER_HELP = "OTHER_HELP"
 
 # Константы для меню "Сделать пожертвование"
 TINKOFF_DONATION = "TINKOFF_DONATION"
@@ -77,7 +79,6 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=OTHER_HELP,
         )
     ],
-
     [create_return_to_start_button(text=SHORT_RETURN_BACK_BUTTON_TEXT)],
 ]
 
@@ -180,7 +181,7 @@ SUPPORT_CREATE_COLLECTION_BUTTONS = [
         InlineKeyboardButton(
             text="Перейти на сайт",
             url="https://sluchaem.ru/",
-        )
+        ),
     ]
 ]
 
@@ -192,13 +193,13 @@ SUPPORT_ORDER_SOUVENIR = [
         InlineKeyboardButton(
             text="Перейти в магазин",
             url="https://vk.com/market-190536221",
-        )
+        ),
     ]
 ]
 
 
 async def create_menu_order_souvenir(
-        user_id: int,
+    user_id: int,
 ) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры раздела приобретения сувениров."""
     notification_button = await create_notification_button_based_on_subscription_status(
@@ -212,7 +213,7 @@ async def create_menu_order_souvenir(
 
 
 async def create_menu_other_help(
-        user_id: int,
+    user_id: int,
 ) -> Sequence[Sequence[InlineKeyboardButton]]:
     """Создаёт кнопки для клавиатуры раздела иной помощи."""
     notification_button = await create_notification_button_based_on_subscription_status(

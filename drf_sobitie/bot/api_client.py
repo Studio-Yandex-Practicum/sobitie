@@ -33,7 +33,9 @@ class APIClient:
 
     async def send_notification(self, user_id):
         async with self._httpx_client as session:
-            return await session.post(url="/api/notifications/", data={"user_id": user_id})
+            return await session.post(
+                url="/api/notifications/", data={"user_id": user_id}
+            )
 
     async def unsubscribe_and_notify(self, user_id):
         async with self._httpx_client as session:

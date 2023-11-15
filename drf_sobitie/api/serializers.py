@@ -1,6 +1,10 @@
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework.relations import StringRelatedField
-from rest_framework.serializers import IntegerField, ModelSerializer, SerializerMethodField
+from rest_framework.serializers import (
+    IntegerField,
+    ModelSerializer,
+    SerializerMethodField,
+)
 from rest_framework.validators import UniqueValidator
 
 from drf_sobitie.event.models import Event, Quote, Subscriber
@@ -10,6 +14,7 @@ from drf_sobitie.sticker_pack.models import Stickerpack
 
 class StickerpackSerializer(ModelSerializer):
     """Сериализатор для стикеров."""
+
     image = Base64ImageField(required=False, allow_null=True)
 
     class Meta:
@@ -86,6 +91,7 @@ class QuestionSerializer(ModelSerializer):
 
 class QuizSerializer(ModelSerializer):
     """Сериализатор для квизов."""
+
     questions = QuestionSerializer(many=True)
 
     class Meta:

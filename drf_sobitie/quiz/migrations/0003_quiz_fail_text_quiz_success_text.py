@@ -4,20 +4,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('quiz', '0002_alter_question_options_answer_is_right_and_more'),
+        ("quiz", "0002_alter_question_options_answer_is_right_and_more"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='quiz',
-            name='fail_text',
-            field=models.TextField(blank=True, help_text='этот текст пользователь увидит при неуспешном прохождении', verbose_name='Текст при неуспешном прохождении.'),
+            model_name="quiz",
+            name="fail_text",
+            field=models.TextField(
+                blank=True,
+                help_text="этот текст пользователь увидит при неуспешном прохождении",
+                verbose_name="Текст при неуспешном прохождении.",
+            ),
         ),
         migrations.AddField(
-            model_name='quiz',
-            name='success_text',
-            field=models.TextField(blank=True, help_text='Текст при успешном прохождении.', verbose_name='этот текст пользователь увидит при успешном прохождении'),
+            model_name="quiz",
+            name="success_text",
+            field=models.TextField(
+                blank=True,
+                help_text="Текст при успешном прохождении.",
+                verbose_name="этот текст пользователь увидит при успешном прохождении",
+            ),
         ),
     ]

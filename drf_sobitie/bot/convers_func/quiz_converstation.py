@@ -6,7 +6,11 @@ from telegram.ext import CallbackContext
 
 from drf_sobitie.bot.api_client import get_client
 from drf_sobitie.bot.keyboards.main import QUIZZES, create_return_to_start_button
-from drf_sobitie.bot.keyboards.quiz import FINISH_QUIZ_MENU_BUTTON, QUESTIONS_MENU_BUTTON, START_QUESTIONS
+from drf_sobitie.bot.keyboards.quiz import (
+    FINISH_QUIZ_MENU_BUTTON,
+    QUESTIONS_MENU_BUTTON,
+    START_QUESTIONS,
+)
 
 
 def get_quizzes():
@@ -26,9 +30,11 @@ def get_quizzes_inline_button():
     if quizzes is None:
         return FINISH_QUIZ_MENU_BUTTON
     quizzes_menu = [
-        [InlineKeyboardButton(
-            text=quiz["name"],
-            callback_data=START_QUESTIONS + f"#{quiz['id']}")]
+        [
+            InlineKeyboardButton(
+                text=quiz["name"], callback_data=START_QUESTIONS + f"#{quiz['id']}"
+            )
+        ]
         for quiz in get_quizzes()
     ]
     quizzes_menu.append([create_return_to_start_button()])
@@ -126,9 +132,7 @@ def get_message_for_result(update: Update, context: CallbackContext):
     api_client = get_client()
     correct_answer_count, questions_count = scoring(context)
     current_quiz_id = get_current_quiz_id(update, context)
-    params = {
-        "correct_answer_count": correct_answer_count
-    }
+    params = {"correct_answer_count": correct_answer_count}
     response = api_client.get_message(current_quiz_id, params)
     if response.status_code != HTTPStatus.OK.value:
         return None
@@ -160,8 +164,7 @@ async def send_quiz_result(update: Update, context: CallbackContext):
     markup = InlineKeyboardMarkup(FINISH_QUIZ_MENU_BUTTON)
     if "last_question_id" not in context.user_data:
         await update.effective_message.reply_text(
-            text="К сожалению викторина пока не готова.",
-            reply_markup=markup
+            text="К сожалению викторина пока не готова.", reply_markup=markup
         )
         clear_context(context)
         return QUIZZES
@@ -171,24 +174,23 @@ async def send_quiz_result(update: Update, context: CallbackContext):
     correct_answer_count, questions_count = scoring(context)
     per_correct_answers = 0
     if correct_answer_count != 0:
-        per_correct_answers = round(
-            (correct_answer_count * 100 / questions_count), 2
-        )
+        per_correct_answers = round((correct_answer_count * 100 / questions_count), 2)
     if message_result is None:
         await update.effective_message.reply_text(
-            text=f"Ваш результат: {per_correct_answers}%",
-            reply_markup=markup
+            text=f"Ваш результат: {per_correct_answers}%", reply_markup=markup
         )
 
     if image is not None:
         await update.effective_message.reply_photo(photo=image)
 
     await update.effective_message.reply_text(
-        text=(f"{message_result['text']}\n"
-              f"Вопросов в викторине: {questions_count}\n"
-              f"Правильных ответов: {correct_answer_count}\n"
-              f"Результативность: {per_correct_answers}%\n"),
-        reply_markup=markup
+        text=(
+            f"{message_result['text']}\n"
+            f"Вопросов в викторине: {questions_count}\n"
+            f"Правильных ответов: {correct_answer_count}\n"
+            f"Результативность: {per_correct_answers}%\n"
+        ),
+        reply_markup=markup,
     )
     clear_context(context)
     return QUIZZES
@@ -200,9 +202,7 @@ async def send_quiz_question(update: Update, context: CallbackContext):
     if update.callback_query.message.poll:
         # если прошлый пост был вопросом викторины, проверяем ответ
         correct_answer_count(update, context)
-    question_data, image = get_next_question(
-        update=update, context=context
-    )
+    question_data, image = get_next_question(update=update, context=context)
     if question_data is None:
         # если следующий вопрос не получен значит викторина завершена
         await send_quiz_result(update, context)
@@ -227,5 +227,5 @@ async def send_quiz_question(update: Update, context: CallbackContext):
         options=[str(x["answer_text"]) for x in question_data["answers"]],
         correct_option_id=correct_answer,
         type=Poll.QUIZ,
-        reply_markup=markup
+        reply_markup=markup,
     )

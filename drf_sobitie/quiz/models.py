@@ -4,9 +4,15 @@ from django.db import models
 
 class Quiz(models.Model):
     name = models.CharField(
-        max_length=50, unique=True, blank=False, verbose_name="Название квиза", help_text="введите название квиза"
+        max_length=50,
+        unique=True,
+        blank=False,
+        verbose_name="Название квиза",
+        help_text="введите название квиза",
     )
-    description = models.TextField(verbose_name="Описание квиза", help_text="напишите, о чем этот квиз")
+    description = models.TextField(
+        verbose_name="Описание квиза", help_text="напишите, о чем этот квиз"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -22,7 +28,9 @@ class QuizResult(models.Model):
     quiz_id = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     image = models.ImageField(
         upload_to="quiz_results/%Y/%m/%d/",
-        validators=[FileExtensionValidator(allowed_extensions=["jpeg", "jpg", "png", "mp4"])],
+        validators=[
+            FileExtensionValidator(allowed_extensions=["jpeg", "jpg", "png", "mp4"])
+        ],
         blank=True,
         verbose_name="Изображение",
         help_text="при желании прикрепите картинку",
@@ -38,7 +46,7 @@ class QuizResult(models.Model):
     )
 
     def __str__(self):
-        return f'{self.quiz_id}, результат: {self.text}'
+        return f"{self.quiz_id}, результат: {self.text}"
 
     class Meta:
         verbose_name = "Результат"
@@ -46,20 +54,25 @@ class QuizResult(models.Model):
 
 
 class Question(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name='questions')
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE, related_name="questions")
     image = models.ImageField(
         upload_to="quiz_quiestions/%Y/%m/%d/",
-        validators=[FileExtensionValidator(allowed_extensions=["jpeg", "jpg", "png", "mp4"])],
+        validators=[
+            FileExtensionValidator(allowed_extensions=["jpeg", "jpg", "png", "mp4"])
+        ],
         blank=True,
         verbose_name="Изображение",
         help_text="при желании прикрепите картинку",
     )
     question_text = models.TextField(
-        max_length=250, blank=False, verbose_name="Вопрос", help_text="введите текст вопроса"
+        max_length=250,
+        blank=False,
+        verbose_name="Вопрос",
+        help_text="введите текст вопроса",
     )
 
     def __str__(self):
-        return f'{self.quiz}, вопрос: {self.question_text}'
+        return f"{self.quiz}, вопрос: {self.question_text}"
 
     class Meta:
         verbose_name = "Вопрос"
@@ -68,12 +81,19 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
-    answer_text = models.CharField(max_length=100, blank=False, verbose_name="Ответ", help_text="введите текст ответа")
+    question = models.ForeignKey(
+        Question, on_delete=models.CASCADE, related_name="answers"
+    )
+    answer_text = models.CharField(
+        max_length=100,
+        blank=False,
+        verbose_name="Ответ",
+        help_text="введите текст ответа",
+    )
     is_right = models.BooleanField(default=False)
 
     def __str__(self):
-        return f'{self.question}, ответ: {self.answer_text}'
+        return f"{self.question}, ответ: {self.answer_text}"
 
     class Meta:
         verbose_name = "Ответ"

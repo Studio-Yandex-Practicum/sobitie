@@ -7,7 +7,7 @@ from drf_sobitie.bot.handlers.event_handler import (
     event_conv,
     subscribe_to_notifications_handler,
     unsubscribe_handler,
-    other_help_notifications_handler
+    other_help_notifications_handler,
 )
 from drf_sobitie.bot.keyboards import support
 from drf_sobitie.bot.keyboards.main import END, GIVE_SUPPORT
@@ -89,7 +89,7 @@ support_conv = ConversationHandler(
                 support_conversation.show_donations_options,
                 pattern="^" + support.SHOW_DONATION_OPTIONS + "$",
             ),
-        ]
+        ],
     },
     fallbacks=[CommandHandler(END, end)],
 )

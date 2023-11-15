@@ -4,7 +4,9 @@ from django.conf import settings
 from fastapi import FastAPI, Request
 from telegram import Bot
 
-from drf_sobitie.bot.convers_func.event_conversation import notify_subscribers_about_new_event
+from drf_sobitie.bot.convers_func.event_conversation import (
+    notify_subscribers_about_new_event,
+)
 
 fastapi_app = FastAPI()
 
