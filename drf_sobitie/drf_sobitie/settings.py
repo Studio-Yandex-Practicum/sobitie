@@ -62,7 +62,7 @@ INSTALLED_APPS = [
     "quiz.apps.QuizConfig",
     "sticker_pack.apps.StickersConfig",
     "bot.apps.BotConfig",
-    "notifications.apps.NotificationsConfig"
+    "notifications.apps.NotificationsConfig",
 ]
 
 MIDDLEWARE = [

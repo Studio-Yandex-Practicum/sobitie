@@ -28,6 +28,8 @@ vk-api = "^11.9.9"
 django-scheduler = "^0.10.1"
 apscheduler = "^3.10.1"
 django-apscheduler = "^0.6.2"
+channels = "^4.0.0"
+daphne = "^4.0.0"
 
 [tool.isort]
 line_length = 120

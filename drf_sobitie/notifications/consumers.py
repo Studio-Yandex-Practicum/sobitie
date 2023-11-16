@@ -1,9 +1,8 @@
-from channels.db import database_sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
+from django.conf import settings
 from telegram import Bot
 
 from bot.convers_func.event_conversation import notify_subscribers_about_new_event
-from drf_sobitie.settings import TELEGRAM_TOKEN
 
 
 class EventNotificationConsumer(AsyncWebsocketConsumer):
@@ -11,10 +10,12 @@ class EventNotificationConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, close_code):
-        pass
+        await self.send("Соединение разорвано.")
 
     async def receive(self, text_data=None, bytes_data=None):
         event_data = text_data
         await self.send("Отправка уведомлений началась.")
-        await (database_sync_to_async(notify_subscribers_about_new_event)
-               (event_data=event_data, bot=Bot(token=TELEGRAM_TOKEN)))
+        await notify_subscribers_about_new_event(
+            event_data=event_data,
+            bot=Bot(token=settings.TELEGRAM_TOKEN)
+        )
