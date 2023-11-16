@@ -5,10 +5,8 @@ import emoji
 from requests import Response
 from telegram import InlineKeyboardButton
 
-
-from bot.api_client import get_client
-
-from bot.keyboards.main import (
+from drf_sobitie.bot.api_client import get_client
+from drf_sobitie.bot.keyboards.main import (
     RETURN_BACK_BUTTON_TEXT,
     RETURN_TO_START,
     SHORT_RETURN_BACK_BUTTON_TEXT,

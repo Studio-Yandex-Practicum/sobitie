@@ -5,19 +5,22 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('quiz', '0004_rename_title_quiz_name_remove_quiz_fail_text_and_more'),
+        ("quiz", "0004_rename_title_quiz_name_remove_quiz_fail_text_and_more"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='quizresult',
-            options={'verbose_name': 'Результат', 'verbose_name_plural': 'Результаты'},
+            name="quizresult",
+            options={"verbose_name": "Результат", "verbose_name_plural": "Результаты"},
         ),
         migrations.AlterField(
-            model_name='question',
-            name='quiz',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='quiz.quiz'),
+            model_name="question",
+            name="quiz",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="questions",
+                to="quiz.quiz",
+            ),
         ),
     ]

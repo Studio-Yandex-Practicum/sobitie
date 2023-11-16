@@ -4,8 +4,8 @@ import requests
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
-from api.serializers import EventSerializer
-from event.models import Event
+from drf_sobitie.api.serializers import EventSerializer
+from drf_sobitie.event.models import Event
 
 
 @receiver(post_save, sender=Event)

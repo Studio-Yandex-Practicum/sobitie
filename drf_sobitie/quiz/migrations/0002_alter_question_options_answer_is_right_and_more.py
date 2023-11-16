@@ -6,29 +6,42 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('quiz', '0001_initial'),
+        ("quiz", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='question',
-            options={'verbose_name': 'Вопрос', 'verbose_name_plural': 'Вопросы'},
+            name="question",
+            options={"verbose_name": "Вопрос", "verbose_name_plural": "Вопросы"},
         ),
         migrations.AddField(
-            model_name='answer',
-            name='is_right',
+            model_name="answer",
+            name="is_right",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='answer',
-            name='question',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='answers', to='quiz.question'),
+            model_name="answer",
+            name="question",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="answers",
+                to="quiz.question",
+            ),
         ),
         migrations.AlterField(
-            model_name='question',
-            name='image',
-            field=models.ImageField(blank=True, help_text='при желании прикрепите картинку', upload_to='quiz_quiestions/%Y/%m/%d/', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png', 'mp4'])], verbose_name='Изображение'),
+            model_name="question",
+            name="image",
+            field=models.ImageField(
+                blank=True,
+                help_text="при желании прикрепите картинку",
+                upload_to="quiz_quiestions/%Y/%m/%d/",
+                validators=[
+                    django.core.validators.FileExtensionValidator(
+                        allowed_extensions=["jpeg", "jpg", "png", "mp4"]
+                    )
+                ],
+                verbose_name="Изображение",
+            ),
         ),
     ]

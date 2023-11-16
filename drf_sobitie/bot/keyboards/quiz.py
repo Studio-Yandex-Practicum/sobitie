@@ -1,11 +1,11 @@
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import (
+from drf_sobitie.bot.keyboards.main import (
     INTERACTIVE_GAME,
-    SHORT_RETURN_BACK_BUTTON_TEXT
+    SHORT_RETURN_BACK_BUTTON_TEXT,
 )
 
-START_QUIZZES = 'START_QUIZZES'
+START_QUIZZES = "START_QUIZZES"
 START_QUESTIONS = "START_QUESTIONS"
 NEXT_QUESTIONS = "NEXT_QUESTIONS"
 
