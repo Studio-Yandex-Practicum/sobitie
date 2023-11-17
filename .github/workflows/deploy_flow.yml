@@ -78,16 +78,14 @@ jobs:
             echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
             echo VK_SERVICE_KEY="${{ secrets.VK_SERVICE_KEY }}" >> .env
             echo VK_GROUP_ID="${{ secrets.VK_GROUP_ID }}" >> .env
-            echo TELEGRAM_TOKEN=${{ secrets.TELEGRAM_TOKEN }} >> .env
-            echo EVENTS_URL=${{ secrets.EVENTS_URL }} >> .env
-            echo QUOTE_URL=${{ secrets.QUOTE_URL }} >> .env
-            echo QUIZZES_URL=${{ secrets.QUIZZES_URL }} >> .env
-            echo STICKERPACK_URL=${{ secrets.STICKERPACK_URL }} >> .env
-            echo NOTIFICATIONS_API_URL=${{ secrets.NOTIFICATIONS_API_URL }} >> .env
-            echo CHECK_FOR_SUBSCRIPTION_API_URL=${{ secrets.CHECK_FOR_SUBSCRIPTION_API_URL }} >> .env
-            echo SEND_EVENT_NOTIFICATION_URL=${{ secrets.SEND_EVENT_NOTIFICATION_URL }} >> .env
+            echo TELEGRAM_TOKEN="${{ secrets.TELEGRAM_TOKEN }}" >> .env
+            echo API_ADDRESS="${{ secrets.API_ADDRESS }}" >> .env
+            echo DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}" >> .env
+#            Как я понимаю, этот урл уже не нужен?
+#            echo SEND_EVENT_NOTIFICATION_URL=${{ secrets.SEND_EVENT_NOTIFICATION_URL }} >> .env
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sobitie:latest
             sudo docker-compose up -d
+            sudo docker-compose exec web python drf_sobitie/manage.py makemigrations
             sudo docker-compose exec web python drf_sobitie/manage.py migrate
             sudo docker-compose exec web python drf_sobitie/manage.py collectstatic --no-input
             echo "OK"
