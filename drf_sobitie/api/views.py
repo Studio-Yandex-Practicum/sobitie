@@ -138,11 +138,10 @@ class VKView(APIView):
         return None
 
     def post(self, request):
-        data = dict(request.data)
-        data = self.__get_event_data(text=data["text"][0])
+        data = self.__get_event_data(text=request.data["text"])
         if data is None:
             return Response(status=status.HTTP_200_OK)
-        data["vk_post_id"] = int(data["id"][0])
+        data["vk_post_id"] = int(request.data["id"])
         serializer = EventPostSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()

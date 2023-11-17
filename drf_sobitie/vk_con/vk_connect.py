@@ -2,7 +2,7 @@ import requests
 import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll
 
-from drf_sobitie.settings import (
+from drf_sobitie.drf_sobitie.settings import (
     VK_GROUP_ID, VK_SERVICE_KEY, API_ADDRESS
 )
 
