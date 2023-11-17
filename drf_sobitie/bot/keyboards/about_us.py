@@ -1,6 +1,6 @@
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.main import (
+from drf_sobitie.bot.keyboards.main import (
     ABOUT_US,
     SHORT_RETURN_BACK_BUTTON_TEXT,
     create_return_to_start_button,
@@ -108,12 +108,7 @@ REPORTS_MENU_BUTTONS = [
             url="https://sobytie.center/reports/",
         )
     ],
-    [
-        InlineKeyboardButton(
-            text=SHORT_RETURN_BACK_BUTTON_TEXT,
-            callback_data=ABOUT_US
-        )
-    ],
+    [InlineKeyboardButton(text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=ABOUT_US)],
 ]
 
 # КНОПКИ ПОДМЕНЮ "ОТЧЁТЫ НА ПОРТАЛЕ МИНЮСТА"
@@ -186,12 +181,7 @@ CONTACTS_BUTTONS = [
             url="https://t.me/sobytiecenter",
         )
     ],
-    [
-        InlineKeyboardButton(
-            text=SHORT_RETURN_BACK_BUTTON_TEXT,
-            callback_data=ABOUT_US
-        )
-    ],
+    [InlineKeyboardButton(text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=ABOUT_US)],
 ]
 
 # Кнопки подменю "Люди"
@@ -222,12 +212,11 @@ PEOPLE_BUTTONS = [
     ],
 ]
 
-
 # Кнопки подменю "Инклюзивная мастерская"
 INCLUSIVE_WORKSHOP_BUTTON = [
     [
         InlineKeyboardButton(
-            text='О мастерской',
+            text="О мастерской",
             url="https://sobytie.center/project/inklyuzivnaya-masterskaya/",
         )
     ],
@@ -237,14 +226,13 @@ INCLUSIVE_WORKSHOP_BUTTON = [
             callback_data=RETURN_TO_BACK,
         )
     ],
-
 ]
 
 # Кнопки подменю "Инклюзивная мастерская"
 THEATRE_SCHOOL_BUTTON = [
     [
         InlineKeyboardButton(
-            text='О студии',
+            text="О студии",
             url="https://sobytie.center/teatrischool",
         )
     ],
@@ -254,14 +242,13 @@ THEATRE_SCHOOL_BUTTON = [
             callback_data=RETURN_TO_BACK,
         )
     ],
-
 ]
 
 # Кнопки подменю "Москва-Партала.Онлайн"
 MOSCOW_ONLINE_BUTTONS = [
     [
         InlineKeyboardButton(
-            text='Москва - Партала. Онлайн.',
+            text="Москва - Партала. Онлайн.",
             url="https://sobytie.center/project/moskva-partala-onlajn/",
         )
     ],
@@ -271,9 +258,7 @@ MOSCOW_ONLINE_BUTTONS = [
             callback_data=RETURN_TO_BACK,
         )
     ],
-
 ]
-
 
 # Кнопки подменю "Электронная почта""
 EMAIL_INFO_BUTTON = [
@@ -283,5 +268,4 @@ EMAIL_INFO_BUTTON = [
             callback_data=CONTACTS,
         )
     ],
-
 ]

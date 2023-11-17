@@ -2,8 +2,10 @@ from typing import Sequence
 
 from telegram import InlineKeyboardButton
 
-from bot.keyboards.event import create_notification_button_based_on_subscription_status
-from bot.keyboards.main import (
+from drf_sobitie.bot.keyboards.event import (
+    create_notification_button_based_on_subscription_status,
+)
+from drf_sobitie.bot.keyboards.main import (
     GIVE_SUPPORT,
     SHORT_RETURN_BACK_BUTTON_TEXT,
     create_return_to_start_button,
@@ -23,7 +25,7 @@ FOLLOW_US_VKONTAKTE = "FOLLOW_US_VKONTAKTE"
 FOLLOW_US_TELEGRAM = "FOLLOW_US_TELEGRAM"
 CREATE_COLLECTION = "CREATE_COLLECTION"
 CASHBACK = "CASHBACK"
-OTHER_HELP = 'OTHER_HELP'
+OTHER_HELP = "OTHER_HELP"
 
 # Константы для меню "Сделать пожертвование"
 TINKOFF_DONATION = "TINKOFF_DONATION"
@@ -70,14 +72,13 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=COMMUNICATE_FOR_HELP,
         )
     ],
-# Кнопка "иная помощь" для раздела Как Помочь
+    # Кнопка "иная помощь" для раздела Как Помочь
     [
         InlineKeyboardButton(
             text="Иная помощь",
             callback_data=OTHER_HELP,
         )
     ],
-
     [create_return_to_start_button(text=SHORT_RETURN_BACK_BUTTON_TEXT)],
 ]
 
@@ -114,7 +115,7 @@ DONATION_OPTIONS_MENU_BUTTONS = [
 
 # Кнопки раздела "Иная помощь"
 OTHER_HELP_MENU_BUTTONS = [
-# Кнопка Назад - ведет на предыдущий раздел Как помочь
+    # Кнопка Назад - ведет на предыдущий раздел Как помочь
     [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
@@ -173,26 +174,26 @@ SUPPORT_FOLLOW_BUTTONS = [
 ]
 
 SUPPORT_CREATE_COLLECTION_BUTTONS = [
-   [
+    [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
         ),
         InlineKeyboardButton(
             text="Перейти на сайт",
             url="https://sluchaem.ru/",
-        )
+        ),
     ]
 ]
 
 SUPPORT_ORDER_SOUVENIR = [
-   [
+    [
         InlineKeyboardButton(
             text=SHORT_RETURN_BACK_BUTTON_TEXT, callback_data=GIVE_SUPPORT
         ),
         InlineKeyboardButton(
             text="Перейти в магазин",
             url="https://vk.com/market-190536221",
-        )
+        ),
     ]
 ]
 

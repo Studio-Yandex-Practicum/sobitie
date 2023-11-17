@@ -3,7 +3,8 @@ from dataclasses import dataclass
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.keyboards.about_us import (
+from drf_sobitie.bot.constants import ABOUT_US_STATE, PROJECTS_STATE
+from drf_sobitie.bot.keyboards.about_us import (
     ABOUT_US_MENU_BUTTONS,
     DOCUMENTS_MENU_BUTTONS,
     EMAIL_INFO_BUTTON,
@@ -15,7 +16,6 @@ from bot.keyboards.about_us import (
     RETURN_BACK_BUTTON,
     THEATRE_SCHOOL_BUTTON,
 )
-from bot.constants import ABOUT_US_STATE, PROJECTS_STATE
 
 
 @dataclass
@@ -24,9 +24,7 @@ class ProjectInfoMessage:
 
     text: str
     image_url: str
-    keyboard: InlineKeyboardMarkup = (
-        InlineKeyboardMarkup(RETURN_BACK_BUTTON)
-    )
+    keyboard: InlineKeyboardMarkup = InlineKeyboardMarkup(RETURN_BACK_BUTTON)
 
 
 async def show_about_us(update: Update, _: CallbackContext):
@@ -60,8 +58,11 @@ async def show_documents(update: Update, _: CallbackContext):
         "Полное название: Автономная некоммерческая организация "
         "«Центр социокультурных практик «Событие»\n"
         "Сокращённое название: АНО «Событие»\n\n"
-        "ИНН: 7727301229\n" "КПП: 772701001\n" "ОГРН: 1167700068051\n"
-        "Расчётный счёт: 40703810002690000027\n" "Банк: АО «АЛЬФА-БАНК»\n"
+        "ИНН: 7727301229\n"
+        "КПП: 772701001\n"
+        "ОГРН: 1167700068051\n"
+        "Расчётный счёт: 40703810002690000027\n"
+        "Банк: АО «АЛЬФА-БАНК»\n"
         "БИК банка: 044525593\n"
         "Корреспондентский счёт: 30101810200000000593\n"
         "Директор: Елена Викторовна Киселева"
@@ -131,7 +132,7 @@ async def show_inclusive_workshop(update: Update, _: CallbackContext):
             "Ребята не только сами учатся различным видам рукоделия, но и проводят очные и дистанционные мастер-классы."
         ),
         image_url="https://sobytie.center/wp-content/uploads/2022/07/Masterskaya-svechi.jpg",
-        keyboard=InlineKeyboardMarkup(INCLUSIVE_WORKSHOP_BUTTON)
+        keyboard=InlineKeyboardMarkup(INCLUSIVE_WORKSHOP_BUTTON),
     )
     await _send_project_info(update=update, message=message)
 
@@ -145,7 +146,7 @@ async def show_theatre_school(update: Update, _: CallbackContext):
             "помогают изготавливать костюмы и реквизит для спектаклей, а также сопровождают школьников во время показов.\n"
         ),
         image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
-        keyboard=InlineKeyboardMarkup(THEATRE_SCHOOL_BUTTON)
+        keyboard=InlineKeyboardMarkup(THEATRE_SCHOOL_BUTTON),
     )
     await _send_project_info(update=update, message=message)
 
@@ -188,7 +189,4 @@ async def show_email_info(update: Update, _: CallbackContext):
         "Вы можете написать нам на нашу электронную почту: \n"
         "sobytie.center@yandex.ru"
     )
-    await query.edit_message_text(
-        text=message_text,
-        reply_markup=keyboard
-    )
+    await query.edit_message_text(text=message_text, reply_markup=keyboard)

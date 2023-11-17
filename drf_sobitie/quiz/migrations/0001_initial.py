@@ -6,52 +6,124 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Quiz',
+            name="Quiz",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='введите название квиза', max_length=50, unique=True, verbose_name='Название квиза')),
-                ('description', models.TextField(help_text='напишите, о чем этот квиз', verbose_name='Описание квиза')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        help_text="введите название квиза",
+                        max_length=50,
+                        unique=True,
+                        verbose_name="Название квиза",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        help_text="напишите, о чем этот квиз",
+                        verbose_name="Описание квиза",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'verbose_name': 'Квиз',
-                'verbose_name_plural': 'Квизы',
-                'db_table': 'quiz',
+                "verbose_name": "Квиз",
+                "verbose_name_plural": "Квизы",
+                "db_table": "quiz",
             },
         ),
         migrations.CreateModel(
-            name='Question',
+            name="Question",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('image', models.ImageField(help_text='при желании прикрепите картинку', upload_to='quiz_quiestions/%Y/%m/%d/', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['jpeg', 'jpg', 'png', 'mp4'])], verbose_name='Изображение')),
-                ('question_text', models.TextField(help_text='введите текст вопроса', max_length=250, verbose_name='Вопрос')),
-                ('quiz', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='quiz.quiz')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "image",
+                    models.ImageField(
+                        help_text="при желании прикрепите картинку",
+                        upload_to="quiz_quiestions/%Y/%m/%d/",
+                        validators=[
+                            django.core.validators.FileExtensionValidator(
+                                allowed_extensions=["jpeg", "jpg", "png", "mp4"]
+                            )
+                        ],
+                        verbose_name="Изображение",
+                    ),
+                ),
+                (
+                    "question_text",
+                    models.TextField(
+                        help_text="введите текст вопроса",
+                        max_length=250,
+                        verbose_name="Вопрос",
+                    ),
+                ),
+                (
+                    "quiz",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="quiz.quiz"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Квиз',
-                'verbose_name_plural': 'Квизы',
-                'db_table': 'question',
+                "verbose_name": "Квиз",
+                "verbose_name_plural": "Квизы",
+                "db_table": "question",
             },
         ),
         migrations.CreateModel(
-            name='Answer',
+            name="Answer",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('answer_text', models.CharField(help_text='введите текст ответа', max_length=100, verbose_name='Ответ')),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='quiz.question')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "answer_text",
+                    models.CharField(
+                        help_text="введите текст ответа",
+                        max_length=100,
+                        verbose_name="Ответ",
+                    ),
+                ),
+                (
+                    "question",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="quiz.question"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Ответ',
-                'verbose_name_plural': 'Ответы',
-                'db_table': 'answers',
+                "verbose_name": "Ответ",
+                "verbose_name_plural": "Ответы",
+                "db_table": "answers",
             },
         ),
     ]
