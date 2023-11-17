@@ -55,4 +55,4 @@ class APIClient:
 
 
 def get_client():
-    return APIClient(settings.HOST)
+    return APIClient(settings.API_ADDRESS)
