@@ -1,9 +1,9 @@
-import emoji
 from telegram import InlineKeyboardMarkup, Update
 from telegram.constants import ParseMode
 from telegram.ext import CallbackContext
 
-from bot.keyboards.support import (
+from drf_sobitie.bot import constants as states
+from drf_sobitie.bot.keyboards.support import (
     DONATION_OPTIONS_MENU_BUTTONS,
     RETURN_TO_SUPPORT_BUTTON,
     SUPPORT_CREATE_COLLECTION_BUTTONS,
@@ -12,9 +12,8 @@ from bot.keyboards.support import (
     TINKOFF_CASHBACK_MENU_BUTTONS,
     TINKOFF_DONATION_MENU_BUTTONS,
     create_menu_order_souvenir,
-    create_menu_other_help
+    create_menu_other_help,
 )
-from bot import constants as states
 
 
 async def show_give_support_menu(update: Update, _: CallbackContext):
@@ -35,9 +34,7 @@ async def create_a_collection(update: Update, _: CallbackContext):
     """Обработчик кнопки 'Создать сбор'."""
     query = update.callback_query
     await query.answer()
-    message_text = (
-        "Создайте сбор или организуйте благотворительное мероприятие на платформе «Пользуясь случаем»."
-    )
+    message_text = "Создайте сбор или организуйте благотворительное мероприятие на платформе «Пользуясь случаем»."
     keyboard = InlineKeyboardMarkup(SUPPORT_CREATE_COLLECTION_BUTTONS)
     await query.edit_message_text(
         text=message_text,
@@ -69,9 +66,7 @@ async def show_link_to_support_chat(update: Update, _: CallbackContext):
         "Ваша ссылка на чат с обсуждением вариантов помощи: \n"
         "<a href=https://t.me/gingersilence>Оксана Приходько</a>"
     )
-    keyboard_markup = InlineKeyboardMarkup(
-        RETURN_TO_SUPPORT_BUTTON
-    )
+    keyboard_markup = InlineKeyboardMarkup(RETURN_TO_SUPPORT_BUTTON)
     await query.edit_message_text(text=message_text, reply_markup=keyboard_markup)
 
 
@@ -122,9 +117,9 @@ async def show_other_help_menu(update: Update, _: CallbackContext):
     menu_other_help = await create_menu_other_help(user_id=query.from_user.id)
     keyboard_markup = InlineKeyboardMarkup(menu_other_help)
 
-    await query.edit_message_text(text=message_text,
-                                  reply_markup=keyboard_markup,
-                                  parse_mode=ParseMode.HTML)
+    await query.edit_message_text(
+        text=message_text, reply_markup=keyboard_markup, parse_mode=ParseMode.HTML
+    )
     return states.OTHER_HELP_STATE
 
 
@@ -134,10 +129,7 @@ async def show_tinkoff_donation(update: Update, _: CallbackContext):
     await query.answer()
     keyboard = InlineKeyboardMarkup(TINKOFF_DONATION_MENU_BUTTONS)
     message_text = "Выберите удобный вариант пожертвования"
-    await query.edit_message_text(
-        text=message_text,
-        reply_markup=keyboard
-    )
+    await query.edit_message_text(text=message_text, reply_markup=keyboard)
 
 
 async def show_tinkoff_cashback(update: Update, _: CallbackContext):
@@ -155,7 +147,4 @@ async def show_tinkoff_cashback(update: Update, _: CallbackContext):
         "6. Введите в поиске: Событие и выберите фонд. \n\n"
         "✔️ Готово"
     )
-    await query.edit_message_text(
-        text=message_text,
-        reply_markup=keyboard
-    )
+    await query.edit_message_text(text=message_text, reply_markup=keyboard)

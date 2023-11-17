@@ -8,8 +8,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
-from api.mixins import BaseListCreateDeleteViewSet
-from api.serializers import (
+from drf_sobitie.api.mixins import BaseListCreateDeleteViewSet
+from drf_sobitie.api.serializers import (
     EventPostSerializer,
     EventSerializer,
     QuestionSerializer,
@@ -19,9 +19,9 @@ from api.serializers import (
     StickerpackSerializer,
     SubscriberSerializer,
 )
-from event.models import Event, Quote, Subscriber
-from quiz.models import Question, Quiz, QuizResult
-from sticker_pack.models import Stickerpack
+from drf_sobitie.event.models import Event, Quote, Subscriber
+from drf_sobitie.quiz.models import Question, Quiz, QuizResult
+from drf_sobitie.sticker_pack.models import Stickerpack
 
 
 class StickerpackViewSet(ModelViewSet):
@@ -51,44 +51,47 @@ class QuoteViewSet(ModelViewSet):
 
 class QuizViewSet(ModelViewSet):
     """Вьюсет для квизов."""
+
     queryset = Quiz.objects.all()
     serializer_class = QuizSerializer
 
 
 class QuizResultViewSet(ModelViewSet):
     """Вьюсет для результатов квизов."""
+
     serializer_class = QuizResultSerializer
 
     def get_queryset(self):
-        quiz_id = self.kwargs['quiz_id']
-        correct_answer_count = int(self.request.query_params.get("correct_answer_count"))
+        quiz_id = self.kwargs["quiz_id"]
+        correct_answer_count = int(
+            self.request.query_params.get("correct_answer_count")
+        )
         if correct_answer_count:
-            return [QuizResult.objects.filter(
-                quiz_id=quiz_id,
-                correct_answer_cnt__lte=correct_answer_count
-            ).first()]
-        return [QuizResult.objects.filter(
-            quiz_id=quiz_id,
-            correct_answer_cnt__gte=correct_answer_count
-        ).last()]
+            return [
+                QuizResult.objects.filter(
+                    quiz_id=quiz_id, correct_answer_cnt__lte=correct_answer_count
+                ).first()
+            ]
+        return [
+            QuizResult.objects.filter(
+                quiz_id=quiz_id, correct_answer_cnt__gte=correct_answer_count
+            ).last()
+        ]
 
 
 class QuestionQuizViewSet(ModelViewSet):
     """Вьюсет для вопросов."""
+
     serializer_class = QuestionSerializer
 
     def get_queryset(self):
-        quiz_id = self.kwargs['quiz_id']
+        quiz_id = self.kwargs["quiz_id"]
         last_question_id = self.request.query_params.get("last_question_id")
         if last_question_id:
             return Question.objects.filter(
-                quiz_id=quiz_id, id=int(last_question_id)+1
+                quiz_id=quiz_id, id=int(last_question_id) + 1
             )
-        return [
-            Question.objects.filter(
-                quiz_id=quiz_id
-            ).order_by("id").first()
-        ]
+        return [Question.objects.filter(quiz_id=quiz_id).order_by("id").first()]
 
 
 class QuestionViewSet(ModelViewSet):
@@ -115,47 +118,57 @@ class CheckForSubscription(APIView):
 
 
 class VKView(APIView):
-    def common(self, text):
-        events = [event.description for event in Event.objects.all()]
-        if "афиша события" in text.lower() and text not in events:
+    @staticmethod
+    def __remove_not_actual_events(events, vk_posts):
+        events.exclude(
+            vk_post_id__in=[post["id"] for post in vk_posts]
+        ).delete()
+
+    @staticmethod
+    def __get_event_data(text):
+        descriptions_of_events = [event.description for event in Event.objects.all()]
+        if "афиша события" in text.lower() and text not in descriptions_of_events:
             event_time = re.search(r"\d\d\.\d\d\.\d{4} \d{2}:\d{2}", text).group(0)
             event_time = datetime.strptime(event_time, "%d.%m.%Y %H:%M")
             description = text.split("#")[0]
             location = re.search(r"Место события: г.[а-яА-Я-, ]+", text).group(0)
-            return event_time, description, location
+
+            return {
+                "event_time": event_time,
+                "location": location,
+                "description": description
+            }
         return None
 
     def post(self, request):
-        data = dict(request.data)
-        vk_post_id = int(data["id"][0])
-        data = self.common(text=data["text"][0])
+        data = self.__get_event_data(text=request.data["text"])
         if data is None:
             return Response(status=status.HTTP_200_OK)
-        event_time, description, location = data
-        data = {
-            "event_time": event_time,
-            "location": location,
-            "description": description,
-            "vk_post_id": vk_post_id,
-        }
+        data["vk_post_id"] = int(request.data["id"])
         serializer = EventPostSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-    def put(self, request, pk):
-        event_time, description, location = self.common(text=request["text"])
-        vk_post_id = request["id"]
-        event = Event.objects.get(vk_post_id=pk)
-        data = {
-            "event_time": event_time,
-            "location": location,
-            "description": description,
-            "vk_post_id": vk_post_id,
-        }
-        serializer = EventPostSerializer(event, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def put(self, request):
+        events = Event.objects.order_by("-event_time")
+        vk_posts = request.data
+        self.__remove_not_actual_events(events, vk_posts)
+        for post in vk_posts:
+            data = self.__get_event_data(text=post["text"])
+            data["vk_post_id"] = post["id"]
+            serializer = EventPostSerializer(data=data)
+            if not events.filter(vk_post_id=post["id"]).exists():
+                if serializer.is_valid():
+                    serializer.save()
+                continue
+
+            event = events.get(vk_post_id=post["id"])
+            if serializer.is_valid():
+                event.event_time = data["event_time"]
+                event.description = data["description"]
+                event.location = data["location"]
+                event.save()
+
+        return Response(status=status.HTTP_200_OK)

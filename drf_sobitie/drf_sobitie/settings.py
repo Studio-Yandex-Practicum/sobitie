@@ -14,7 +14,7 @@ LOG_LEVEL = "INFO"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 NOTIFICATIONS_API_URL = os.getenv("NOTIFICATIONS_API_URL")
 CHECK_FOR_SUBSCRIPTION_API_URL = os.getenv("CHECK_FOR_SUBSCRIPTION_API_URL")
-HOST = os.getenv("HOST", "http://localhost:8000")
+API_ADDRESS = os.getenv("API_ADDRESS", "http://localhost:8000")
 VK_SERVICE_KEY = os.getenv("VK_SERVICE_KEY")
 VK_GROUP_ID = int(os.getenv("VK_GROUP_ID"))
 
@@ -22,8 +22,7 @@ VK_GROUP_ID = int(os.getenv("VK_GROUP_ID"))
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv("DJ_SECRET_KEY",
-                       default="djangosecretkey_WG312t0k130fk13f")
+SECRET_KEY = os.getenv("DJ_SECRET_KEY", default="djangosecretkey_WG312t0k130fk13f")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", default=False)
@@ -39,9 +38,7 @@ SCHEDULER_CONFIG = {
     "apscheduler.jobstores.default": {
         "class": "django_apscheduler.jobstores:DjangoJobStore"
     },
-    'apscheduler.executors.processpool': {
-        "type": "threadpool"
-    },
+    "apscheduler.executors.processpool": {"type": "threadpool"},
 }
 
 # Application definition
@@ -159,10 +156,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 CSRF_TRUSTED_ORIGINS = [
-    'http://*.localhost',
-    'http://localhost*',
-    'http://*.127.0.0.1',
+    "http://*.localhost",
+    "http://localhost*",
+    "http://*.127.0.0.1",
     "http://127.0.0.1*",
     "http://84.201.189.83*",
-    "http://*.84.201.189.83"
+    "http://*.84.201.189.83",
 ]

@@ -9,7 +9,6 @@ from .models import Answer, Question, Quiz, QuizResult
 
 
 class RequiredFormSet(forms.models.BaseInlineFormSet):
-
     def init(self, *args, **kwargs):
         super(RequiredFormSet, self).init(*args, **kwargs)
         self.forms[0].empty_permitted = False
@@ -29,13 +28,20 @@ class RequiredFormSet(forms.models.BaseInlineFormSet):
 class AnswerInline(admin.TabularInline):
     model = Answer
     formset = RequiredFormSet
-    fields = ('answer_text', 'is_right',)
+    fields = (
+        "answer_text",
+        "is_right",
+    )
 
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     inlines = [AnswerInline]
-    fields = ("quiz", "image", "question_text", )
+    fields = (
+        "quiz",
+        "image",
+        "question_text",
+    )
     list_filter = ("quiz_id",)
 
 

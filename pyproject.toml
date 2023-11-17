@@ -31,6 +31,9 @@ django-apscheduler = "^0.6.2"
 channels = "^4.0.0"
 daphne = "^4.0.0"
 
+[tool.poetry.group.dev.dependencies]
+black = "^23.11.0"
+
 [tool.isort]
 line_length = 120
 extend_skip_glob = ["*/migrations/*"]

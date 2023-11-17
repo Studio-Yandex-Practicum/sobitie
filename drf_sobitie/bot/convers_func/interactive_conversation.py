@@ -4,9 +4,12 @@ import emoji
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.convers_func.api_conversation import get_client
-from bot.keyboards.interactive import INTERACTIVE_BUTTONS, RETURN_TO_INTERACTIVE_MENU_BUTTON
-from bot.constants import INTERACTIVE_STATE
+from drf_sobitie.bot.api_client import get_client
+from drf_sobitie.bot.constants import INTERACTIVE_STATE
+from drf_sobitie.bot.keyboards.interactive import (
+    INTERACTIVE_BUTTONS,
+    RETURN_TO_INTERACTIVE_MENU_BUTTON,
+)
 
 
 async def menu_interactive(update: Update, _: CallbackContext):
@@ -18,8 +21,8 @@ async def menu_interactive(update: Update, _: CallbackContext):
     if query.message.text is None:
         await query.delete_message()
         await query.message.reply_text(
-        text="Интерактив",
-        reply_markup=keyboard,
+            text="Интерактив",
+            reply_markup=keyboard,
         )
     else:
         await query.edit_message_text(
@@ -48,18 +51,12 @@ async def get_stickers(update: Update, _: CallbackContext):
     keyboard = InlineKeyboardMarkup(RETURN_TO_INTERACTIVE_MENU_BUTTON)
 
     def absence_stikers(text, my_moji):
-        return (
-            f"{emoji.emojize(my_moji)}"
-            f"{text}"
-            f"{emoji.emojize(my_moji)}"
-        )
+        return f"{emoji.emojize(my_moji)}" f"{text}" f"{emoji.emojize(my_moji)}"
 
     if len(response) < 1:
         await query.edit_message_text(
-            text=absence_stikers(
-                "Стикеры пока не завезли, ждем на днях",
-                ':ship:'
-            ), reply_markup=keyboard
+            text=absence_stikers("Стикеры пока не завезли, ждем на днях", ":ship:"),
+            reply_markup=keyboard,
         )
         return
 
@@ -73,20 +70,20 @@ async def get_stickers(update: Update, _: CallbackContext):
             description = response[i].get("description")
             url_sticker = response[i].get("url_sticker")
             image = response[i].get("image")
-            text = (
-                f"{name} \n\n{description}\n\n"
-            )
+            text = f"{name} \n\n{description}\n\n"
             caption = (
                 f"{emoji.emojize(':backhand_index_pointing_up:')}"
                 f"-Забирай-{emoji.emojize(':backhand_index_pointing_up:')}"
             )
             sticker_keyboard = InlineKeyboardMarkup(
-                [[
-                    InlineKeyboardButton(
-                        text=caption,
-                        url=url_sticker,
-                    )
-                ]]
+                [
+                    [
+                        InlineKeyboardButton(
+                            text=caption,
+                            url=url_sticker,
+                        )
+                    ]
+                ]
             )
             query = update.callback_query
             if image:
@@ -98,12 +95,12 @@ async def get_stickers(update: Update, _: CallbackContext):
                 f"Выбирайте и добавляйте себе понравившиеся варианты стикерпаков - их создают ученики нашего центра. А мы будем создавать для вас новые!"
                 f"{emoji.emojize(':backhand_index_pointing_up:')}"
             ),
-            reply_markup=keyboard
+            reply_markup=keyboard,
         )
         return
     await query.edit_message_text(
         text=absence_stikers("Редактируем, скоро релиз!!", ":fire:"),
-        reply_markup=keyboard
+        reply_markup=keyboard,
     )
     return
 
@@ -121,7 +118,8 @@ async def get_quote(update: Update, _: CallbackContext):
                 f"{emoji.emojize(':detective:')}"
                 f"В поисках подходящей цитаты"
                 f"{emoji.emojize(':detective:')}"
-            ), reply_markup=keyboard
+            ),
+            reply_markup=keyboard,
         )
         return
 
@@ -131,11 +129,9 @@ async def get_quote(update: Update, _: CallbackContext):
         photo = urllib.request.urlopen(image).read()
         await query.delete_message()
         await query.message.reply_photo(
-            caption=quote,
-            photo=photo,
-            reply_markup=keyboard
+            caption=quote, photo=photo, reply_markup=keyboard
         )
         return
-    
+
     await query.edit_message_text(text=quote, reply_markup=keyboard)
     return

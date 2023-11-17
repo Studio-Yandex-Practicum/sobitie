@@ -10,12 +10,7 @@ EMPTY_VALUE = "-пусто-"
 
 @admin.register(Stickerpack)
 class StickerAdmin(admin.ModelAdmin):
-    list_display = (
-        "name",
-        "description",
-        "thumbnail_of_image",
-        "is_active"
-    )
+    list_display = ("name", "description", "thumbnail_of_image", "is_active")
     list_editable = ["is_active"]
     empty_value_display = EMPTY_VALUE
 

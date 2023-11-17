@@ -5,8 +5,8 @@ import emoji
 from requests import Response
 from telegram import InlineKeyboardButton
 
-from bot.convers_func.api_conversation import get_client
-from bot.keyboards.main import (
+from drf_sobitie.bot.api_client import get_client
+from drf_sobitie.bot.keyboards.main import (
     RETURN_BACK_BUTTON_TEXT,
     RETURN_TO_START,
     SHORT_RETURN_BACK_BUTTON_TEXT,
@@ -20,7 +20,7 @@ NOTIFICATION_UNSUBSCRIBE_CALLBACK = "NOTIFICATION_UNSUBSCRIBE_CALLBACK"
 EVENT_MENU = "EVENT_MENU"
 
 UPCOMING_EVENTS_BUTTON = InlineKeyboardButton(
-    text=f"{emoji.emojize(':calendar:')} Ближайшие события",
+    text="Ближайшие события",
     callback_data=UPCOMING_EVENTS,
 )
 RETURN_TO_EVENT_MENU_BUTTON = InlineKeyboardButton(

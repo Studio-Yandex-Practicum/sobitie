@@ -1,6 +1,7 @@
 from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandler
 
-from bot.convers_func.about_us_conversation import (
+from drf_sobitie.bot.constants import ABOUT_US_STATE, PROJECTS_STATE
+from drf_sobitie.bot.convers_func.about_us_conversation import (
     show_about_us,
     show_documents,
     show_email_info,
@@ -11,10 +12,10 @@ from bot.convers_func.about_us_conversation import (
     show_reports,
     show_theatre_school,
 )
-from bot.convers_func.main_conversation import end
-from bot.handlers.contacts_handler import contacts_conv
-from bot.handlers.people_handler import people_conv
-from bot.keyboards.about_us import (
+from drf_sobitie.bot.convers_func.main_conversation import end
+from drf_sobitie.bot.handlers.contacts_handler import contacts_conv
+from drf_sobitie.bot.handlers.people_handler import people_conv
+from drf_sobitie.bot.keyboards.about_us import (
     EMAIL_INFO,
     INCLUSIVE_WORKSHOP,
     LEGAL_DOCUMENTS,
@@ -25,8 +26,7 @@ from bot.keyboards.about_us import (
     RETURN_TO_BACK,
     THEATRE_SCHOOL,
 )
-from bot.keyboards.main import ABOUT_US, END
-from bot.constants import ABOUT_US_STATE, PROJECTS_STATE
+from drf_sobitie.bot.keyboards.main import ABOUT_US, END
 
 about_us_conv = ConversationHandler(
     allow_reentry=True,
@@ -53,9 +53,7 @@ about_us_conv = ConversationHandler(
             CallbackQueryHandler(
                 show_moscow_partala_online, pattern="^" + MOSCOW_ONLINE + "$"
             ),
-            CallbackQueryHandler(
-                show_projects, pattern="^" + RETURN_TO_BACK + "$"
-            ),
+            CallbackQueryHandler(show_projects, pattern="^" + RETURN_TO_BACK + "$"),
         ],
     },
     fallbacks=[CommandHandler(END, end)],

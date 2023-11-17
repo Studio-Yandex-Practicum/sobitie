@@ -1,7 +1,7 @@
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
 
-from bot.keyboards.main import START_MENU_BUTTONS
+from drf_sobitie.bot.keyboards.main import START_MENU_BUTTONS
 
 
 async def show_info_what_we_do(update: Update, _: CallbackContext):
