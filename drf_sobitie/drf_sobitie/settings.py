@@ -44,11 +44,13 @@ SCHEDULER_CONFIG = {
 # Application definition
 
 INSTALLED_APPS = [
+    "channels",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
+    "daphne",
     "django.contrib.staticfiles",
     "django_apscheduler",
     "rest_framework",
@@ -57,6 +59,7 @@ INSTALLED_APPS = [
     "quiz.apps.QuizConfig",
     "sticker_pack.apps.StickersConfig",
     "bot.apps.BotConfig",
+    "notifications.apps.NotificationsConfig",
 ]
 
 MIDDLEWARE = [
@@ -87,6 +90,7 @@ TEMPLATES = [
     },
 ]
 
+ASGI_APPLICATION = "drf_sobitie.asgi.application"
 WSGI_APPLICATION = "drf_sobitie.wsgi.application"
 
 # Database
@@ -97,6 +101,12 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db/db.sqlite3",
     }
+}
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
 }
 
 # Password validation

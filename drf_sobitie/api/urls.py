@@ -13,6 +13,7 @@ from drf_sobitie.api.views import (
     StickerpackViewSet,
     VKView,
 )
+from drf_sobitie.notifications.views import send_event_notification
 
 router = DefaultRouter()
 
@@ -33,5 +34,6 @@ urlpatterns = [
     path("", include(router.urls)),
     path("vk/", VKView.as_view()),
     path("check_for_subscription/<int:user_id>/", CheckForSubscription.as_view()),
+    path("send-event-notification/", send_event_notification, name="send_event_notification"),
     path("vk/", VKView.as_view()),
 ]
