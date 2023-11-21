@@ -34,7 +34,7 @@ pip install requirements.txt
 ```
 - Выполнить миграции Django
 ```BASH
-python drf_sobitie/manage.py migrate
+python conf/manage.py migrate
 ```
 ##### Создание Telegram bot
 - Вам понадобится Telegram бот <[Интерфейс для создания](https://telegram.me/BotFather)>  <[Туториал](https://core.telegram.org/bots/tutorial#obtain-your-bot-token)>

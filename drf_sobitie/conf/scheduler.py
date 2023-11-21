@@ -9,7 +9,7 @@ from django_apscheduler.jobstores import register_job
 from vk_api.tools import VkTools
 
 
-from drf_sobitie.drf_sobitie.settings import (
+from drf_sobitie.conf.settings import (
     VK_SERVICE_KEY, VK_GROUP_ID, API_ADDRESS
 )
 
