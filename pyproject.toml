@@ -7,8 +7,11 @@ authors = [
     "Екатерина Каричева", "Кирилл Резник",
     "Даниил Паутов <danpautoff@yandex.ru>", "Владимир Тихий",
     "Вячеслав Роев", "Оксана Шеремет", "Сергей Разуваев",
+    "Варламов Антон"
 ]
 readme = "README.md"
+packages = [{include = "drf_sobitie"}]
+
 
 [tool.poetry.dependencies]
 python = "^3.9"

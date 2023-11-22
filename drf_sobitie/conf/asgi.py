@@ -6,7 +6,7 @@ from channels.routing import ProtocolTypeRouter, URLRouter
 
 from notifications.consumers import EventNotificationConsumer
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "drf_sobitie.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "conf.settings")
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),

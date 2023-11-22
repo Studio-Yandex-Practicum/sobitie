@@ -15,7 +15,8 @@ TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 NOTIFICATIONS_API_URL = os.getenv("NOTIFICATIONS_API_URL")
 CHECK_FOR_SUBSCRIPTION_API_URL = os.getenv("CHECK_FOR_SUBSCRIPTION_API_URL")
 API_ADDRESS = os.getenv("API_ADDRESS", "http://localhost:8000")
-VK_SERVICE_KEY = os.getenv("VK_SERVICE_KEY")
+VK_APP_SERVICE_KEY=os.getenv("VK_APP_SERVICE_KEY")
+VK_ACCESS_TOKEN = os.getenv("VK_ACCESS_TOKEN")
 VK_GROUP_ID = int(os.getenv("VK_GROUP_ID"))
 
 # Quick-start development settings - unsuitable for production
@@ -54,12 +55,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_apscheduler",
     "rest_framework",
-    "api.apps.ApiConfig",
-    "event.apps.EventConfig",
-    "quiz.apps.QuizConfig",
-    "sticker_pack.apps.StickersConfig",
-    "bot.apps.BotConfig",
-    "notifications.apps.NotificationsConfig",
+    "drf_sobitie.api.apps.ApiConfig",
+    "drf_sobitie.event.apps.EventConfig",
+    "drf_sobitie.quiz.apps.QuizConfig",
+    "drf_sobitie.sticker_pack.apps.StickersConfig",
+    "drf_sobitie.bot.apps.BotConfig",
+    "drf_sobitie.notifications.apps.NotificationsConfig",
 ]
 
 MIDDLEWARE = [
@@ -72,7 +73,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "drf_sobitie.urls"
+ROOT_URLCONF = "conf.urls"
 
 TEMPLATES = [
     {
@@ -90,8 +91,8 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = "drf_sobitie.asgi.application"
-WSGI_APPLICATION = "drf_sobitie.wsgi.application"
+ASGI_APPLICATION = "conf.asgi.application"
+WSGI_APPLICATION = "conf.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

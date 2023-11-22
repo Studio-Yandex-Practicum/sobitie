@@ -4,7 +4,7 @@ services:
     image: mnmyasis/sobitie:latest
     container_name: drf_sobitie
     restart: always
-    command: sh -c "cd drf_sobitie/; gunicorn drf_sobitie.wsgi:application --bind 0:8000"
+    command: sh -c "cd drf_sobitie/; gunicorn conf.wsgi:application --bind 0:8000"
     volumes:
       - static_value:/app/drf_sobitie/static/
       - data:/app/drf_sobitie/db

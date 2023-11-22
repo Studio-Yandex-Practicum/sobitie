@@ -9,14 +9,14 @@ from django_apscheduler.jobstores import register_job
 from vk_api.tools import VkTools
 
 
-from drf_sobitie.drf_sobitie.settings import (
-    VK_SERVICE_KEY, VK_GROUP_ID, API_ADDRESS
+from drf_sobitie.conf.settings import (
+    VK_APP_SERVICE_KEY, VK_GROUP_ID, API_ADDRESS
 )
 
 
 scheduler = BackgroundScheduler()
 
-vk_session = vk_api.VkApi(token=VK_SERVICE_KEY)
+vk_session = vk_api.VkApi(token=VK_APP_SERVICE_KEY)
 tools = VkTools(vk_session)
 
 
