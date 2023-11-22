@@ -58,8 +58,8 @@ INSTALLED_APPS = [
     "drf_sobitite.event.apps.EventConfig",
     "drf_sobitite.quiz.apps.QuizConfig",
     "drf_sobitite.sticker_pack.apps.StickersConfig",
-    "drf_sobitite.ot.apps.BotConfig",
-    "drf_sobitite.otifications.apps.NotificationsConfig",
+    "drf_sobitite.bot.apps.BotConfig",
+    "drf_sobitite.notifications.apps.NotificationsConfig",
 ]
 
 MIDDLEWARE = [
@@ -72,7 +72,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "conf.urls"
+ROOT_URLCONF = "drf_sobitie.conf.urls"
 
 TEMPLATES = [
     {
@@ -90,8 +90,8 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = "conf.asgi.application"
-WSGI_APPLICATION = "conf.wsgi.application"
+ASGI_APPLICATION = "drf_sobitie.conf.asgi.application"
+WSGI_APPLICATION = "drf_sobitie.conf.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
