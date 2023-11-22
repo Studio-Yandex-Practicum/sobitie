@@ -54,12 +54,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_apscheduler",
     "rest_framework",
-    "drf_sobitite.api.apps.ApiConfig",
-    "drf_sobitite.event.apps.EventConfig",
-    "drf_sobitite.quiz.apps.QuizConfig",
-    "drf_sobitite.sticker_pack.apps.StickersConfig",
-    "drf_sobitite.bot.apps.BotConfig",
-    "drf_sobitite.notifications.apps.NotificationsConfig",
+    "drf_sobitie.api.apps.ApiConfig",
+    "drf_sobitie.event.apps.EventConfig",
+    "drf_sobitie.quiz.apps.QuizConfig",
+    "drf_sobitie.sticker_pack.apps.StickersConfig",
+    "drf_sobitie.bot.apps.BotConfig",
+    "drf_sobitie.notifications.apps.NotificationsConfig",
 ]
 
 MIDDLEWARE = [

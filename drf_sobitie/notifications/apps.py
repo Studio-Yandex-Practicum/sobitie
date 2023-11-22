@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class NotificationsConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "drf_sobitite.notifications"
+    name = "drf_sobitie.notifications"
