@@ -2,6 +2,7 @@
 name = "sobitie"
 version = "0.1.0"
 description = "sobitie_bot"
+packages = [{include = "drf_sobitie"}]
 authors = [
     "Владислав Бойко", "Никита Цыбин", "Андрей Укладчиков",
     "Екатерина Каричева", "Кирилл Резник",
