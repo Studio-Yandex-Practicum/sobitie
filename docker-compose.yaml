@@ -1,6 +1,9 @@
 version: '3.8'
 services:
   web:
+#    build:
+#      dockerfile: Dockerfile
+#      context: .
     image: mnmyasis/sobitie:latest
     container_name: drf_sobitie
     restart: always
@@ -11,10 +14,13 @@ services:
     env_file:
       - ./.env
   bot:
+#    build:
+#      dockerfile: Dockerfile
+#      context: .
     image: mnmyasis/sobitie:latest
     container_name: bot_sobitie
     restart: always
-    command: sh -c "cd drf_sobitie/; python manage.py runbot"
+    command: sh -c "python drf_sobitie/manage.py runbot"
     volumes:
       - media_value:/app/src/media/
     depends_on:
@@ -22,16 +28,18 @@ services:
     env_file:
       - ./.env
   scheduler:
-    build:
-      dockerfile: Dockerfile
-      context: .
-    command: sh -c "cd drf_sobitie/; python manage.py start-scheduler"
+#    build:
+#      dockerfile: Dockerfile
+#      context: .
+    image: mnmyasis/sobitie:latest
+    command: sh -c "python drf_sobitie/manage.py start-scheduler"
     container_name: scheduler_sobitie
     restart: always
     volumes:
       - static_value:/app/drf_sobitie/static/
       - data:/app/drf_sobitie/db
     depends_on:
+      - bot
       - web
     env_file:
       - ./.env
