@@ -11,7 +11,6 @@ authors = [
     "Варламов Антон"
 ]
 readme = "README.md"
-packages = [{include = "drf_sobitie"}]
 
 
 [tool.poetry.dependencies]
