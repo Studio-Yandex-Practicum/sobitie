@@ -8,4 +8,5 @@ RUN pip install -r /tmp/requirements.txt
 WORKDIR /app
 
 COPY . /app
-RUN pip install -e .
+RUN pip install . --no-deps
+

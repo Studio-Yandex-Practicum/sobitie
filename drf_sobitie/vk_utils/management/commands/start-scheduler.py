@@ -18,9 +18,4 @@ class Command(BaseCommand):
             )
             scheduler.start()
         except Exception:
-            logging.basicConfig(
-                format=FORMAT,
-                level=logging.INFO,
-                handlers=[logging.StreamHandler()],
-            )
             scheduler.shutdown()
