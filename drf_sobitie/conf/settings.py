@@ -61,7 +61,6 @@ INSTALLED_APPS = [
     "drf_sobitie.sticker_pack.apps.StickersConfig",
     "drf_sobitie.bot.apps.BotConfig",
     "drf_sobitie.notifications.apps.NotificationsConfig",
-    "drf_sobitie.vk_utils.apps.VkUtilsConfig"
 ]
 
 MIDDLEWARE = [
@@ -74,7 +73,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "conf.urls"
+ROOT_URLCONF = "drf_sobitie.conf.urls"
 
 TEMPLATES = [
     {
@@ -92,8 +91,8 @@ TEMPLATES = [
     },
 ]
 
-ASGI_APPLICATION = "conf.asgi.application"
-WSGI_APPLICATION = "conf.wsgi.application"
+ASGI_APPLICATION = "drf_sobitie.conf.asgi.application"
+WSGI_APPLICATION = "drf_sobitie.conf.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
@@ -152,7 +151,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
 
 CSRF_TRUSTED_ORIGINS = [
     "http://*.localhost",
