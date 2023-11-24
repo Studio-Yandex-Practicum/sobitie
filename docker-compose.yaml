@@ -21,6 +21,20 @@ services:
       - web
     env_file:
       - ./.env
+  scheduler:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: sh -c "cd drf_sobitie/; python manage.py start-scheduler"
+    container_name: scheduler_sobitie
+    restart: always
+    volumes:
+      - static_value:/app/drf_sobitie/static/
+      - data:/app/drf_sobitie/db
+    depends_on:
+      - web
+    env_file:
+      - ./.env
   nginx:
     image: nginx:1.21.3-alpine
     ports:
