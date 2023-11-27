@@ -76,7 +76,8 @@ jobs:
             touch .env
             cat /dev/null > .env
             echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
-            echo VK_SERVICE_KEY="${{ secrets.VK_SERVICE_KEY }}" >> .env
+            echo VK_APP_SERVICE_KEY="${{ secrets.VK_APP_SERVICE_KEY }}" >> .env
+            echo VK_ACCESS_TOKEN="${{ secrets.VK_ACCESS_TOKEN }}" >> .env
             echo VK_GROUP_ID="${{ secrets.VK_GROUP_ID }}" >> .env
             echo TELEGRAM_TOKEN="${{ secrets.TELEGRAM_TOKEN }}" >> .env
             echo API_ADDRESS="${{ secrets.API_ADDRESS }}" >> .env

@@ -3,12 +3,12 @@ import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll
 
 from drf_sobitie.conf.settings import (
-    VK_GROUP_ID, VK_SERVICE_KEY, API_ADDRESS
+    VK_GROUP_ID, VK_ACCESS_TOKEN, API_ADDRESS
 )
 
 
 def longpoll_vk():
-    vk_session = vk_api.VkApi(token=VK_SERVICE_KEY)
+    vk_session = vk_api.VkApi(token=VK_ACCESS_TOKEN)
     longpoll = VkBotLongPoll(vk_session, group_id=VK_GROUP_ID)
     for event in longpoll.listen():
         data = event.obj

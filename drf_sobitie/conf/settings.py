@@ -15,7 +15,8 @@ TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 NOTIFICATIONS_API_URL = os.getenv("NOTIFICATIONS_API_URL")
 CHECK_FOR_SUBSCRIPTION_API_URL = os.getenv("CHECK_FOR_SUBSCRIPTION_API_URL")
 API_ADDRESS = os.getenv("API_ADDRESS", "http://localhost:8000")
-VK_SERVICE_KEY = os.getenv("VK_SERVICE_KEY")
+VK_APP_SERVICE_KEY=os.getenv("VK_APP_SERVICE_KEY")
+VK_ACCESS_TOKEN = os.getenv("VK_ACCESS_TOKEN")
 VK_GROUP_ID = int(os.getenv("VK_GROUP_ID"))
 
 # Quick-start development settings - unsuitable for production
@@ -60,6 +61,7 @@ INSTALLED_APPS = [
     "drf_sobitie.sticker_pack.apps.StickersConfig",
     "drf_sobitie.bot.apps.BotConfig",
     "drf_sobitie.notifications.apps.NotificationsConfig",
+    "drf_sobitie.vk_utils.apps.VkUtilsConfig"
 ]
 
 MIDDLEWARE = [

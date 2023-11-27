@@ -9,3 +9,4 @@ WORKDIR /app
 
 COPY . /app
 RUN pip install . --no-deps
+
