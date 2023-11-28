@@ -145,7 +145,7 @@ async def show_theatre_school(update: Update, _: CallbackContext):
             "ассистируют на занятиях, проводят разминки и тренинги, участвуют в совместных творческих проектах,\n"
             "помогают изготавливать костюмы и реквизит для спектаклей, а также сопровождают школьников во время показов.\n"
         ),
-        image_url="https://sobytie.center/wp-content/uploads/2021/09/09-12-2019.jpg",
+        image_url="https://sobytie.center/project/inklyuzivnyj-teatr-studiya-sobytie/",
         keyboard=InlineKeyboardMarkup(THEATRE_SCHOOL_BUTTON),
     )
     await _send_project_info(update=update, message=message)
