@@ -4,7 +4,7 @@ services:
     image: mnmyasis/sobitie:latest
     container_name: drf_sobitie
     restart: always
-    command: sh -c "cd drf_sobitie/; gunicorn conf.wsgi:application --bind 0:8000"
+    command: sh -c "gunicorn drf_sobitie.conf.wsgi:application --bind 0:8000"
     volumes:
       - static_value:/app/drf_sobitie/static/
       - data:/app/drf_sobitie/db
@@ -14,16 +14,16 @@ services:
     image: mnmyasis/sobitie:latest
     container_name: bot_sobitie
     restart: always
-    command: sh -c "python drf_sobitie/manage.py runbot"
+    command: sh -c "python manage.py runbot"
     volumes:
-      - media_value:/app/src/media/
+      - media_value:/app/drf_sobitie/media/
     depends_on:
       - web
     env_file:
       - ./.env
   scheduler:
     image: mnmyasis/sobitie:latest
-    command: sh -c "python drf_sobitie/manage.py start-scheduler"
+    command: sh -c "python manage.py start-scheduler"
     container_name: scheduler_sobitie
     restart: always
     depends_on:
