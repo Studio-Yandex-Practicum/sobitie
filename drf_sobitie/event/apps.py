@@ -7,4 +7,4 @@ class EventConfig(AppConfig):
     verbose_name = "События"
 
     def ready(self):
-        import event.signals  # noqa
+        import drf_sobitie.event.signals  # noqa
