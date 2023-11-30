@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "drf_sobitie.api.apps.ApiConfig",
     "drf_sobitie.event.apps.EventConfig",
-    "drf_sobitie.quiz.apps.QuizConfig",
     "drf_sobitie.sticker_pack.apps.StickersConfig",
     "drf_sobitie.bot.apps.BotConfig",
     "drf_sobitie.notifications.apps.NotificationsConfig",

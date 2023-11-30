@@ -12,15 +12,11 @@ from drf_sobitie.api.mixins import BaseListCreateDeleteViewSet
 from drf_sobitie.api.serializers import (
     EventPostSerializer,
     EventSerializer,
-    QuestionSerializer,
-    QuizResultSerializer,
-    QuizSerializer,
     QuoteSerializer,
     StickerpackSerializer,
     SubscriberSerializer,
 )
 from drf_sobitie.event.models import Event, Quote, Subscriber
-from drf_sobitie.quiz.models import Question, Quiz, QuizResult
 from drf_sobitie.sticker_pack.models import Stickerpack
 
 
@@ -47,58 +43,6 @@ class QuoteViewSet(ModelViewSet):
     # Берем случайный объект модели Quote
     queryset = Quote.objects.order_by("?")[:1]
     serializer_class = QuoteSerializer
-
-
-class QuizViewSet(ModelViewSet):
-    """Вьюсет для квизов."""
-
-    queryset = Quiz.objects.all()
-    serializer_class = QuizSerializer
-
-
-class QuizResultViewSet(ModelViewSet):
-    """Вьюсет для результатов квизов."""
-
-    serializer_class = QuizResultSerializer
-
-    def get_queryset(self):
-        quiz_id = self.kwargs["quiz_id"]
-        correct_answer_count = int(
-            self.request.query_params.get("correct_answer_count")
-        )
-        if correct_answer_count:
-            return [
-                QuizResult.objects.filter(
-                    quiz_id=quiz_id, correct_answer_cnt__lte=correct_answer_count
-                ).first()
-            ]
-        return [
-            QuizResult.objects.filter(
-                quiz_id=quiz_id, correct_answer_cnt__gte=correct_answer_count
-            ).last()
-        ]
-
-
-class QuestionQuizViewSet(ModelViewSet):
-    """Вьюсет для вопросов."""
-
-    serializer_class = QuestionSerializer
-
-    def get_queryset(self):
-        quiz_id = self.kwargs["quiz_id"]
-        last_question_id = self.request.query_params.get("last_question_id")
-        if last_question_id:
-            return Question.objects.filter(
-                quiz_id=quiz_id, id=int(last_question_id) + 1
-            )
-        return [Question.objects.filter(quiz_id=quiz_id).order_by("id").first()]
-
-
-class QuestionViewSet(ModelViewSet):
-    """Вьюсет для вопросов."""
-
-    queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
 
 
 class NotificationsViewSet(BaseListCreateDeleteViewSet):
