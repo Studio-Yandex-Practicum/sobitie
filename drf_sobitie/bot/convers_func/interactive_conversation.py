@@ -45,7 +45,7 @@ async def get_stickers(update: Update, _: CallbackContext):
     api_client = get_client()
     response = await api_client.get_stickers()
     response = response.json()
-    keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
+    keyboard = InlineKeyboardMarkup(RETURN_TO_INTERACTIVE_MENU_BUTTON)
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(RETURN_TO_INTERACTIVE_MENU_BUTTON)
