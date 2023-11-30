@@ -110,7 +110,7 @@ async def get_quote(update: Update, _: CallbackContext):
     api_client = get_client()
     response = await api_client.get_quote()
     response = response.json()
-    keyboard = InlineKeyboardMarkup([[RETURN_TO_INTERACTIVE_MENU_BUTTON]])
+    keyboard = InlineKeyboardMarkup(RETURN_TO_INTERACTIVE_MENU_BUTTON)
     query = update.callback_query
     if len(response) < 1:
         await query.edit_message_text(
