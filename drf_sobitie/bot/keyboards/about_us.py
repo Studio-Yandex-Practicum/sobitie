@@ -233,7 +233,7 @@ THEATRE_SCHOOL_BUTTON = [
     [
         InlineKeyboardButton(
             text="О студии",
-            url="https://sobytie.center/teatrischool",
+            url="https://sobytie.center/project/inklyuzivnyj-teatr-studiya-sobytie/",
         )
     ],
     [
