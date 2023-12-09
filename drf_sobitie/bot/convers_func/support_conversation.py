@@ -64,10 +64,10 @@ async def show_link_to_support_chat(update: Update, _: CallbackContext):
     query = update.callback_query
     message_text = (
         "Ваша ссылка на чат с обсуждением вариантов помощи: \n"
-        "<a href=https://t.me/gingersilence>Оксана Приходько</a>"
+        "<a href='https://t.me/gingersilence'>Оксана Приходько</a>"
     )
     keyboard_markup = InlineKeyboardMarkup(RETURN_TO_SUPPORT_BUTTON)
-    await query.edit_message_text(text=message_text, reply_markup=keyboard_markup)
+    await query.edit_message_text(text=message_text, reply_markup=keyboard_markup, parse_mode = ParseMode.HTML)
 
 
 async def show_souvenir_purchase_menu(update: Update, _: CallbackContext):
