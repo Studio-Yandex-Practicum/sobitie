@@ -91,7 +91,9 @@ async def show_gratitude_and_subscribe_to_notifications(
     api_client = get_client()
     query = update.callback_query
     await query.answer()
-    message_text = """Спасибо за интерес к нашим событиям! Вы будете получать уведомления о новых мероприятиях."""
+    message_text = """Спасибо за интерес к нашим событиям!
+                      Вы будете получать уведомления о новых мероприятиях. 
+                      А пока можете посмотреть опубликованные анонсы или вернуться в главное меню."""
     user_id = query.from_user.id
     response = await api_client.send_notification(user_id)
     message_text = await _check_api_response_status(
@@ -132,7 +134,7 @@ async def unsubscribe_and_notify_user(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     message_text = """Вы успешно отписались от уведомлений о наших событиях. Мы будем скучать по вашему участию,
-но вы всегда можете подписаться на уведомления в любое время снова."""
+                      но вы всегда можете подписаться на уведомления в любое время снова."""
     user_id = query.from_user.id
     response = await api_client.unsubscribe_and_notify(user_id)
     message_text = await _check_api_response_status(
