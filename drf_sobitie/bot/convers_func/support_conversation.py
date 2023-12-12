@@ -48,10 +48,10 @@ async def show_social_links_and_gratitude(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     message_text = (
-        "Спасибо большое за вашу поддержку! Вместе мы можем изменить мир к лучшему. \n"
-        "Будем держать вас в курсе наших проектов и достижений в соцсетях."
+        "Наши социальные сети: <a href=https://vk.com/sobytie.center>ВКонтакте</a> и"
+        " <a href=https://t.me/sobytiecenter>Telegram.</a>"
     )
-    keyboard = InlineKeyboardMarkup(SUPPORT_FOLLOW_BUTTONS)
+    keyboard = InlineKeyboardMarkup(RETURN_TO_SUPPORT_BUTTON)
     await query.edit_message_text(
         text=message_text,
         reply_markup=keyboard,
