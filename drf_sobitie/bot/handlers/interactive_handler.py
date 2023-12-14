@@ -2,6 +2,7 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, ConversationHandl
 
 from drf_sobitie.bot.constants import INTERACTIVE_STATE
 from drf_sobitie.bot.convers_func.interactive_conversation import (
+    cleanup_stickerpack_messages,
     get_quote,
     get_stickers,
     menu_interactive,
@@ -22,6 +23,7 @@ interactive_conv = ConversationHandler(
             quizzes_handler,
             CallbackQueryHandler(get_stickers, pattern="^" + GET_STICKERS + "$"),
             CallbackQueryHandler(get_quote, pattern="^" + RANDOM_QUOTE + "$"),
+            CallbackQueryHandler(cleanup_stickerpack_messages),
         ]
     },
     fallbacks=[CommandHandler(END, end)],

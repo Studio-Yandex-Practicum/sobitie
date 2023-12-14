@@ -1,33 +1,27 @@
-import urllib.request
-
-import emoji
-from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import Update
 from telegram.ext import CallbackContext
 
 from drf_sobitie.bot.api_client import get_client
 from drf_sobitie.bot.constants import INTERACTIVE_STATE
-from drf_sobitie.bot.keyboards.interactive import (
-    INTERACTIVE_BUTTONS,
-    RETURN_TO_INTERACTIVE_MENU_BUTTON,
-)
+from drf_sobitie.bot.keyboards.interactive import INTERACTIVE_MENU_KEYBOARD, RETURN_TO_INTERACTIVE_MENU_KEYBOARD
+from drf_sobitie.bot.utilities import emojify_text, make_cleanup_keyboard, read_photo_url, send_stickerpack_message
 
 
 async def menu_interactive(update: Update, _: CallbackContext):
     """Меню 'Интерактив'."""
     query = update.callback_query
     await query.answer()
-    keyboard = InlineKeyboardMarkup(INTERACTIVE_BUTTONS)
 
     if query.message.text is None:
         await query.delete_message()
         await query.message.reply_text(
             text="Интерактив",
-            reply_markup=keyboard,
+            reply_markup=INTERACTIVE_MENU_KEYBOARD,
         )
     else:
         await query.edit_message_text(
             text="Интерактив",
-            reply_markup=keyboard,
+            reply_markup=INTERACTIVE_MENU_KEYBOARD,
         )
 
     return INTERACTIVE_STATE
@@ -42,96 +36,66 @@ async def get_quiz(update: Update, _: CallbackContext):
 
 async def get_stickers(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Стикерпаки'."""
+    query = update.callback_query
+    await query.answer()
     api_client = get_client()
     response = await api_client.get_stickers()
     response = response.json()
-    keyboard = InlineKeyboardMarkup(RETURN_TO_INTERACTIVE_MENU_BUTTON)
+
+    active_stickers = [i for i in response if i['is_active']]
+    if not active_stickers:
+        await query.edit_message_text(
+            text=emojify_text("Стикеры пока не завезли, ждем на днях", ":ship:", surround=True),
+            reply_markup=RETURN_TO_INTERACTIVE_MENU_KEYBOARD,
+        )
+        return
+    sent_messages = [await send_stickerpack_message(query, sticker) for sticker in active_stickers]
+    welcome_text = (
+        "Выбирайте и добавляйте себе понравившиеся варианты стикерпаков - их создают ученики нашего центра. "
+        "А мы будем создавать для вас новые!")
+    await query.edit_message_text(
+        text=emojify_text(welcome_text,':backhand_index_pointing_up:'),
+        reply_markup=make_cleanup_keyboard(sent_messages))
+
+
+async def cleanup_stickerpack_messages(update: Update, context: CallbackContext):
+    """Удаление сообщений со скачиванием стикеров.
+        Получает сообщения из arbitrary_callback_data, удаляет по одному.
+        Удаляет welcome-сообщения и очищает кэш контекста для будущей работы."""
     query = update.callback_query
     await query.answer()
-    keyboard = InlineKeyboardMarkup(RETURN_TO_INTERACTIVE_MENU_BUTTON)
-
-    def absence_stikers(text, my_moji):
-        return f"{emoji.emojize(my_moji)}" f"{text}" f"{emoji.emojize(my_moji)}"
-
-    if len(response) < 1:
-        await query.edit_message_text(
-            text=absence_stikers("Стикеры пока не завезли, ждем на днях", ":ship:"),
-            reply_markup=keyboard,
+    for message in query.data:
+        await message.delete()
+    await query.delete_message()
+    context.drop_callback_data(query)
+    await query.message.reply_text(
+            text="Интерактив",
+            reply_markup=INTERACTIVE_MENU_KEYBOARD,
         )
-        return
-
-    active_stickerpaks = []
-    for index, i in enumerate(response):
-        if i["is_active"]:
-            active_stickerpaks.append(index)
-    if active_stickerpaks:
-        for i in active_stickerpaks:
-            name = response[i].get("name")
-            description = response[i].get("description")
-            url_sticker = response[i].get("url_sticker")
-            image = response[i].get("image")
-            text = f"{name} \n\n{description}\n\n"
-            caption = (
-                f"{emoji.emojize(':backhand_index_pointing_up:')}"
-                f"-Забирай-{emoji.emojize(':backhand_index_pointing_up:')}"
-            )
-            sticker_keyboard = InlineKeyboardMarkup(
-                [
-                    [
-                        InlineKeyboardButton(
-                            text=caption,
-                            url=url_sticker,
-                        )
-                    ]
-                ]
-            )
-            query = update.callback_query
-            if image:
-                photo = urllib.request.urlopen(image).read()
-                await query.message.reply_photo(photo=photo)
-            await query.message.reply_text(reply_markup=sticker_keyboard, text=text)
-        await query.edit_message_text(
-            text=(
-                f"Выбирайте и добавляйте себе понравившиеся варианты стикерпаков - их создают ученики нашего центра. А мы будем создавать для вас новые!"
-                f"{emoji.emojize(':backhand_index_pointing_up:')}"
-            ),
-            reply_markup=keyboard,
-        )
-        return
-    await query.edit_message_text(
-        text=absence_stikers("Редактируем, скоро релиз!!", ":fire:"),
-        reply_markup=keyboard,
-    )
-    return
 
 
 async def get_quote(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Цитата недели'."""
+    query = update.callback_query
     api_client = get_client()
     response = await api_client.get_quote()
     response = response.json()
-    keyboard = InlineKeyboardMarkup(RETURN_TO_INTERACTIVE_MENU_BUTTON)
-    query = update.callback_query
     if len(response) < 1:
         await query.edit_message_text(
-            text=(
-                f"{emoji.emojize(':detective:')}"
-                f"В поисках подходящей цитаты"
-                f"{emoji.emojize(':detective:')}"
-            ),
-            reply_markup=keyboard,
+            text=emojify_text("В поисках подходящей цитаты", ':detective:', surround=True),
+            reply_markup=RETURN_TO_INTERACTIVE_MENU_KEYBOARD,
         )
         return
 
     quote = response[0].get("text")
     if "image" in response[0] and response[0].get("image") is not None:
         image = response[0].get("image")
-        photo = urllib.request.urlopen(image).read()
+        photo = read_photo_url(image)
         await query.delete_message()
         await query.message.reply_photo(
-            caption=quote, photo=photo, reply_markup=keyboard
+            caption=quote, photo=photo, reply_markup=RETURN_TO_INTERACTIVE_MENU_KEYBOARD
         )
         return
 
-    await query.edit_message_text(text=quote, reply_markup=keyboard)
+    await query.edit_message_text(text=quote, reply_markup=RETURN_TO_INTERACTIVE_MENU_KEYBOARD)
     return

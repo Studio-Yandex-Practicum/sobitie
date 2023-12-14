@@ -2,14 +2,19 @@ import logging
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from telegram.ext import Application, ApplicationBuilder
+from telegram.ext import Application, ApplicationBuilder, DictPersistence
 
 from drf_sobitie.bot.handlers.main_handler import main_conversation_handler
 
 
 def _create_bot_app() -> Application:
     """Создание экземпляра PTB приложения."""
-    app = ApplicationBuilder().token(settings.TELEGRAM_TOKEN).build()
+    app = (
+        ApplicationBuilder()
+        .token(settings.TELEGRAM_TOKEN)
+        .arbitrary_callback_data(True)
+        .persistence(DictPersistence())
+        .build())
     app.add_handler(main_conversation_handler)
     return app
 
