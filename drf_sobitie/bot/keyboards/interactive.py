@@ -5,18 +5,11 @@ from drf_sobitie.bot.keyboards.main import (
     INTERACTIVE_GAME,
     SHORT_RETURN_BACK_BUTTON_TEXT,
 )
-from drf_sobitie.bot.keyboards.quiz import START_QUIZZES
 
 GET_STICKERS = "GET_STICKERS"
 RANDOM_QUOTE = "RANDOM_QUOTE"
 
 INTERACTIVE_BUTTONS = [
-    [
-        InlineKeyboardButton(
-            text="Викторины",
-            callback_data=START_QUIZZES,
-        ),
-    ],
     [
         InlineKeyboardButton(
             text="Стикерпаки",
