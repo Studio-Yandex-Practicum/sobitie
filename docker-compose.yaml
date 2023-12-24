@@ -1,17 +1,21 @@
 version: '3.8'
 services:
   web:
-    image: mnmyasis/sobitie:latest
+    build: .
     container_name: drf_sobitie
     restart: always
-    command: sh -c "gunicorn drf_sobitie.conf.wsgi:application --bind 0:8000"
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --clear --noinput &&
+             python manage.py create_admin &&
+             gunicorn drf_sobitie.conf.wsgi:application --bind 0:8000"
     volumes:
       - static_value:/app/drf_sobitie/static/
       - data:/app/drf_sobitie/db
     env_file:
       - ./.env
   bot:
-    image: mnmyasis/sobitie:latest
+    build: .
     container_name: bot_sobitie
     restart: always
     command: sh -c "python manage.py runbot"
@@ -19,10 +23,12 @@ services:
       - media_value:/app/drf_sobitie/media/
     depends_on:
       - web
+    environment:
+      - API_ADDRESS=http://web:8000
     env_file:
       - ./.env
   scheduler:
-    image: mnmyasis/sobitie:latest
+    build: .
     command: sh -c "python manage.py start-scheduler"
     container_name: scheduler_sobitie
     restart: always
@@ -30,6 +36,8 @@ services:
       - web
     env_file:
       - ./.env
+    environment:
+      - API_ADDRESS=web:8000
   nginx:
     image: nginx:1.21.3-alpine
     ports:

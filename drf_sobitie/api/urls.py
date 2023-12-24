@@ -23,5 +23,4 @@ urlpatterns = [
     path("vk/", VKView.as_view()),
     path("check_for_subscription/<int:user_id>/", CheckForSubscription.as_view()),
     path("send-event-notification/", send_event_notification, name="send_event_notification"),
-    path("vk/", VKView.as_view()),
 ]

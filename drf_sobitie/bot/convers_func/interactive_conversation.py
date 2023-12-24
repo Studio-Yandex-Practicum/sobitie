@@ -34,15 +34,14 @@ async def get_stickers(update: Update, _: CallbackContext):
     api_client = get_client()
     response = await api_client.get_stickers()
     response = response.json()
-
-    active_stickers = [i for i in response if i['is_active']]
-    if not active_stickers:
+        
+    sent_messages = [await send_stickerpack_message(query, sticker) for sticker in response]
+    if not sent_messages:
         await query.edit_message_text(
             text=emojify_text("Стикеры пока не завезли, ждем на днях", ":ship:", surround=True),
             reply_markup=RETURN_TO_INTERACTIVE_MENU_KEYBOARD,
         )
         return
-    sent_messages = [await send_stickerpack_message(query, sticker) for sticker in active_stickers]
     welcome_text = (
         "Выбирайте и добавляйте себе понравившиеся варианты стикерпаков - их создают ученики нашего центра. "
         "А мы будем создавать для вас новые!")
