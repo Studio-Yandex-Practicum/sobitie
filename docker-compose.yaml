@@ -7,7 +7,6 @@ services:
     command: >
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --clear --noinput &&
-             python manage.py createsuperuser --noinput &&
              gunicorn drf_sobitie.conf.wsgi:application --bind 0:8000"
     volumes:
       - static_value:/app/drf_sobitie/static/
