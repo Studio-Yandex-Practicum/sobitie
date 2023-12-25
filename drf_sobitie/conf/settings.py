@@ -3,7 +3,6 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 load_dotenv()
@@ -14,18 +13,13 @@ LOG_LEVEL = "INFO"
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 NOTIFICATIONS_API_URL = os.getenv("NOTIFICATIONS_API_URL")
 CHECK_FOR_SUBSCRIPTION_API_URL = os.getenv("CHECK_FOR_SUBSCRIPTION_API_URL")
-API_ADDRESS = os.getenv("API_ADDRESS", "http://localhost:8000")
+API_ADDRESS = os.getenv("API_ADDRESS")
 VK_APP_SERVICE_KEY=os.getenv("VK_APP_SERVICE_KEY")
 VK_ACCESS_TOKEN = os.getenv("VK_ACCESS_TOKEN")
 VK_GROUP_ID = int(os.getenv("VK_GROUP_ID"))
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv("DJ_SECRET_KEY", default="djangosecretkey_WG312t0k130fk13f")
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", default=False)
 
 ALLOWED_HOSTS = ["*"]
@@ -42,7 +36,6 @@ SCHEDULER_CONFIG = {
     "apscheduler.executors.processpool": {"type": "threadpool"},
 }
 
-# Application definition
 
 INSTALLED_APPS = [
     "channels",
@@ -94,8 +87,6 @@ TEMPLATES = [
 ASGI_APPLICATION = "drf_sobitie.conf.asgi.application"
 WSGI_APPLICATION = "drf_sobitie.conf.wsgi.application"
 
-# Database
-# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
     "default": {
@@ -110,8 +101,6 @@ CHANNEL_LAYERS = {
     },
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -128,8 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = "ru-ru"
 
@@ -139,16 +126,12 @@ USE_I18N = True
 
 USE_TZ = False
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
 MEDIA_URL = "/media/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 

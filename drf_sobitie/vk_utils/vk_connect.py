@@ -1,18 +1,19 @@
+import logging
 import requests
 import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll
 
-from drf_sobitie.conf.settings import (
-    VK_GROUP_ID, VK_ACCESS_TOKEN, API_ADDRESS
-)
-
-
+from django.conf import settings
+log = logging.getLogger(__name__)
+ 
 def longpoll_vk():
-    vk_session = vk_api.VkApi(token=VK_ACCESS_TOKEN)
-    longpoll = VkBotLongPoll(vk_session, group_id=VK_GROUP_ID)
+    vk_session = vk_api.VkApi(token=settings.VK_ACCESS_TOKEN)
+    longpoll = VkBotLongPoll(vk_session, group_id=settings.VK_GROUP_ID)
     for event in longpoll.listen():
         data = event.obj
-        requests.post(f"{API_ADDRESS}/api/vk/", data=dict(data))
+        resp = requests.post(f'http://{settings.API_ADDRESS}/api/vk/', data=dict(data))
+        if resp.status_code != 200:
+            log.error(f'unprocessed data: {data}')
 
 
 if __name__ == "__main__":

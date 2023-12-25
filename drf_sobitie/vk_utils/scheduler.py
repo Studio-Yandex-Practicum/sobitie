@@ -8,15 +8,12 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from django_apscheduler.jobstores import register_job
 from vk_api.tools import VkTools
 
-
-from drf_sobitie.conf.settings import (
-    VK_APP_SERVICE_KEY, VK_GROUP_ID, API_ADDRESS
-)
+from django.conf import settings
 
 
 scheduler = BlockingScheduler()
 
-vk_session = vk_api.VkApi(token=VK_APP_SERVICE_KEY)
+vk_session = vk_api.VkApi(token=settings.VK_APP_SERVICE_KEY)
 tools = VkTools(vk_session)
 
 
@@ -47,9 +44,10 @@ def check_vk_group_news_job():
     работает через планировщик. В параметре seconds указывается через сколько
     секунд произойдет проверка обновлений на стене сообщества.
     """
-    vk_posts = tools.get_all("wall.get", 1, {"owner_id": -VK_GROUP_ID})
+    vk_posts = tools.get_all("wall.get", 1, {"owner_id": -settings.VK_GROUP_ID})
+    
     requests.put(
-        f"{API_ADDRESS}/api/vk/",
+        f"{settings.API_ADDRESS}/api/vk/",
         data=json.dumps(PostsFilter(posts=vk_posts["items"]).filtering()),
         headers={'Content-Type': 'application/json'}
     )

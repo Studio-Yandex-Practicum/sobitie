@@ -23,7 +23,7 @@ from drf_sobitie.sticker_pack.models import Stickerpack
 class StickerpackViewSet(ModelViewSet):
     """Вьюсет для стикеров."""
 
-    queryset = Stickerpack.objects.all()
+    queryset = Stickerpack.objects.filter(is_active=True)
     serializer_class = StickerpackSerializer
 
 

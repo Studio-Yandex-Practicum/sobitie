@@ -1,3 +1,5 @@
+from typing import Optional
+
 from dataclasses import dataclass
 
 from telegram import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup, Message
@@ -9,8 +11,8 @@ from drf_sobitie.bot.utilities.common_utilities import emojify_text, read_photo_
 class StickerPackMessage:
     name: str
     url_sticker: str
-    description: str | None = None
-    image_url: str | None = None
+    description: Optional[str] = None
+    image_url: Optional[str] = None
 
     def __post_init__(self):
         self.text = f"{self.name} \n\n{self.description}\n\n"
@@ -28,14 +30,10 @@ def make_cleanup_keyboard(messages: list[Message]) -> InlineKeyboardMarkup:
 
 
 def make_stickerpack_message(sticker: dict) -> StickerPackMessage:
-    name = sticker.get("name")
-    description = sticker.get("description")
-    url_sticker = sticker.get("url_sticker")
-    image = sticker.get("image")
-    return StickerPackMessage(name=name, 
-                              url_sticker=url_sticker, 
-                              description=description, 
-                              image_url=image)
+    return StickerPackMessage(name=sticker.get("name"), 
+                              url_sticker=sticker.get("url_sticker"), 
+                              description=sticker.get("description"), 
+                              image_url=sticker.get("image"))
 
 
 async def send_stickerpack_message(query: CallbackQuery, sticker: dict) -> Message:
@@ -45,6 +43,5 @@ async def send_stickerpack_message(query: CallbackQuery, sticker: dict) -> Messa
         return await query.message.reply_photo(reply_markup=message.keyboard,
                                                         photo=photo, 
                                                         caption=message.text)
-    else:
-        return await query.message.reply_text(reply_markup=message.keyboard, 
+    return await query.message.reply_text(reply_markup=message.keyboard, 
                                                         text=message.text)

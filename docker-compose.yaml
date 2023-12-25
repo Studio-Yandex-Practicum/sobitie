@@ -4,7 +4,10 @@ services:
     image: mnmyasis/sobitie:latest
     container_name: drf_sobitie
     restart: always
-    command: sh -c "gunicorn drf_sobitie.conf.wsgi:application --bind 0:8000"
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py collectstatic --clear --noinput &&
+             gunicorn drf_sobitie.conf.wsgi:application --bind 0:8000"
     volumes:
       - static_value:/app/drf_sobitie/static/
       - data:/app/drf_sobitie/db
@@ -19,6 +22,8 @@ services:
       - media_value:/app/drf_sobitie/media/
     depends_on:
       - web
+    environment:
+      - API_ADDRESS=http://web:8000
     env_file:
       - ./.env
   scheduler:
@@ -30,6 +35,8 @@ services:
       - web
     env_file:
       - ./.env
+    environment:
+      - API_ADDRESS=web:8000
   nginx:
     image: nginx:1.21.3-alpine
     ports:
