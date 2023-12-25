@@ -1,13 +1,13 @@
 version: '3.8'
 services:
   web:
-    build: .
+    image: mnmyasis/sobitie:latest
     container_name: drf_sobitie
     restart: always
     command: >
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --clear --noinput &&
-             python manage.py create_admin &&
+             python manage.py createsuperuser --noinput &&
              gunicorn drf_sobitie.conf.wsgi:application --bind 0:8000"
     volumes:
       - static_value:/app/drf_sobitie/static/
@@ -15,7 +15,7 @@ services:
     env_file:
       - ./.env
   bot:
-    build: .
+    image: mnmyasis/sobitie:latest
     container_name: bot_sobitie
     restart: always
     command: sh -c "python manage.py runbot"
@@ -28,7 +28,7 @@ services:
     env_file:
       - ./.env
   scheduler:
-    build: .
+    image: mnmyasis/sobitie:latest
     command: sh -c "python manage.py start-scheduler"
     container_name: scheduler_sobitie
     restart: always
