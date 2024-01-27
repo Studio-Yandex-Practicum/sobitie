@@ -15,6 +15,7 @@ from drf_sobitie.bot.keyboards.about_us import (
     REPORTS_MENU_BUTTONS,
     RETURN_BACK_BUTTON,
     THEATRE_SCHOOL_BUTTON,
+    INCLUSIVE_THEATER_BUTTONS,
 )
 
 
@@ -166,6 +167,19 @@ async def show_moscow_partala_online(update: Update, _: CallbackContext):
     await query.edit_message_text(
         text=message_text,
         reply_markup=keyboard,
+    )
+
+async def show_inclusive_theater(update: Update, _: CallbackContext):
+    query = update.callback_query
+    await query.answer()
+    keyboard = InlineKeyboardMarkup(INCLUSIVE_THEATER_BUTTONS)
+    message_text = (
+        "Актёры Инклюзивного театра-студии «Событие» — молодые люди с инвалидностью и их условно здоровые сверстники. "
+        "Театр для наших актёров — способ взаимодействия с собой и миром вокруг, "
+        "а также возможность созидать и делиться плодами сотворчества.")
+    await query.edit_message_text(
+        text=message_text,
+        reply_markup=keyboard
     )
 
 

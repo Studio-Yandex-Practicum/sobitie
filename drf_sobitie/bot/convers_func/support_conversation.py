@@ -48,13 +48,14 @@ async def show_social_links_and_gratitude(update: Update, _: CallbackContext):
     query = update.callback_query
     await query.answer()
     message_text = (
-        "Наши социальные сети: <a href=https://vk.com/sobytie.center>ВКонтакте</a> и"
-        " <a href=https://t.me/sobytiecenter>Telegram.</a>"
+        "Наши социальные сети: <a href='https://vk.com/sobytie.center'>ВКонтакте</a> и"
+        " <a href='https://t.me/sobytiecenter'>Telegram.</a>"
     )
     keyboard = InlineKeyboardMarkup(RETURN_TO_SUPPORT_BUTTON)
     await query.edit_message_text(
         text=message_text,
         reply_markup=keyboard,
+        parse_mode='HTML'
     )
     return states.SUPPORT_FOLLOW_STATE
 
@@ -108,10 +109,9 @@ async def show_other_help_menu(update: Update, _: CallbackContext):
     await query.answer()
     message_text = (
         "Нам может потребоваться разная помощь: \n\n"
-        "Иногда мы ищем реквизит для спектаклей \n"
-        "Приглашаем волонтеров \n"
-        "Нуждаемся в транспорте \n"
-        "Расходные материалы для мастерской \n\n"
+        "Иногда мы ищем реквизит для спектаклей, приглашаем волонтеров, "
+        "нуждаемся в транспорте и расходных материалы для мастерской."
+        " \n\n"
         "Включите уведомления, чтобы получать информацию о нашем центре, мероприятиях и возможных потребностях. \n"
     )
     menu_other_help = await create_menu_other_help(user_id=query.from_user.id)
