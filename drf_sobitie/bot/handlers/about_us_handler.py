@@ -11,6 +11,7 @@ from drf_sobitie.bot.convers_func.about_us_conversation import (
     show_projects,
     show_reports,
     show_theatre_school,
+    show_inclusive_theater
 )
 from drf_sobitie.bot.convers_func.main_conversation import end
 from drf_sobitie.bot.handlers.contacts_handler import contacts_conv
@@ -25,6 +26,7 @@ from drf_sobitie.bot.keyboards.about_us import (
     REPORTS_MINISTRY,
     RETURN_TO_BACK,
     THEATRE_SCHOOL,
+    INCLUSIVE_THEATER
 )
 from drf_sobitie.bot.keyboards.main import ABOUT_US, END
 
@@ -53,7 +55,10 @@ about_us_conv = ConversationHandler(
             CallbackQueryHandler(
                 show_moscow_partala_online, pattern="^" + MOSCOW_ONLINE + "$"
             ),
-            CallbackQueryHandler(show_projects, pattern="^" + RETURN_TO_BACK + "$"),
+            CallbackQueryHandler(
+                show_projects, pattern="^" + RETURN_TO_BACK + "$"),
+            CallbackQueryHandler(
+                show_inclusive_theater, pattern="^" + INCLUSIVE_THEATER + "$")
         ],
     },
     fallbacks=[CommandHandler(END, end)],

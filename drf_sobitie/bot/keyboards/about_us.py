@@ -24,6 +24,7 @@ ANNUAL_REPORTS = "ANNUAL_REPORTS"
 INCLUSIVE_WORKSHOP = "INCLUSIVE_WORKSHOP"
 THEATRE_SCHOOL = "THEATRE_SCHOOL"
 MOSCOW_ONLINE = "MOSCOW_ONLINE"
+INCLUSIVE_THEATER = "INCLUSIVE THEATER"
 
 # Константы для подменю "Контакты"
 CONTACTS_INFO = "CONTACTS_INFO"
@@ -51,13 +52,13 @@ ABOUT_US_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text="Уставные документы. Реквизиты",
+            text="Уставные документы",
             callback_data=LEGAL_DOCUMENTS,
         )
     ],
     [
         InlineKeyboardButton(
-            text="Отчеты о деятельности",
+            text="Ознакомиться с годовыми отчётами",
             callback_data=REPORTS,
         )
     ],
@@ -143,8 +144,14 @@ PROJECTS_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text="Москва - Партала. Онлайн.",
+            text="Москва - Партала. Онлайн",
             callback_data=MOSCOW_ONLINE,
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text="Инклюзивный театр",
+            callback_data=INCLUSIVE_THEATER,
         )
     ],
     [
@@ -233,7 +240,7 @@ THEATRE_SCHOOL_BUTTON = [
     [
         InlineKeyboardButton(
             text="О студии",
-            url="https://sobytie.center/project/inklyuzivnyj-teatr-studiya-sobytie/",
+            url="https://vk.com/teatr.ischool",
         )
     ],
     [
@@ -248,8 +255,23 @@ THEATRE_SCHOOL_BUTTON = [
 MOSCOW_ONLINE_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Москва - Партала. Онлайн.",
+            text="Москва - Партала. Онлайн",
             url="https://sobytie.center/project/moskva-partala-onlajn/",
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text=SHORT_RETURN_BACK_BUTTON_TEXT,
+            callback_data=RETURN_TO_BACK,
+        )
+    ],
+]
+
+INCLUSIVE_THEATER_BUTTONS = [
+    [
+        InlineKeyboardButton(
+            text="Инклюзивный театр",
+            url="https://sobytie.center/project/inklyuzivnyj-teatr-studiya-sobytie/",
         )
     ],
     [
