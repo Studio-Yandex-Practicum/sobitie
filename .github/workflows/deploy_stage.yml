@@ -1,11 +1,13 @@
 name: 
-  sobitie_bot_master
+  sobitie_bot_staging
 run-name: 
-  ${{ github.actor }} CI/CD process for master
+  ${{ github.actor }} CI/CD process for staging
 on:
   workflow_dispatch:
   push:
-    branches: [ "master" ]
+    branches: [ "develop" ]
+  pull_request:
+    branches: [ "develop" ]
 
 jobs:
   tests:
@@ -47,7 +49,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/sobitie:master
+          tags: ${{ secrets.DOCKER_USERNAME }}/sobitie:staging
 
   deploy:
     name: Deploy to server
@@ -59,29 +61,29 @@ jobs:
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.MASTER_HOST }}
-          username: ${{ secrets.MASTER_USER }}
-          key: ${{ secrets.MASTER_SSH_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
           source: "docker-compose.yaml, nginx/*.conf"
           target: "/home/deployment-user/"
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.MASTER_HOST }}
-          username: ${{ secrets.MASTER_USER }}
-          key: ${{ secrets.MASTER_SSH_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             sudo docker-compose stop
             sudo docker system prune -af
             touch .env
             cat /dev/null > .env
-            echo DJ_SECRET_KEY="${{ secrets.MASTER_DJ_SECRET_KEY }}" >> .env
-            echo VK_ACCESS_TOKEN="${{ secrets.MASTER_VK_ACCESS_TOKEN }}" >> .env
-            echo VK_GROUP_ID="${{ secrets.MASTER_VK_GROUP_ID }}" >> .env
-            echo TELEGRAM_TOKEN="${{ secrets.MASTER_TELEGRAM_TOKEN }}" >> .env
-            echo API_ADDRESS="${{ secrets.MASTER_API_ADDRESS }}" >> .env
-            echo DEPLOY_PATH="${{ secrets.MASTER_DEPLOY_PATH }}" >> .env
-            sudo docker pull ${{ secrets.MASTER_DOCKER_USERNAME }}/sobitie:master
+            echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
+            echo VK_ACCESS_TOKEN="${{ secrets.VK_ACCESS_TOKEN }}" >> .env
+            echo VK_GROUP_ID="${{ secrets.VK_GROUP_ID }}" >> .env
+            echo TELEGRAM_TOKEN="${{ secrets.TELEGRAM_TOKEN }}" >> .env
+            echo API_ADDRESS="${{ secrets.API_ADDRESS }}" >> .env
+            echo DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}" >> .env
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sobitie:staging
             sudo docker-compose up -d
             sudo docker-compose exec -it web python manage.py migrate
             sudo docker-compose exec -it web python manage.py collectstatic --no-input
