@@ -73,6 +73,7 @@ jobs:
           script: |
             sudo docker compose stop
             sudo docker system prune -af
+            cd /home/deployment-user/
 
             touch .env
             cat > .env <<- EOM
