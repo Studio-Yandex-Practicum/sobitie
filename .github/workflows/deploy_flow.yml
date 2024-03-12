@@ -71,18 +71,21 @@ jobs:
           username: ${{ secrets.MASTER_USER }}
           key: ${{ secrets.MASTER_SSH_KEY }}
           script: |
-            sudo docker-compose stop
+            sudo docker compose stop
             sudo docker system prune -af
+
             touch .env
-            cat /dev/null > .env
-            echo DJ_SECRET_KEY="${{ secrets.MASTER_DJ_SECRET_KEY }}" >> .env
-            echo VK_ACCESS_TOKEN="${{ secrets.MASTER_VK_ACCESS_TOKEN }}" >> .env
-            echo VK_GROUP_ID="${{ secrets.MASTER_VK_GROUP_ID }}" >> .env
-            echo TELEGRAM_TOKEN="${{ secrets.MASTER_TELEGRAM_TOKEN }}" >> .env
-            echo API_ADDRESS="${{ secrets.MASTER_API_ADDRESS }}" >> .env
-            echo DEPLOY_PATH="${{ secrets.MASTER_DEPLOY_PATH }}" >> .env
+            cat > .env <<- EOM
+            DJ_SECRET_KEY="${{ secrets.MASTER_DJ_SECRET_KEY }}" >> .env
+            VK_ACCESS_TOKEN="${{ secrets.MASTER_VK_ACCESS_TOKEN }}" >> .env
+            VK_GROUP_ID="${{ secrets.MASTER_VK_GROUP_ID }}" >> .env
+            TELEGRAM_TOKEN="${{ secrets.MASTER_TELEGRAM_TOKEN }}" >> .env
+            API_ADDRESS="${{ secrets.MASTER_API_ADDRESS }}" >> .env
+            DEPLOY_PATH="${{ secrets.MASTER_DEPLOY_PATH }}" >> .env
+            EOM
+            
             sudo docker pull ${{ secrets.MASTER_DOCKER_USERNAME }}/sobitie:master
-            sudo docker-compose up -d
-            sudo docker-compose exec -it web python manage.py migrate
-            sudo docker-compose exec -it web python manage.py collectstatic --no-input
+            sudo docker compose up -d
+            sudo docker compose exec -it web python manage.py migrate
+            sudo docker compose exec -it web python manage.py collectstatic --no-input
             echo "OK"
