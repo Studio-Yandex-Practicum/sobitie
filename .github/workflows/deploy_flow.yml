@@ -76,12 +76,12 @@ jobs:
 
             touch .env
             cat > .env <<- EOM
-            DJ_SECRET_KEY="${{ secrets.MASTER_DJ_SECRET_KEY }}" >> .env
-            VK_ACCESS_TOKEN="${{ secrets.MASTER_VK_ACCESS_TOKEN }}" >> .env
-            VK_GROUP_ID="${{ secrets.MASTER_VK_GROUP_ID }}" >> .env
-            TELEGRAM_TOKEN="${{ secrets.MASTER_TELEGRAM_TOKEN }}" >> .env
-            API_ADDRESS="${{ secrets.MASTER_API_ADDRESS }}" >> .env
-            DEPLOY_PATH="${{ secrets.MASTER_DEPLOY_PATH }}" >> .env
+            DJ_SECRET_KEY="${{ secrets.MASTER_DJ_SECRET_KEY }}"
+            VK_ACCESS_TOKEN="${{ secrets.MASTER_VK_ACCESS_TOKEN }}"
+            VK_GROUP_ID="${{ secrets.MASTER_VK_GROUP_ID }}"
+            TELEGRAM_TOKEN="${{ secrets.MASTER_TELEGRAM_TOKEN }}"
+            API_ADDRESS="${{ secrets.MASTER_API_ADDRESS }}"
+            DEPLOY_PATH="${{ secrets.MASTER_DEPLOY_PATH }}"
             EOM
             
             sudo docker pull ${{ secrets.MASTER_DOCKER_USERNAME }}/sobitie:master
