@@ -71,7 +71,7 @@ jobs:
           username: ${{ secrets.MASTER_USER }}
           key: ${{ secrets.MASTER_SSH_KEY }}
           script: |
-            sudo docker compose stop
+            sudo docker compose -f docker-compose.prod.yaml stop
             sudo docker system prune -af
             cd /home/deployment-user/
 
@@ -86,7 +86,7 @@ jobs:
             EOM
             
             sudo docker pull ${{ secrets.MASTER_DOCKER_USERNAME }}/sobitie:master
-            sudo docker compose up -d
-            sudo docker compose exec -it web python manage.py migrate
-            sudo docker compose exec -it web python manage.py collectstatic --no-input
+            sudo docker compose -f docker-compose.prod.yaml up -d
+            sudo docker compose -f docker-compose.prod.yaml exec -it web python manage.py migrate
+            sudo docker compose -f docker-compose.prod.yaml exec -it web python manage.py collectstatic --no-input
             echo "OK"
