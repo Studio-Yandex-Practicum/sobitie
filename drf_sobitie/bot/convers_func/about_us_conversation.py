@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Never
 
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
@@ -51,22 +52,23 @@ async def show_about_us(update: Update, _: CallbackContext):
 
 async def show_documents(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Документы'."""
-    query = update.callback_query
+    query = update.callback_query or Never
     await query.answer()
     keyboard = InlineKeyboardMarkup(DOCUMENTS_MENU_BUTTONS)
     message_text = (
         "Мы официально зарегистрированная некоммерческая организация.\n"
-        "Полное название: Автономная некоммерческая организация "
-        "«Центр социокультурных практик «Событие»\n"
+        "Полное название: Автономная некоммерческая организация «Центр социокультурных практик «Событие»\n"
         "Сокращённое название: АНО «Событие»\n\n"
+
         "ИНН: 7727301229\n"
         "КПП: 772701001\n"
         "ОГРН: 1167700068051\n"
-        "Расчётный счёт: 40703810002690000027\n"
-        "Банк: АО «АЛЬФА-БАНК»\n"
-        "БИК банка: 044525593\n"
-        "Корреспондентский счёт: 30101810200000000593\n"
-        "Директор: Елена Викторовна Киселева"
+        "Расчётный счёт: 40703810712010614622\n"
+        "Банк: Филиал «Корпоративный» ПАО «Совкомбанк» (г. Москва)\n"
+        "БИК банка: 044525360\n"
+        "Корреспондентский счёт: 30101810445250000360\n\n"
+
+        "Директор: Елена Викторовна Киселева\n"
     )
     await query.edit_message_text(
         text=message_text,
