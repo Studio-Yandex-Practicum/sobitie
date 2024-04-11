@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Never
 
 from telegram import InlineKeyboardMarkup, Update
 from telegram.ext import CallbackContext
@@ -52,7 +51,7 @@ async def show_about_us(update: Update, _: CallbackContext):
 
 async def show_documents(update: Update, _: CallbackContext):
     """Нажатие на кнопку 'Документы'."""
-    query = update.callback_query or Never
+    query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(DOCUMENTS_MENU_BUTTONS)
     message_text = (
