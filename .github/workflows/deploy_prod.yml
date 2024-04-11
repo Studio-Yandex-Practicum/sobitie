@@ -85,7 +85,7 @@ jobs:
             DEPLOY_PATH="${{ secrets.MASTER_DEPLOY_PATH }}"
             EOM
             
-            sudo docker pull ${{ secrets.MASTER_DOCKER_USERNAME }}/sobitie:master
+            sudo docker compose -f docker-compose.prod.yaml pull
             sudo docker compose -f docker-compose.prod.yaml up -d
             sudo docker compose -f docker-compose.prod.yaml exec -it web python manage.py migrate
             sudo docker compose -f docker-compose.prod.yaml exec -it web python manage.py collectstatic --no-input
