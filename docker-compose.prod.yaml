@@ -11,6 +11,7 @@ services:
     volumes:
       - static_value:/app/drf_sobitie/static/
       - data:/app/drf_sobitie/db
+      - media_value:/app/drf_sobitie/media/
     env_file:
       - ./.env
   bot:
@@ -18,8 +19,6 @@ services:
     container_name: bot_sobitie
     restart: always
     command: sh -c "python manage.py runbot"
-    volumes:
-      - media_value:/app/drf_sobitie/media/
     depends_on:
       - web
     environment:
