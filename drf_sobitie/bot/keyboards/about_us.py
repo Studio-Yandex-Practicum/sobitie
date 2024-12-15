@@ -117,7 +117,7 @@ MINISTRY_REPORTS_BUTTONS = [
     [
         InlineKeyboardButton(
             text="Информационный портал Минюста РФ",
-            url="http://unro.minjust.ru/NKOReports.aspx",
+            url="https://nco.minjust.gov.ru/ru/reports",
         )
     ],
     [
@@ -130,6 +130,12 @@ MINISTRY_REPORTS_BUTTONS = [
 
 # КНОПКИ ПОДМЕНЮ "ПРОЕКТЫ"
 PROJECTS_MENU_BUTTONS = [
+    [
+        InlineKeyboardButton(
+            text="Инклюзивный театр",
+            callback_data=INCLUSIVE_THEATER,
+        )
+    ],
     [
         InlineKeyboardButton(
             text="Инклюзивная мастерская",
@@ -146,12 +152,6 @@ PROJECTS_MENU_BUTTONS = [
         InlineKeyboardButton(
             text="Москва - Партала. Онлайн",
             callback_data=MOSCOW_ONLINE,
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text="Инклюзивный театр",
-            callback_data=INCLUSIVE_THEATER,
         )
     ],
     [

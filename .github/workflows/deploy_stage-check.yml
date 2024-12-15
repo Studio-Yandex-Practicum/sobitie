@@ -1,7 +1,7 @@
 name: 
   sobitie_bot_staging
 run-name: 
-  ${{ github.actor }} CI/CD process for staging
+  ${{ github.actor }} CI/CD process for staging check
 on:
   workflow_dispatch:
   push:

@@ -130,11 +130,11 @@ async def show_inclusive_workshop(update: Update, _: CallbackContext):
     """Нажатие кнопки 'Инклюзивная мастерская'."""
     message = ProjectInfoMessage(
         text=(
-            "В мастерской актёры Инклюзивного театра-студии «Событие» создают костюмы, реквизит"
+            "В мастерской актёры Инклюзивного театра-студии «Событие» создают костюмы, реквизит "
             "и декорации для спектаклей, а также различные сувениры и аксессуары для благотворительных ярмарок.\n\n"
             "Ребята не только сами учатся различным видам рукоделия, но и проводят очные и дистанционные мастер-классы."
         ),
-        image_url="https://sobytie.center/wp-content/uploads/2022/07/Masterskaya-svechi.jpg",
+        image_url="https://sobytie.center/wp-content/uploads/2022/01/masterskaya-2023.jpg",
         keyboard=InlineKeyboardMarkup(INCLUSIVE_WORKSHOP_BUTTON),
     )
     await _send_project_info(update=update, message=message)
