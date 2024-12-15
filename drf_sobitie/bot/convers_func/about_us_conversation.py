@@ -66,7 +66,9 @@ async def show_documents(update: Update, _: CallbackContext):
         "Банк: АО «АЛЬФА-БАНК»\n"
         "БИК банка: 044525593\n"
         "Корреспондентский счёт: 30101810200000000593\n"
-        "Директор: Елена Викторовна Киселева"
+        "Директор: Елена Викторовна Киселева\n\n"
+
+        "https://sobytie.center/documents/"
     )
     await query.edit_message_text(
         text=message_text,

@@ -1,25 +1,32 @@
 version: '3.8'
 services:
   web:
-    image: mnmyasis/sobitie:latest
-    container_name: drf_sobitie
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: drf_sobitie_local
     restart: always
     command: >
       sh -c "python manage.py migrate &&
-             python manage.py collectstatic --clear --noinput &&
-             gunicorn drf_sobitie.conf.wsgi:application --bind 0:8000"
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - static_value:/app/drf_sobitie/static/
-      - data:/app/drf_sobitie/db
+      - ./drf_sobitie/static:/app/drf_sobitie/static
+      - ./drf_sobitie/db:/app/drf_sobitie/db
+      - ./drf_sobitie:/app/drf_sobitie
     env_file:
       - ./.env
+    ports:
+      - "8000:8000"
   bot:
-    image: mnmyasis/sobitie:latest
-    container_name: bot_sobitie
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: bot_sobitie_local
     restart: always
     command: sh -c "python manage.py runbot"
     volumes:
-      - media_value:/app/drf_sobitie/media/
+      - ./drf_sobitie/media:/app/drf_sobitie/media
+      - ./drf_sobitie:/app/drf_sobitie
     depends_on:
       - web
     environment:
@@ -27,25 +34,28 @@ services:
     env_file:
       - ./.env
   scheduler:
-    image: mnmyasis/sobitie:latest
-    command: sh -c "python manage.py start-scheduler"
-    container_name: scheduler_sobitie
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: scheduler_sobitie_local
     restart: always
+    command: sh -c "python manage.py start-scheduler"
     depends_on:
       - web
+    volumes:
+      - ./drf_sobitie:/app/drf_sobitie
     env_file:
       - ./.env
     environment:
-      - API_ADDRESS=web:8000
+      - API_ADDRESS=http://web:8000
   nginx:
     image: nginx:1.21.3-alpine
     ports:
       - "80:80"
-      - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-      - static_value:/var/html/static/
-      - media_value:/var/html/media/
+      - ./drf_sobitie/static:/var/html/static
+      - ./drf_sobitie/media:/var/html/media
     depends_on:
       - web
 volumes:
