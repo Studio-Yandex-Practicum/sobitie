@@ -58,7 +58,8 @@ ABOUT_US_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text="Ознакомиться с годовыми отчётами",
+            # text="Ознакомиться с годовыми отчётами",
+            text="Отчеты о деятельности",
             callback_data=REPORTS,
         )
     ],
@@ -82,7 +83,7 @@ DOCUMENTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
             text="Уставные документы",
-            callback_data=STATUTORY_DOCUMENTS,
+            # callback_data=STATUTORY_DOCUMENTS,
             url="https://sobytie.center/documents/",
         )
     ],
@@ -105,7 +106,7 @@ REPORTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
             text="Ознакомиться с годовыми отчётами",
-            callback_data=ANNUAL_REPORTS,
+            # callback_data=ANNUAL_REPORTS,
             url="https://sobytie.center/reports/",
         )
     ],
