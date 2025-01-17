@@ -30,7 +30,7 @@ OTHER_HELP = "OTHER_HELP"
 # Константы для меню "Сделать пожертвование"
 TINKOFF_DONATION = "TINKOFF_DONATION"
 
-# Константы для подменю "Клиентам Тинькофф"
+# Константы для подменю "Клиентам Т-банка"
 TINKOFF_CASHBACK = "TINKOFF_CASHBACK"
 
 RETURN_TO_SUPPORT_BUTTON = [
@@ -48,18 +48,18 @@ SUPPORT_MENU_BUTTONS = [
             callback_data=SHOW_DONATION_OPTIONS,
         )
     ],
-    [
-        InlineKeyboardButton(
-            text="Приобрести сувениры",
-            callback_data=ORDER_SOUVENIRS,
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text="Создать сбор",
-            callback_data=CREATE_COLLECTION,
-        )
-    ],
+    # [
+    #     InlineKeyboardButton(
+    #         text="Приобрести сувениры",
+    #         callback_data=ORDER_SOUVENIRS,
+    #     )
+    # ],
+    # [
+    #     InlineKeyboardButton(
+    #         text="Создать сбор",
+    #         callback_data=CREATE_COLLECTION,
+    #     )
+    # ],
     [
         InlineKeyboardButton(
             text="Стать активным подписчиком",
@@ -89,20 +89,20 @@ DONATION_OPTIONS_MENU_BUTTONS = [
             text="Форма на сайте", url="https://sobytie.center/howtohelp/"
         )
     ],
+    # [
+    #     InlineKeyboardButton(
+    #         text='Благотворительный фонд "Нужна помощь"',
+    #         url="https://nuzhnapomosh.ru/funds/centr-sobytie/",
+    #     )
+    # ],
+    # [
+    #     InlineKeyboardButton(
+    #         text='Подписка "Рубль в день"', url="https://365.nuzhnapomosh.ru/f/sobytie"
+    #     )
+    # ],
     [
         InlineKeyboardButton(
-            text='Благотворительный фонд "Нужна помощь"',
-            url="https://nuzhnapomosh.ru/funds/centr-sobytie/",
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text='Подписка "Рубль в день"', url="https://365.nuzhnapomosh.ru/f/sobytie"
-        )
-    ],
-    [
-        InlineKeyboardButton(
-            text="Клиентам Тинькофф",
+            text="Клиентам Т-банка",
             callback_data=TINKOFF_DONATION,
         )
     ],
@@ -123,7 +123,7 @@ OTHER_HELP_MENU_BUTTONS = [
     ],
 ]
 
-# КНОПКИ ПОДМЕНЮ "КЛИЕНТАМ ТИНЬКОФФ"
+# КНОПКИ ПОДМЕНЮ "КЛИЕНТАМ Т-БАНКА"
 TINKOFF_DONATION_MENU_BUTTONS = [
     [
         InlineKeyboardButton(

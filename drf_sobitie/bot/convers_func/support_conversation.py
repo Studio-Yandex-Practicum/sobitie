@@ -124,7 +124,7 @@ async def show_other_help_menu(update: Update, _: CallbackContext):
 
 
 async def show_tinkoff_donation(update: Update, _: CallbackContext):
-    """Нажатие на кнопку 'Клиентам Тинькофф'."""
+    """Нажатие на кнопку 'Клиентам Т-банка'."""
     query = update.callback_query
     await query.answer()
     keyboard = InlineKeyboardMarkup(TINKOFF_DONATION_MENU_BUTTONS)
@@ -138,7 +138,7 @@ async def show_tinkoff_cashback(update: Update, _: CallbackContext):
     await query.answer()
     keyboard = InlineKeyboardMarkup(TINKOFF_CASHBACK_MENU_BUTTONS)
     message_text = (
-        "Оформите «Кэшбэк во благо» в приложении «Тинькофф»: \n\n"
+        "Оформите «Кэшбэк во благо» в приложении «Т-банк»: \n\n"
         "1. На главном экране нажмите на счёт карты, с которой у вас начисляется кэшбек. \n"
         "2. Пролистайте вниз до блока «Куда зачислять». \n"
         "3. Нажмите на «Кэшбэк». \n"

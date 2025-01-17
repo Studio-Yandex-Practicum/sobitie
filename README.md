@@ -95,6 +95,10 @@ python create_dj_secret_key.py
 ```BASH
 ./run.sh
 ```
+или `run_local.sh` для локального запуска
+```BASH
+./run_local.sh
+```
 
 ### CI-CD
 - залить файл docker-compose на сервер в домашнюю директорию
