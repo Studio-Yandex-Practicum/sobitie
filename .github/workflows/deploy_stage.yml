@@ -88,6 +88,8 @@ jobs:
             sudo docker system prune -af
 
             cd develop
+            ls -a
+            
             sudo docker-compose stop
             sudo docker system prune -af
 
