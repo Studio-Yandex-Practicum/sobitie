@@ -74,7 +74,8 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           source: "docker-compose.yaml, nginx/nginx.conf"
-          target: "/home/deployment-user/"
+          # target: "/home/deployment-user/"
+          target: "/home/${{ secrets.USER }}/"
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
@@ -85,7 +86,7 @@ jobs:
             sudo docker-compose stop
             sudo docker system prune -af
 
-            ls /home/deployment-user/
+            ls /home/${{ secrets.USER }}/
             sudo docker-compose stop
             sudo docker system prune -af
 
