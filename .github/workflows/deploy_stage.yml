@@ -87,7 +87,7 @@ jobs:
             sudo docker-compose stop
             sudo docker system prune -af
 
-            ls develop
+            cd develop
             sudo docker-compose stop
             sudo docker system prune -af
 
@@ -100,7 +100,7 @@ jobs:
             echo API_ADDRESS="${{ secrets.API_ADDRESS }}" >> .env
             echo DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}" >> .env
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sobitie:staging
-            # sudo docker-compose up -d
-            # sudo docker-compose exec -it web python manage.py migrate
-            # sudo docker-compose exec -it web python manage.py collectstatic --no-input
+            sudo docker-compose up -d
+            sudo docker-compose exec -it web python manage.py migrate
+            sudo docker-compose exec -it web python manage.py collectstatic --no-input
             echo "OK"
