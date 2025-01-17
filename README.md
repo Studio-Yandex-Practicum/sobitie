@@ -93,7 +93,10 @@ python create_dj_secret_key.py
 Далее скопируйте его и заполните нужную переменную в `.env`  
 4. Запустить скрипт `run.sh`
 ```BASH
-# ./run.sh
+./run.sh
+```
+или `run_local.sh` для локального запуска
+```BASH
 ./run_local.sh
 ```
 

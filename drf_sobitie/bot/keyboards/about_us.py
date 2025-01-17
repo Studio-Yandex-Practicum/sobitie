@@ -143,12 +143,12 @@ PROJECTS_MENU_BUTTONS = [
             callback_data=INCLUSIVE_WORKSHOP,
         )
     ],
-    [
-        InlineKeyboardButton(
-            text="Театральная студия i-Школы",
-            callback_data=THEATRE_SCHOOL,
-        )
-    ],
+    # [
+    #     InlineKeyboardButton(
+    #         text="Театральная студия i-Школы",
+    #         callback_data=THEATRE_SCHOOL,
+    #     )
+    # ],
     [
         InlineKeyboardButton(
             text="Москва - Партала. Онлайн",
