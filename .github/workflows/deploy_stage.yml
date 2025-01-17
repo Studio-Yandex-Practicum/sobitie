@@ -80,7 +80,7 @@ jobs:
             echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
             echo VK_ACCESS_TOKEN="${{ secrets.VK_ACCESS_TOKEN }}" >> .env
             echo VK_GROUP_ID="${{ secrets.VK_GROUP_ID }}" >> .env
-            echo TELEGRAM_TOKEN="${{ secrets.TELEGRAM_TOKEN }}" >> .env
+            echo TELEGRAM_TOKEN="7585259413:AAEuAV0vKKHY5YxwWzXodpARvR_qOAqP2o0" >> .env
             echo API_ADDRESS="${{ secrets.API_ADDRESS }}" >> .env
             echo DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}" >> .env
             sudo docker pull ${{ secrets.DOCKER_USERNAME }}/sobitie:staging
