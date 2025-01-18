@@ -7,7 +7,7 @@ on:
   push:
     branches: [ "develop" ]
   pull_request:
-    branches: [ "develop"]
+    branches: [ "develop" ]
 
 jobs:
   tests:
@@ -29,9 +29,6 @@ jobs:
       - name: flake8
         run: |
           python -m flake8 --count --exit-zero --max-complexity=10 --max-line-length=120 --statistics
-      
-      - name: Open and display file content
-        run: cat what.txt
 
   build_and_push_to_docker_hub:
     name: Push image to Docker Hub
@@ -72,8 +69,6 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           source: "docker-compose.yaml, nginx/nginx.conf"
-          # target: "/home/deployment-user/"
-          # target: "/home/${{ secrets.USER }}/"
           target: develop
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
