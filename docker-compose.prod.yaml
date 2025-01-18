@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   web:
-    image: mnmyasis/sobitie:latest
+    image: mnmyasis/sobitie:master
     container_name: drf_sobitie
     restart: always
     command: >
@@ -15,7 +15,7 @@ services:
     env_file:
       - ./.env
   bot:
-    image: mnmyasis/sobitie:latest
+    image: mnmyasis/sobitie:master
     container_name: bot_sobitie
     restart: always
     command: sh -c "python manage.py runbot"
@@ -26,7 +26,7 @@ services:
     env_file:
       - ./.env
   scheduler:
-    image: mnmyasis/sobitie:latest
+    image: mnmyasis/sobitie:master
     command: sh -c "python manage.py start-scheduler"
     container_name: scheduler_sobitie
     restart: always
