@@ -145,5 +145,6 @@ CSRF_TRUSTED_ORIGINS = [
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:8000",
+    "http://84.201.189.83/",
     "http://51.250.93.9"
 ]
