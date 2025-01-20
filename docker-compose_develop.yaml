@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   web:
-    image: mnmyasis/sobitie:latest
+    image: mnmyasis/sobitie:staging
     container_name: drf_sobitie
     restart: always
     command: >
@@ -11,14 +11,15 @@ services:
     volumes:
       - static_value:/app/drf_sobitie/static/
       - data:/app/drf_sobitie/db
-      - media_value:/app/drf_sobitie/media/
     env_file:
       - ./.env
   bot:
-    image: mnmyasis/sobitie:latest
+    image: mnmyasis/sobitie:staging
     container_name: bot_sobitie
     restart: always
     command: sh -c "python manage.py runbot"
+    volumes:
+      - media_value:/app/drf_sobitie/media/
     depends_on:
       - web
     environment:
@@ -26,7 +27,7 @@ services:
     env_file:
       - ./.env
   scheduler:
-    image: mnmyasis/sobitie:latest
+    image: mnmyasis/sobitie:staging
     command: sh -c "python manage.py start-scheduler"
     container_name: scheduler_sobitie
     restart: always

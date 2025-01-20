@@ -58,7 +58,8 @@ ABOUT_US_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text="Ознакомиться с годовыми отчётами",
+            # text="Ознакомиться с годовыми отчётами",
+            text="Отчеты о деятельности",
             callback_data=REPORTS,
         )
     ],
@@ -82,7 +83,7 @@ DOCUMENTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
             text="Уставные документы",
-            callback_data=STATUTORY_DOCUMENTS,
+            # callback_data=STATUTORY_DOCUMENTS,
             url="https://sobytie.center/documents/",
         )
     ],
@@ -105,7 +106,7 @@ REPORTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
             text="Ознакомиться с годовыми отчётами",
-            callback_data=ANNUAL_REPORTS,
+            # callback_data=ANNUAL_REPORTS,
             url="https://sobytie.center/reports/",
         )
     ],
@@ -117,7 +118,7 @@ MINISTRY_REPORTS_BUTTONS = [
     [
         InlineKeyboardButton(
             text="Информационный портал Минюста РФ",
-            url="http://unro.minjust.ru/NKOReports.aspx",
+            url="https://nco.minjust.gov.ru/ru/reports",
         )
     ],
     [
@@ -132,14 +133,14 @@ MINISTRY_REPORTS_BUTTONS = [
 PROJECTS_MENU_BUTTONS = [
     [
         InlineKeyboardButton(
-            text="Инклюзивная мастерская",
-            callback_data=INCLUSIVE_WORKSHOP,
+            text="Инклюзивный театр",
+            callback_data=INCLUSIVE_THEATER,
         )
     ],
     [
         InlineKeyboardButton(
-            text="Театральная студия i-Школы",
-            callback_data=THEATRE_SCHOOL,
+            text="Инклюзивная мастерская",
+            callback_data=INCLUSIVE_WORKSHOP,
         )
     ],
     [
@@ -150,8 +151,8 @@ PROJECTS_MENU_BUTTONS = [
     ],
     [
         InlineKeyboardButton(
-            text="Инклюзивный театр",
-            callback_data=INCLUSIVE_THEATER,
+            text="Театральная студия i-Школы",
+            callback_data=THEATRE_SCHOOL,
         )
     ],
     [
@@ -240,7 +241,9 @@ THEATRE_SCHOOL_BUTTON = [
     [
         InlineKeyboardButton(
             text="О студии",
-            url="https://vk.com/teatr.ischool",
+            # text="Театральная студия i-Школы",
+            url="https://theatre.shkolamoskva.ru/theatres/46",
+            # url="https://vk.com/teatr.ischool",
         )
     ],
     [

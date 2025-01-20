@@ -58,14 +58,18 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
+      - name: Rename file on GitHub Actions runner
+        run: |
+          mv docker-compose_develop.yaml docker-compose.yaml
+          mv nginx/nginx_develop.conf nginx/nginx.conf
       - name: copy file via ssh key
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "docker-compose.yaml, nginx/*.conf"
-          target: "/home/deployment-user/"
+          source: "docker-compose.yaml, nginx/nginx.conf"
+          target: develop
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
@@ -73,8 +77,10 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            cd develop            
             sudo docker-compose stop
             sudo docker system prune -af
+
             touch .env
             cat /dev/null > .env
             echo DJ_SECRET_KEY="${{ secrets.DJ_SECRET_KEY }}" >> .env
