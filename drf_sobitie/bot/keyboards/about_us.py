@@ -143,16 +143,16 @@ PROJECTS_MENU_BUTTONS = [
             callback_data=INCLUSIVE_WORKSHOP,
         )
     ],
-    # [
-    #     InlineKeyboardButton(
-    #         text="Театральная студия i-Школы",
-    #         callback_data=THEATRE_SCHOOL,
-    #     )
-    # ],
     [
         InlineKeyboardButton(
             text="Москва - Партала. Онлайн",
             callback_data=MOSCOW_ONLINE,
+        )
+    ],
+    [
+        InlineKeyboardButton(
+            text="Театральная студия i-Школы",
+            callback_data=THEATRE_SCHOOL,
         )
     ],
     [
@@ -241,7 +241,9 @@ THEATRE_SCHOOL_BUTTON = [
     [
         InlineKeyboardButton(
             text="О студии",
-            url="https://vk.com/teatr.ischool",
+            # text="Театральная студия i-Школы",
+            url="https://theatre.shkolamoskva.ru/theatres/46",
+            # url="https://vk.com/teatr.ischool",
         )
     ],
     [
